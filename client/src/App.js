@@ -5,6 +5,7 @@ import HomePage from './homePage';
 import Login from './login';
 import Register from './register';
 import LandingPage from './LandingPage/LandingPage';
+import OrderDetails from './orderDetails';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           <Route path="/landing-page" element={<LandingPage />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/order-details" element={<OrderDetails />} />
 
         </Routes>
       </div>
