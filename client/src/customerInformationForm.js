@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { PlusOutlined } from '@ant-design/icons';
 import {
   Button,
@@ -24,9 +24,16 @@ const normFile = (e) => {
   }
   return e?.fileList;
 };
-const Register = () => {
+const CustomerInformationForm = () => {
+  const [componentDisabled, setComponentDisabled] = useState(true);
   return (
     <>
+      <Checkbox
+        checked={componentDisabled}
+        onChange={(e) => setComponentDisabled(e.target.checked)}
+      >
+        Form disabled
+      </Checkbox>
       <Form
         labelCol={{
           span: 4,
@@ -35,6 +42,7 @@ const Register = () => {
           span: 14,
         }}
         layout="horizontal"
+        disabled={componentDisabled}
         style={{
           maxWidth: 600,
         }}
@@ -136,4 +144,4 @@ const Register = () => {
     </>
   );
 };
-export default () => <Register />;
+export default () => <CustomerInformationForm />;
