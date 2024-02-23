@@ -1,15 +1,12 @@
 import { IsDate, IsEmail, IsNotEmpty, IsString } from "class-validator";
 
 export class OrderDto {
-    @IsEmail()
+    @IsString()
     @IsNotEmpty()
     readonly name: string;
     @IsString()
     @IsNotEmpty()
     readonly customer: string;
-    @IsString()
-    @IsNotEmpty()
-    readonly supplier: string;
     @IsString()
     @IsNotEmpty()   
     readonly incoterm: string;
@@ -22,7 +19,6 @@ export class OrderDto {
     @IsString()
     @IsNotEmpty()
     readonly quotation_note: string;
-    @IsDate()
     @IsNotEmpty()
     readonly delivery_date: Date;
     @IsString()

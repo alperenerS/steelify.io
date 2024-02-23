@@ -19,17 +19,12 @@ export class OrderService {
         return response;
     }
 
-    async updateOrderStatus (status:string,id:number){
-        const response = await this.orderRepository.update({status:status},{where:{id:id}});
-
+    async updateOrderStatus(status: string, id: number) {
+        const response = await this.orderRepository.update({ status }, { where: { id } });
+      
         return response;
-    }
-
-    async addSupplier(supplier:string,id:number){
-        const response = await this.orderRepository.update({supplier:supplier},{where:{id:id}})
-        
-        return response;
-    }
+      }
+      
 
     async deleteOrder(id:number){
         return await this.orderRepository.destroy({where:{id:id}});

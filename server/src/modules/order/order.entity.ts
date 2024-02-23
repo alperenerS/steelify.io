@@ -16,11 +16,6 @@ export class Order extends Model<Order> {
 
     @Column({
         type:DataType.STRING,
-    })
-    supplier:string
-
-    @Column({
-        type:DataType.STRING,
         allowNull:false
     })
     incoterm:string
