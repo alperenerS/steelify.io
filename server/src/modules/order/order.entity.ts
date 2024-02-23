@@ -16,7 +16,6 @@ export class Order extends Model<Order> {
 
     @Column({
         type:DataType.STRING,
-        allowNull:false
     })
     supplier:string
 
