@@ -1,24 +1,21 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom'; // useNavigate hook'unu içe aktar
 import { AppstoreOutlined, MailOutlined, SettingOutlined } from '@ant-design/icons';
 import { Menu } from 'antd';
+
+
 const items = [
   {
     label: 'Register',
-    key: 'mail',
+    key: 'register',
     icon: <MailOutlined />,
+    path: '/register'
   },
   {
     label: 'Login',
     key: 'login',
     icon: <AppstoreOutlined />,
-  },
-  {
-    label: (
-      <a href="https://localhost:3000/login" rel="noopener noreferrer">
-        Login
-      </a>
-    ),
-    key: 'alipay',
+    path: '/register'
   },
   {
     label: 'RFQ',
@@ -65,11 +62,10 @@ const items = [
   },
 ];
 const Navbar = () => {
-  const [current, setCurrent] = useState('mail');
+  const navigate = useNavigate();
   const onClick = (e) => {
-    console.log('click ', e);
-    setCurrent(e.key);
+    navigate(e.key);
   };
-  return <Menu onClick={onClick} selectedKeys={[current]} mode="horizontal" items={items} />;
+  return <Menu onClick={onClick} mode="horizontal" items={items} />;
 };
 export default Navbar;
