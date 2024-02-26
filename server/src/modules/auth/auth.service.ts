@@ -32,7 +32,7 @@ export class AuthService {
     const existingUser = await this.userService.findByEamil(authDto.email);
 
     if (!existingUser) {
-      throw new NotFoundException('User can not be found !');
+      throw new NotFoundException('User can not be found, Wrong Email!');
     }
 
     const comparePassword = await bcrypt.compare(
