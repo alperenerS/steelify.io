@@ -4,6 +4,7 @@ import { AuthModule } from './modules/auth/auth.module';
 import { UserModule } from './modules/user/user.module';
 import { DatabaseModule } from './core/database/database.module';
 import { OrderModule } from './modules/order/order.module';
+import { AddressModule } from './modules/address/address.module';
 
 
 @Module({
@@ -12,7 +13,8 @@ import { OrderModule } from './modules/order/order.module';
     AuthModule,
     UserModule,
     DatabaseModule,
-    OrderModule
+    OrderModule,
+    AddressModule
   ],
   controllers: [],
   providers: [],
