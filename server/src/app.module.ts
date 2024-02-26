@@ -5,6 +5,7 @@ import { UserModule } from './modules/user/user.module';
 import { DatabaseModule } from './core/database/database.module';
 import { OrderModule } from './modules/order/order.module';
 import { AddressModule } from './modules/address/address.module';
+import { OrderDocumentModule } from './modules/order_document/order_document.module';
 
 
 @Module({
@@ -14,7 +15,8 @@ import { AddressModule } from './modules/address/address.module';
     UserModule,
     DatabaseModule,
     OrderModule,
-    AddressModule
+    AddressModule,
+    OrderDocumentModule
   ],
   controllers: [],
   providers: [],

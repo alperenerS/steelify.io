@@ -1,4 +1,5 @@
-import { Column, DataType, Model, Table } from "sequelize-typescript";
+import { Column, DataType, HasMany, Model, Table } from "sequelize-typescript";
+import { OrderDocument } from "../order_document/order_document.entity";
 
 @Table
 export class Order extends Model<Order> {
@@ -49,4 +50,7 @@ export class Order extends Model<Order> {
         allowNull:false
     })
     status:string
+
+    @HasMany(() => OrderDocument)
+    orderDocument:OrderDocument[]
 }
