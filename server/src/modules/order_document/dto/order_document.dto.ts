@@ -1,7 +1,7 @@
-import { IsNotEmpty, IsString } from 'class-validator';
+import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
 
 export class OrderDocsDto {
-  @IsString()
+  @IsNumber()
   @IsNotEmpty()
   readonly order_id: number;
   @IsString()
