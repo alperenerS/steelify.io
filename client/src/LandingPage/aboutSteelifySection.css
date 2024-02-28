@@ -1,0 +1,13 @@
+.about-steelify-section {
+    padding: 50px 0;
+  }
+  
+  .about-steelify-image {
+    width: 70%;
+    height: auto;
+    border-radius: 20px;
+    display: block;
+    margin-left: auto; /* Resmi sağa yasla */
+    margin-right: auto; /* ve merkezi hizalama sağla */
+  }
+  

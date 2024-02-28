@@ -1,0 +1,52 @@
+.features-section {
+  text-align: center;
+  margin-top: 48px;
+}
+
+.features-row {
+  display: flex;
+  justify-content: center;
+  margin-top: 24px;
+}
+
+.feature-card {
+  margin: 0 15px; /* Adjust the margin as needed for spacing */
+  border-radius: 15px; /* Soft rounded corners */
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Subtle shadow for depth */
+  transition: transform 0.3s; /* Smooth transition for hover effect */
+  display: flex; /* Enable flex layout */
+  flex-direction: column; /* Stack children vertically */
+  align-items: center; /* Center-align children */
+  padding: 20px; /* Add some padding */
+}
+
+.feature-card:hover {
+  transform: translateY(-5px); /* Slight raise effect on hover */
+}
+
+.feature-icon {
+  font-size: 24px;
+  margin-bottom: 16px;
+  color: #1890ff; /* Or any color that fits your design */
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .feature-card {
+    margin: 0 8px;
+  }
+}
+.feature-card .ant-card-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.feature-icon svg {
+  display: block;
+  margin: 0 auto;
+}
+
+.feature-card .ant-typography {
+  text-align: center;
+}

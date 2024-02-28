@@ -1,0 +1,42 @@
+.landing-page-header {
+  position: relative;
+  background-image: url('backgroundWelding.png');
+  background-size: cover;
+  background-position: center;
+  height: 60vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white; /* Adjust the text color based on your image */
+}
+
+.landing-page-header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(85, 80, 80, 0.5); /* Haf saydam siyah bir katman */
+  z-index: 1;
+}
+
+/* İçeriklerin (başlık ve alt başlık) üzerinde saydam katmanın üzerinde görünmesini sağlamak */
+.title, .subtitle {
+  position: relative;
+  z-index: 2;
+}
+
+.title {
+  color: white !important; /* Adjust the title color based on your image */
+  text-shadow: 0px 0px 8px rgba(0, 0, 0, 0.5);
+  margin-bottom: 16px;
+}
+
+.subtitle {
+  color: #d9d9d9; /* Adjust the subtitle color based on your image */
+  text-shadow: 0px 0px 8px rgba(0, 0, 0, 0.5);
+  max-width: 600px;
+  text-align: center;
+}
