@@ -7,7 +7,7 @@
     height: auto;
     border-radius: 20px;
     display: block;
-    margin-left: auto; /* Resmi sağa yasla */
-    margin-right: auto; /* ve merkezi hizalama sağla */
+    margin-left: auto;
+    margin-right: auto;
   }
   
