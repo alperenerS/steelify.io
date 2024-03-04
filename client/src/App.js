@@ -7,6 +7,7 @@ import LandingPage from './Pages/LandingPage/landingPage';
 import OrderDetails from './Pages/OrderDetails/orderDetails';
 import Navbar from './Pages/Navbar/navbar';
 import GetQuotePage from './Pages/GetQuote/getQuotePage';
+import PageNotFound from './Pages/PageNotFound/pageNotFound';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
           <Route path="/order-details" element={<OrderDetails />} />
           <Route path="/login" element={<Login />} />
           <Route path="/get-quote" element={<GetQuotePage />} />
+          <Route path="/*" element={<PageNotFound />} />
 
         </Routes>
       </div>
