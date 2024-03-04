@@ -6,18 +6,18 @@ import {
   Model,
   Table,
 } from 'sequelize-typescript';
-import { Order } from '../order/order.entity';
+import { OrderProduct } from '../order_product/order_product.entity';
 
 @Table
 export class OrderProductDocs extends Model<OrderProductDocs> {
-  @ForeignKey(() => Order)
+  @ForeignKey(() => OrderProduct)
   @Column({
     type: DataType.INTEGER,
     allowNull: false,
   })
   order_product_id: number;
-  @BelongsTo(() => Order)
-  order: Order;
+  @BelongsTo(() => OrderProduct)
+  order_product: OrderProduct;
 
   @Column({
     type: DataType.STRING,
@@ -29,5 +29,5 @@ export class OrderProductDocs extends Model<OrderProductDocs> {
     type: DataType.STRING,
     allowNull: false,
   })
-  drawing_nlink: string;
+  drawing_link: string;
 }
