@@ -1,12 +1,12 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import HomePage from './homePage';
-import Login from './login';
-import Register from './register';
-import LandingPage from './LandingPage/LandingPage';
-import OrderDetails from './orderDetails';
-import Navbar from './Navbar/navbar';
-import GetQuotePage from './GetQuote/getQuotePage';
+import HomePage from './Pages/Homepage/homePage';
+import Login from './Pages/Login/login';
+import Register from './Pages/Register/register';
+import LandingPage from './Pages/LandingPage/landingPage';
+import OrderDetails from './Pages/OrderDetails/orderDetails';
+import Navbar from './Pages/Navbar/navbar';
+import GetQuotePage from './Pages/GetQuote/getQuotePage';
 
 function App() {
   return (
