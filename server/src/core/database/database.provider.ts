@@ -6,6 +6,7 @@ import { Order } from 'src/modules/order/order.entity';
 import { Address } from 'src/modules/address/address.entity';
 import { OrderDocument } from 'src/modules/order_document/order_document.entity';
 import { OrderProduct } from 'src/modules/order_product/order_product.entity';
+import { OrderProductDocs } from 'src/modules/order_product_docs/order_product_docs.entity';
 
 
 export const databaseProviders = [
@@ -33,7 +34,8 @@ export const databaseProviders = [
         Order,
         Address,
         OrderDocument,
-        OrderProduct
+        OrderProduct,
+        OrderProductDocs
       ]);
 
       await sequelize.sync();

@@ -8,6 +8,7 @@ import { AddressModule } from './modules/address/address.module';
 import { OrderDocumentModule } from './modules/order_document/order_document.module';
 import { LoggerMiddleware } from './middlewares/customLogger';
 import { OrderProductModule } from './modules/order_product/order_product.module';
+import { OrderProductDocsModule } from './modules/order_product_docs/order_product_docs.module';
 
 
 @Module({
@@ -19,7 +20,8 @@ import { OrderProductModule } from './modules/order_product/order_product.module
     OrderModule,
     AddressModule,
     OrderDocumentModule,
-    OrderProductModule
+    OrderProductModule,
+    OrderProductDocsModule
   ],
   controllers: [],
   providers: [],
