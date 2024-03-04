@@ -27,10 +27,9 @@
 .feature-icon {
   font-size: 24px;
   margin-bottom: 16px;
-  color: #1890ff; /* Or any color that fits your design */
+  color: #1890ff; 
 }
 
-/* Responsive adjustments */
 @media (max-width: 768px) {
   .feature-card {
     margin: 0 8px;

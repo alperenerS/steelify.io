@@ -60,7 +60,6 @@ const OrderDetails = () => {
               <Form.Item label="ITAR/EAR Compliance">
                 <Checkbox>Confirm ITAR/EAR compliance</Checkbox>
               </Form.Item>
-              {/* Add more fields as needed... */}
             </Form>
           </Panel>
 

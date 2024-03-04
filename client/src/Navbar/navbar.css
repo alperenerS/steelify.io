@@ -1,0 +1,18 @@
+/* Navbar.css */
+.navbar-flex-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px; /* Kenarlardan boşluk vermek için, ihtiyacınıza göre ayarlayabilirsiniz */
+}
+
+.navbar-logo {
+  cursor: pointer; 
+  max-width:7% !important;
+}
+
+.navbar-menu {
+  flex-grow: 1; /* Menünün konteynerin kalan alanını doldurmasını sağlar */
+  display: flex;
+  justify-content: flex-end; /* Menü öğelerini sağa hizalar */
+}

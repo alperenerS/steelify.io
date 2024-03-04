@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // useNavigate hook'unu içe aktar
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { AppstoreOutlined, MailOutlined, SettingOutlined } from '@ant-design/icons';
 import { Menu } from 'antd';
-
-
+import steelifyLogo from './steelifyLogo.png'; // Import the logo as a module
+import './navbar.css'; // Import the CSS file
 const items = [
   {
     label: 'Register',
@@ -15,7 +15,7 @@ const items = [
     label: 'Login',
     key: 'login',
     icon: <AppstoreOutlined />,
-    path: '/register'
+    path: '/login' // Düzeltildi: Yol '/login' olarak güncellendi
   },
   {
     label: 'RFQ',
@@ -61,11 +61,24 @@ const items = [
     key: 'alipay',
   },
 ];
+
 const Navbar = () => {
   const navigate = useNavigate();
+
   const onClick = (e) => {
-    navigate(e.key);
+    // This function will handle navigation when a menu item is clicked
+    const item = items.find(item => item.key === e.key);
+    if (item && item.path) {
+      navigate(item.path);
+    }
   };
-  return <Menu onClick={onClick} mode="horizontal" items={items} />;
+
+  return (
+    <div className="navbar-flex-container">
+      <img src={steelifyLogo} alt="STEELIFY Logo" className="navbar-logo" onClick={() => navigate('/')} />
+      <Menu onClick={onClick} mode="horizontal" items={items} className="navbar-menu" />
+    </div>
+  );
 };
+
 export default Navbar;
