@@ -9,11 +9,13 @@ import {
   Post,
   Put,
   Res,
+  UseGuards,
 } from '@nestjs/common';
 import { OrderProductService } from './order_product.service';
 import { Response } from 'express';
 import { OrderProductDto } from './dto/order_product.dto';
-
+import { JwtGuard } from '../auth/guard/jwt.guard';
+@UseGuards(JwtGuard)
 @Controller('order-product')
 export class OrderProductController {
   constructor(private readonly orderProductService: OrderProductService) {}
