@@ -13,7 +13,7 @@ import { Request, Response } from 'express';
 import { UserDto } from './dto/user.dto';
 
 @UseGuards(JwtGuard)
-@Controller('user')
+@Controller('api/user')
 export class UserController {
   constructor(private readonly userService: UserService) {}
 

@@ -16,7 +16,7 @@ import { Response } from 'express';
 import { OrderProductDto } from './dto/order_product.dto';
 import { JwtGuard } from '../auth/guard/jwt.guard';
 @UseGuards(JwtGuard)
-@Controller('order-product')
+@Controller('api/order-product')
 export class OrderProductController {
   constructor(private readonly orderProductService: OrderProductService) {}
 

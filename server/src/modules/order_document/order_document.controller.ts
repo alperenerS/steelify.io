@@ -14,7 +14,7 @@ import { OrderDocumentService } from './order_document.service';
 import { Response } from 'express';
 import { OrderDocsDto } from './dto/order_document.dto';
 
-@Controller('order-document')
+@Controller('api/order-document')
 export class OrderDocumentController {
   constructor(private readonly orderDocsService: OrderDocumentService) {}
 

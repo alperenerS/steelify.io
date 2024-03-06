@@ -14,7 +14,7 @@ import { OrderService } from './order.service';
 import { OrderDto } from './dto/order.dto';
 import { Response } from 'express';
 @UseGuards(JwtGuard)
-@Controller('order')
+@Controller('api/order')
 export class OrderController {
   constructor(private readonly orderService: OrderService) {}
 
