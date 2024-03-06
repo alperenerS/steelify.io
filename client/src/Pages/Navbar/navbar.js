@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { AppstoreOutlined, MailOutlined, SettingOutlined } from '@ant-design/icons';
+import { LoginOutlined, UserAddOutlined, TeamOutlined } from '@ant-design/icons';
 import { Menu } from 'antd';
 import steelifyLogo from './steelifyLogo.png'; // Import the logo as a module
 import './navbar.css'; // Import the CSS file
@@ -8,19 +8,19 @@ const items = [
   {
     label: 'Register',
     key: 'register',
-    icon: <MailOutlined />,
+    icon: <UserAddOutlined />,
     path: '/register'
   },
   {
     label: 'Login',
     key: 'login',
-    icon: <AppstoreOutlined />,
+    icon: <LoginOutlined />,
     path: '/login' // Düzeltildi: Yol '/login' olarak güncellendi
   },
     {
       label: 'About Us',
       key: '/aboutus', // Anahtar olarak rotayı kullanın
-      icon: <SettingOutlined />,
+      icon: <TeamOutlined />,
       path: '/about-us'
 
     },

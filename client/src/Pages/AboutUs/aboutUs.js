@@ -86,27 +86,33 @@ const AboutUs = () => {
       </div>
       <Row gutter={[10, 10]} justify="center">
         <Col span={4}>
-          <Card hoverable cover={<img alt="Yetkin Sağ" src={yetkinsag} />}>
-            <Card.Meta title="Yetkin Sağ" description="CEO / Founder" />
-          </Card>
+          <a href="https://www.linkedin.com/in/yetkinsag" target="_blank" rel="noopener noreferrer">
+            <Card hoverable cover={<img alt="Yetkin Sağ" src={yetkinsag} />}>
+              <Card.Meta title="Yetkin Sağ" description="CEO / Founder" />
+            </Card>
+          </a>
         </Col>
         <Col span={4}>
-          <Card hoverable cover={<img alt="Enver Bodur" src={enverbodur} />}>
-            <Card.Meta title="Enver Bodur" description="Operation Manager" />
-          </Card>
+          <a href="https://www.linkedin.com/in/enverbodur" target="_blank" rel="noopener noreferrer">
+            <Card hoverable cover={<img alt="Enver Bodur" src={enverbodur} />}>
+              <Card.Meta title="Enver Bodur" description="Operation Manager" />
+            </Card>
+          </a>
         </Col>
         <Col span={4}>
-          <Card hoverable cover={<img alt="Alperen Alihan Er" src={alperenalihaner} />}>
-            <Card.Meta title="Alperen Alihan Er" description="Software Developing Team Leader" />
-          </Card>
+          <a href="https://www.linkedin.com/in/alperen-alihan-er-910050151" target="_blank" rel="noopener noreferrer">
+            <Card hoverable cover={<img alt="Alperen Alihan Er" src={alperenalihaner} />}>
+              <Card.Meta title="Alperen Alihan Er" description="Chief Technology Officer" />
+            </Card>
+          </a>
         </Col>
         <Col span={4}>
-        <a href="https://www.linkedin.com/in/emremataraci" target="_blank" rel="noopener noreferrer">
-          <Card hoverable cover={<img alt="Emre Mataracı" src={emremataraci} />}>
-            <Card.Meta title="Emre Mataracı" description="Software Developer" />
-          </Card>
-        </a>
-      </Col>
+          <a href="https://www.linkedin.com/in/emremataraci" target="_blank" rel="noopener noreferrer">
+            <Card hoverable cover={<img alt="Emre Mataracı" src={emremataraci} />}>
+              <Card.Meta title="Emre Mataracı" description="Software Engineer" />
+            </Card>
+          </a>
+        </Col>
       </Row>
     </div>
     </div>
