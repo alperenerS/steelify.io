@@ -18,7 +18,7 @@ import { Response } from 'express';
 import { JwtGuard } from '../auth/guard/jwt.guard';
 
 @UseGuards(JwtGuard)
-@Controller('address')
+@Controller('api/address')
 export class AddressController {
   constructor(private readonly addressService: AddressService) {}
 
