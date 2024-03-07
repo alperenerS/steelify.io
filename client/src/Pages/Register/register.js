@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { Form, Input, Select, Button, notification, Card } from 'antd';
 import { API_BASE_URL } from '../../config';
 
@@ -100,6 +100,9 @@ const Register = () => {
             </Button>
           </Form.Item>
         </Form>
+        <div style={{ marginTop: 16, textAlign: 'center' }}>
+          Already have an account? <Link to="/login">Click to Login</Link>
+        </div>
       </Card>
     </div>
   );

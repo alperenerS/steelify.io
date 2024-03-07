@@ -1,30 +1,32 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { LoginOutlined, UserAddOutlined, TeamOutlined } from '@ant-design/icons';
+// import { LoginOutlined, UserAddOutlined, TeamOutlined, CalculatorOutlined } from '@ant-design/icons';
 import { Menu } from 'antd';
-import steelifyLogo from './steelifyLogo.png'; // Import the logo as a module
-import './navbar.css'; // Import the CSS file
+import steelifyLogo from './steelifyLogo.png';
+import './navbar.css';
 const items = [
   {
     label: 'Register',
     key: 'register',
-    icon: <UserAddOutlined />,
     path: '/register'
   },
   {
     label: 'Login',
     key: 'login',
-    icon: <LoginOutlined />,
-    path: '/login' // Düzeltildi: Yol '/login' olarak güncellendi
+    path: '/login'
   },
     {
       label: 'About Us',
-      key: '/aboutus', // Anahtar olarak rotayı kullanın
-      icon: <TeamOutlined />,
+      key: '/aboutus',
       path: '/about-us'
 
     },
-    
+    {
+      label: 'Get Quote',
+      key: '/get-quote',
+      path: '/get-quote'
+
+    },
   {
     label: (
       <a href="https://www.yenaengineering.nl" target="_blank" rel="noopener noreferrer">
