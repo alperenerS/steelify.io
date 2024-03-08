@@ -1,9 +1,9 @@
 import React from 'react';
 import { Typography, Row, Col, Card, Divider } from 'antd';
-import yetkinsag from './yetkinsag.jpg';
-import enverbodur from './enverbodur.jpg';
-import alperenalihaner from './alperenalihaner.jpg';
-import emremataraci from './emremataraci.jpg';
+import yetkinsag from './assets/yetkinsag.jpg';
+import enverbodur from './assets/enverbodur.jpg';
+import alperenalihaner from './assets/alperenalihaner.jpg';
+import emremataraci from './assets/emremataraci.jpg';
 // import aboutUsImage from './about-us-image.jpg';
 // import buyersImage from './buyers-image.jpg';
 // import workshopsImage from './workshops-image.jpg';

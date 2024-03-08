@@ -3,6 +3,7 @@ import { Row, Col } from 'antd';
 import LandingPageHeader from './landingPageHeader';
 import FeaturesSection from './featuresSection';
 import AboutSteelifySection from './aboutSteelifySection';
+import InfoSection from './infoSection';
 
 function LandingPage() {
   return (
@@ -12,6 +13,7 @@ function LandingPage() {
         <Col xs={24} md={20} lg={16} xl={14}>
           <FeaturesSection />
           <AboutSteelifySection />
+          <InfoSection />
         </Col>
       </Row>
     </div>
