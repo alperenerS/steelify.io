@@ -5,35 +5,39 @@ import { Form, Input, Select, Button, notification, Card } from 'antd';
 import { API_BASE_URL } from '../../config';
 
 const Register = () => {
-  const [formData, setFormData] = useState({
-    email: '',
-    password: '',
-    name: '',
-    lastName: '',
-    companyWebsite: '',
-    role: '',
-  });
+  // const [formData, setFormData] = useState({
+  //   email: '',
+  //   password: '',
+  //   name: '',
+  //   surname: '',
+  //   website: '',
+  //   userType: '',
+  // });
   const navigate = useNavigate();
 
   const handleSubmit = async (values) => {
     try {
       const response = await axios.post(`${API_BASE_URL}/auth/register`, values);
-  
+      
+      // Başarı durumunu kontrol etmek için `user` objesinin varlığını kontrol edin
       if (response.data.success) {
         navigate('/');
       } else {
+        // Başarılı bir yanıt alınsa bile `user` objesi yoksa, bir hata mesajı gösterin
         notification.error({
           message: 'Registration Failed',
-          description: response.data.message || 'An error occurred. Please try again.',
+          description: 'An unexpected error occurred. Please try again.',
         });
       }
     } catch (error) {
+      // catch bloğunda backend'den gelen hata mesajını kullanın
       notification.error({
         message: 'Registration Failed',
-        description: 'An error occurred. Please try again.',
+        description: `An error occurred. Please try again. ${error.response?.data?.error || 'An unexpected error occurred.'}`,
       });
     }
   };
+  
   
 
   return (
@@ -71,22 +75,22 @@ const Register = () => {
             <Input />
           </Form.Item>
           <Form.Item
-            label="Last Name"
-            name="lastName"
+            label="Surname"
+            name="surname"
             rules={[{ required: true, message: 'Please enter your last name.' }]}
           >
             <Input />
           </Form.Item>
           <Form.Item
             label="Company Website"
-            name="companyWebsite"
+            name="website"
             rules={[{ required: true, message: 'Please enter your company website.' }]}
           >
             <Input />
           </Form.Item>
           <Form.Item
             label="Role"
-            name="role"
+            name="userType"
             rules={[{ required: true, message: 'Please select your role.' }]}
           >
             <Select>
