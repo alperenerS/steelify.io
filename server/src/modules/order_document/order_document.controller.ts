@@ -9,11 +9,14 @@ import {
   Param,
   Post,
   Res,
+  UseGuards,
 } from '@nestjs/common';
 import { OrderDocumentService } from './order_document.service';
 import { Response } from 'express';
 import { OrderDocsDto } from './dto/order_document.dto';
+import { JwtGuard } from '../auth/guard/jwt.guard';
 
+@UseGuards(JwtGuard)
 @Controller('api/order-document')
 export class OrderDocumentController {
   constructor(private readonly orderDocsService: OrderDocumentService) {}
