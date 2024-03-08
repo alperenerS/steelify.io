@@ -17,7 +17,7 @@ const Register = () => {
 
   const handleSubmit = async (values) => {
     try {
-      const response = await axios.post(`${API_BASE_URL}/register`, values);
+      const response = await axios.post(`${API_BASE_URL}/auth/register`, values);
   
       if (response.data.success) {
         navigate('/');
