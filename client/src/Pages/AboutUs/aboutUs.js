@@ -102,7 +102,7 @@ const AboutUs = () => {
         <Col span={4}>
           <a href="https://www.linkedin.com/in/alperen-alihan-er-910050151" target="_blank" rel="noopener noreferrer">
             <Card hoverable cover={<img alt="Alperen Alihan Er" src={alperenalihaner} />}>
-              <Card.Meta title="Alperen Alihan Er" description="Chief Technology Officer" />
+              <Card.Meta title="Alperen Alihan Er" description="Product Manager" />
             </Card>
           </a>
         </Col>

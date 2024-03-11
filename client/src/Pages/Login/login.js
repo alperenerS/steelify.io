@@ -1,20 +1,21 @@
-import React, { useState } from 'react';
+import React from 'react';
 import axios from 'axios';
 import { useNavigate, Link } from 'react-router-dom';
 import { Form, Input, Button, Checkbox, Card, notification } from 'antd';
 import { API_BASE_URL } from '../../config';
 
 const Login = () => {
-  const [formData, setFormData] = useState({
-    username: '',
-    password: '',
-    remember: false,
-  });
   const navigate = useNavigate();
 
   const onFinish = async (values) => {
     try {
-      const response = await axios.post(`${API_BASE_URL}/login`, values);
+      // values'daki username alanını email olarak değiştiriyoruz.
+      const loginData = {
+        email: values.username,
+        password: values.password
+      };
+
+      const response = await axios.post(`${API_BASE_URL}/auth/login`, loginData);
 
       if (response.data.success) {
         // Optionally set local storage or cookie here if remember me is checked
@@ -25,13 +26,13 @@ const Login = () => {
       } else {
         notification.error({
           message: 'Login Failed',
-          description: response.data.message || 'Invalid username or password.',
+          description: response.data.message || 'Invalid email or password.',
         });
       }
     } catch (error) {
       notification.error({
         message: 'Login Failed',
-        description: 'An error occurred. Please try again later.',
+        description: `An error occurred. Please try again later. ${error.response?.data?.message || ''}`,
       });
     }
   };
@@ -42,7 +43,7 @@ const Login = () => {
 
   return (
     <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100vh' }}>
-      <Card title="Login" style={{ maxWidth: 600, width: '100%', marginTop: '-20vh',boxShadow: '0 4px 8px 0 rgba(0,0,0,0.2)' }}>
+      <Card title="Login" style={{ maxWidth: 600, width: '100%', marginTop: '-20vh', boxShadow: '0 4px 8px 0 rgba(0,0,0,0.2)' }}>
         <Form
           name="basic"
           labelCol={{ span: 8 }}
@@ -53,9 +54,9 @@ const Login = () => {
           autoComplete="off"
         >
           <Form.Item
-            label="Username"
-            name="username"
-            rules={[{ required: true, message: 'Please input your username!' }]}
+            label="Email"
+            name="email" // Frontend formunu kullanıcı dostu tutmak için "Email" olarak etiketliyoruz ama name'i "username" olarak bırakabiliriz ya da backend ile uyumlu olacak şekilde bu alanı da "email" olarak güncelleyebiliriz.
+            rules={[{ required: true, message: 'Please input your email!' }]}
           >
             <Input />
           </Form.Item>
@@ -78,7 +79,7 @@ const Login = () => {
 
           <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
             <Button type="primary" htmlType="submit">
-              Submit
+              Login
             </Button>
           </Form.Item>
         </Form>

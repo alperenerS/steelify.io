@@ -6,7 +6,6 @@ const { Dragger } = Upload;
 
 const FileUpload = () => {
   const allowedExtensions = ['.step', '.stp', '.stl', '.iges', '.igs', '.dxf', '.pdf'];
-
   const beforeUpload = (file) => {
     const isAllowedType = allowedExtensions.some(extension => file.name.toLowerCase().endsWith(extension));
     if (!isAllowedType) {
