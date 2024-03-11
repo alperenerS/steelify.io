@@ -12,7 +12,7 @@ function LandingPage() {
       <Row justify="center">
         <Col xs={24} md={20} lg={16} xl={14}>
           <FeaturesSection />
-          <AboutSteelifySection />
+          {/* <AboutSteelifySection /> */}
           <InfoSection />
         </Col>
       </Row>
