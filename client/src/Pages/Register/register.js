@@ -5,32 +5,22 @@ import { Form, Input, Select, Button, notification, Card } from 'antd';
 import { API_BASE_URL } from '../../config';
 
 const Register = () => {
-  // const [formData, setFormData] = useState({
-  //   email: '',
-  //   password: '',
-  //   name: '',
-  //   surname: '',
-  //   website: '',
-  //   userType: '',
-  // });
+
   const navigate = useNavigate();
 
   const handleSubmit = async (values) => {
     try {
       const response = await axios.post(`${API_BASE_URL}/auth/register`, values);
       
-      // Başarı durumunu kontrol etmek için `user` objesinin varlığını kontrol edin
       if (response.data.success) {
         navigate('/');
       } else {
-        // Başarılı bir yanıt alınsa bile `user` objesi yoksa, bir hata mesajı gösterin
         notification.error({
           message: 'Registration Failed',
           description: 'An unexpected error occurred. Please try again.',
         });
       }
     } catch (error) {
-      // catch bloğunda backend'den gelen hata mesajını kullanın
       notification.error({
         message: 'Registration Failed',
         description: `An error occurred. Please try again. ${error.response?.data?.error || 'An unexpected error occurred.'}`,
@@ -38,8 +28,6 @@ const Register = () => {
     }
   };
   
-  
-
   return (
 <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100vh', paddingTop: '0vh' }}>
   <Card
