@@ -64,41 +64,6 @@ const OrderDetails = () => {
           </Paragraph>
         </Col>
         <Collapse activeKey={activeKeys} onChange={setActiveKeys}>
-          <Panel header="Reference and Steelify Number" key="7">
-            <Form layout="vertical">
-              <Form.Item
-                label="Reference Number"
-                name="referenceNumber"
-                rules={[
-                  {
-                    message: "Please input your reference number!",
-                  },
-                  {
-                    pattern: new RegExp(
-                      /^[^`~!@#$%^&*()_+={}\[\]|\\:;"'<>,.?/]+$/
-                    ),
-                    message:
-                      "Reference number cannot contain special characters!",
-                  },
-                  {
-                    max: 20,
-                    message:
-                      "Reference number cannot be longer than 20 characters!",
-                  },
-                ]}
-              >
-                <Input placeholder="Enter your reference number" />
-              </Form.Item>
-
-              <Form.Item label="Steelify Number" name="steelifyNumber">
-                <Input
-                  placeholder="Steelify number will be provided by the backend"
-                  disabled
-                />
-              </Form.Item>
-            </Form>
-          </Panel>
-
           <Panel header="Shipping Address" key="1">
             <Typography.Paragraph type="warning" style={{ marginTop: "10px" }}>
               Warning: Products will be delivered to the specified address. The
@@ -156,27 +121,18 @@ const OrderDetails = () => {
 
           <Panel header="Information Required for Customs" key="5">
             <Form layout="vertical">
-              <Form.Item
-                label="Product Name"
-                name="productName"
-              >
+              <Form.Item label="Product Name" name="productName">
                 <Input placeholder="Enter product name" />
               </Form.Item>
 
-              <Form.Item
-                label="Purpose of Use"
-                name="purposeOfUse"
-              >
+              <Form.Item label="Purpose of Use" name="purposeOfUse">
                 <Input.TextArea
                   rows={2}
                   placeholder="Describe the purpose of use"
                 />
               </Form.Item>
 
-              <Form.Item
-                label="HS Code"
-                name="hsCode"
-              >
+              <Form.Item label="HS Code" name="hsCode">
                 <Input placeholder="Enter HS Code" />
               </Form.Item>
             </Form>
