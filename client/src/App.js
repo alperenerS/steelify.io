@@ -9,6 +9,7 @@ import Navbar from './Pages/Navbar/navbar';
 import GetQuotePage from './Pages/GetQuote/getQuotePage';
 import PageNotFound from './Pages/PageNotFound/pageNotFound';
 import AboutUs from './Pages/AboutUs/aboutUs';
+import MyOrders from './Pages/MyOrders/myOrders';
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/get-quote" element={<GetQuotePage />} />
           <Route path="/about-us" element={<AboutUs />} />
+          <Route path="/my-orders" element={<MyOrders />} />
           <Route path="/*" element={<PageNotFound />} />
 
         </Routes>
