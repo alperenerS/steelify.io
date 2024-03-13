@@ -1,8 +1,8 @@
 // MyOrders.js
 import React from "react";
-import { Table, Row, Col } from "antd";
+import { Table, Row, Col, Badge} from "antd";
 import { ordersData } from "./ordersData"; // Örnek veri dosyasını import edin
-import './myOrders.css';
+import "./myOrders.css";
 
 const MyOrders = () => {
   const columns = [
@@ -41,6 +41,37 @@ const MyOrders = () => {
       dataIndex: "deliveryStatus",
       key: "deliveryStatus",
       sorter: (a, b) => a.orderNumber.localeCompare(b.orderNumber),
+    },
+    {
+      title: "Status",
+      key: "status",
+      dataIndex: "deliveryStatus",
+      render: (status) => {
+        let color = "success"; // Varsayılan renk
+        let text = "Finished"; // Varsayılan metin
+        switch (status) {
+          case "Delivered":
+            color = "success";
+            text = "Delivered";
+            break;
+          case "In Transit":
+            color = "processing";
+            text = "In Transit";
+            break;
+          case "Processing":
+            color = "warning";
+            text = "Processing";
+            break;
+          case "Cancelled":
+            color = "error";
+            text = "Cancelled";
+            break;
+          default:
+            // Varsayılan değerler kullanılır
+            break;
+        }
+        return <Badge status={color} text={text} />;
+      },
     },
   ];
 
