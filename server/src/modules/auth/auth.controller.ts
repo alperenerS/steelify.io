@@ -6,17 +6,19 @@ import { Response } from 'express';
 
 @Controller('api/auth')
 export class AuthController {
-    constructor(private readonly authService:AuthService){}
+  constructor(private readonly authService: AuthService) {}
 
-    @Post("register")
-    async register(@Body() user:UserDto){
-        return await this.authService.register(user);
-    }
+  @Post('register')
+  async register(@Body() user: UserDto) {
+    return await this.authService.register(user);
+  }
 
-    @Post("login")
-    async login(@Body() authDto:AuthDto,@Res() res: Response){
-        const response = await this.authService.login(authDto);
+  @Post('login')
+  async login(@Body() authDto: AuthDto, @Res() res: Response) {
+    const response = await this.authService.login(authDto);
 
-        return res.status(200).json({message:"User Successfully Logged In !",response:response})
-    }
+    return res
+      .status(200)
+      .json({ message: 'User Successfully Logged In !', data: response });
+  }
 }
