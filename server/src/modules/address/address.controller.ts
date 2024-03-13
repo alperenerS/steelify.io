@@ -29,7 +29,7 @@ export class AddressController {
 
       return res
         .status(HttpStatus.CREATED)
-        .json({ message: 'Address Successfully Created !', result: response });
+        .json({ message: 'Address Successfully Created !', data: response });
     } catch (error) {
       console.log(error);
       throw new BadRequestException(error);
@@ -53,7 +53,7 @@ export class AddressController {
 
       return res
         .status(HttpStatus.ACCEPTED)
-        .json({ message: 'Address Successfully Update !', result: response });
+        .json({ message: 'Address Successfully Update !', data: response });
     } catch (error) {
       console.log(error);
       throw new BadRequestException(error);
@@ -81,9 +81,10 @@ export class AddressController {
   }
 
   @Get()
-  async getAllAddresses() {
+  async getAllAddresses(@Res() res:Response) {
+    const data = await this.addressService.getAllAddresses();
     try {
-      return await this.addressService.getAllAddresses();
+      return res.status(HttpStatus.ACCEPTED).json({message:'Addresses Successfully Fetched !',data:data})
     } catch (error) {
       console.log(error);
       throw new BadRequestException(error);
@@ -102,7 +103,7 @@ export class AddressController {
 
       return res
         .status(HttpStatus.ACCEPTED)
-        .json({ message: 'Address Successfully Fetched !', response: address });
+        .json({ message: 'Address Successfully Fetched !', data: address });
     } catch (error) {
       console.log(error);
       throw new BadRequestException(error);

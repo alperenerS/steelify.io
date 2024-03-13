@@ -10,7 +10,6 @@ import { UserDto } from '../user/dto/user.dto';
 import { AuthDto } from './dto/auth.dto';
 import * as bcrypt from 'bcrypt';
 
-
 @Injectable()
 export class AuthService {
   constructor(
@@ -25,7 +24,7 @@ export class AuthService {
 
     const { ...result } = newUser['dataValues'];
 
-    return { user: result };
+    return { data: result };
   }
 
   async login(authDto: AuthDto) {
@@ -49,7 +48,7 @@ export class AuthService {
       existingUser.email,
     );
 
-    return { user: existingUser, access_token:access_token };
+    return { data: existingUser, access_token: access_token };
   }
 
   signToken(userId: number, email: string): Promise<string> {
