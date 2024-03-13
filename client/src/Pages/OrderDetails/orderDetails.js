@@ -2,9 +2,10 @@ import React, { useState } from "react";
 import { Row, Col, Collapse, Form, Typography } from "antd";
 import "./orderDetails.css";
 import { useForm } from "antd/lib/form/Form";
-import ShippingAddressPanel from "./Panels/shippingAddressPanel";
-import ShippingNoteAndDeliveryDatePanel from "./Panels/shippingNoteAndDeliveryDatePanel";
-import CustomsInformationPanel from "./Panels/customsInformationPanel";
+import ShippingAddressPanel from "./Components/Panels/shippingAddressPanel";
+import ShippingNoteAndDeliveryDatePanel from "./Components/Panels/shippingNoteAndDeliveryDatePanel";
+import CustomsInformationPanel from "./Components/Panels/customsInformationPanel";
+import SaveButton from "./Components/saveButton";
 
 const { Panel } = Collapse;
 const { Paragraph, Title } = Typography;
@@ -13,24 +14,30 @@ const OrderDetails = () => {
   const [form] = useForm();
   const [activeKey, setActiveKey] = useState("1");
   const [panelCompletionStatus, setPanelCompletionStatus] = useState({
-    "1": false,
-    "3": false,
-    "5": false,
+    1: false,
+    3: false,
+    5: false,
   });
 
   // This function is called whenever form values change
   const onFormValuesChange = (_, allValues) => {
     const panelsInfo = {
-      "1": ['shippingCountry', 'shippingStreet', 'shippingCity', 'shippingProvince', 'shippingZip'],
-      "3": ['deliveryDateRange', 'specialShippingInstructions'],
-      "5": ['productName', 'purposeOfUse', 'hsCode'],
+      1: [
+        "shippingCountry",
+        "shippingStreet",
+        "shippingCity",
+        "shippingProvince",
+        "shippingZip",
+      ],
+      3: ["deliveryDateRange", "specialShippingInstructions"],
+      5: ["productName", "purposeOfUse", "hsCode"],
     };
 
     const newPanelCompletionStatus = {};
 
-    Object.keys(panelsInfo).forEach(panelKey => {
+    Object.keys(panelsInfo).forEach((panelKey) => {
       const fields = panelsInfo[panelKey];
-      const isPanelComplete = fields.every(field => !!allValues[field]);
+      const isPanelComplete = fields.every((field) => !!allValues[field]);
       newPanelCompletionStatus[panelKey] = isPanelComplete;
     });
 
@@ -43,7 +50,8 @@ const OrderDetails = () => {
         <Col span={24} style={{ marginBottom: "20px" }}>
           <Title level={4}>Quotation Request Received</Title>
           <Paragraph>
-            We received your quotation request! <strong>Please fill extra information below</strong> to get a
+            We received your quotation request!{" "}
+            <strong>Please fill extra information below</strong> to get a
             quotation with delivery options. Otherwise, we will send you a
             quotation for only manufacturing with estimated production time.
           </Paragraph>
@@ -72,6 +80,9 @@ const OrderDetails = () => {
               <CustomsInformationPanel form={form} />
             </Panel>
           </Collapse>
+          <Col span={24} style={{ marginTop: "20px" }}>
+            <SaveButton />
+          </Col>
         </Form>
       </Col>
     </Row>
