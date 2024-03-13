@@ -1,143 +1,82 @@
-import React, { useState } from "react";
-import {
-  Card,
-  Form,
-  Input,
-  Row,
-  Col,
-  Collapse,
-  DatePicker,
-  Select,
-  Radio,
-  Checkbox,
-  Button,
-  Divider,
-  Typography,
-} from "antd";
-import {
-  MinusOutlined,
-  PlusOutlined,
-  CreditCardOutlined,
-} from "@ant-design/icons";
+import React, { useState, useEffect } from "react";
+import { Row, Col, Collapse, Form, Typography, DatePicker, Input } from "antd";
+import { CheckCircleOutlined } from '@ant-design/icons';
 import "./orderDetails.css";
 import { useForm } from "antd/lib/form/Form";
+import ShippingAddressPanel from "./Panels/shippingAddressPanel";
+import ShippingNoteAndDeliveryDatePanel from "./Panels/shippingNoteAndDeliveryDatePanel";
+import CustomsInformationPanel from "./Panels/customsInformationPanel";
 
 const { Panel } = Collapse;
-const { Option } = Select;
 const { Paragraph, Title } = Typography;
 
 const OrderDetails = () => {
   const [activeKeys, setActiveKeys] = useState([]);
   const [form] = useForm();
-  const [useShipping, setUseShipping] = useState(false);
+  // Panel anahtarlarını "1", "2", "3" olarak güncellendi
+  const [panelCompleted, setPanelCompleted] = useState({ "1": false, "2": false, "3": false });
 
-  const togglePanel = (key) => {
-    const isActive = activeKeys.includes(key);
-    setActiveKeys(
-      isActive
-        ? activeKeys.filter((activeKey) => activeKey !== key)
-        : [...activeKeys, key]
-    );
-  };
-  const onUseShippingChange = (e) => {
-    setUseShipping(e.target.checked);
-    if (e.target.checked) {
-      form.setFieldsValue({
-        billingCountry: form.getFieldValue("shippingCountry"),
-        billingStreet: form.getFieldValue("shippingStreet"),
-        billingCity: form.getFieldValue("shippingCity"),
-        billingProvince: form.getFieldValue("shippingProvince"),
-        billingZip: form.getFieldValue("shippingZip"),
+  const checkPanelCompletion = () => {
+    // Panel anahtarları ve gerekli alanlar güncellendi
+    const requiredFieldsByPanel = {
+      "1": ['shippingCountry', 'shippingStreet', 'shippingCity', 'shippingProvince', 'shippingZip'],
+      "3": ['deliveryDateRange', 'specialShippingInstructions'], // Shipping Note & Delivery Date paneli için güncellenmiş alanlar
+      "5": ['productName', 'purposeOfUse', 'hsCode'], // Customs Information paneli için güncellenmiş alanlar
+    };
+
+    const allValues = form.getFieldsValue(true);
+
+    Object.keys(requiredFieldsByPanel).forEach(panelKey => {
+      const fields = requiredFieldsByPanel[panelKey];
+      const isCompleted = fields.every(field => {
+        // RangePicker için kontrol
+        if (field === "deliveryDateRange") {
+          return allValues[field] && allValues[field].length === 2;
+        }
+        return allValues[field];
       });
-    }
+      setPanelCompleted(prev => ({ ...prev, [panelKey]: isCompleted }));
+    });
   };
+
+  useEffect(() => {
+    // Form alanları değiştiğinde veya aktif panel değiştiğinde panel tamamlanma durumlarını kontrol eder
+    form.validateFields().then(() => {
+      checkPanelCompletion();
+    });
+  }, [activeKeys, form]); // activeKeys ve form değiştiğinde kontrol et
+
+  const renderPanelHeader = (title, key) => (
+    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+      {title}
+      {panelCompleted[key] && <CheckCircleOutlined style={{ color: 'green', fontSize: '16px' }} />}
+    </div>
+  );
+
   return (
     <Row>
       <Col span={16} offset={4}>
         <Col span={24} style={{ marginBottom: "20px" }}>
           <Title level={4}>Quotation Request Received</Title>
           <Paragraph>
-            We received your quotation request!{" "}
-            <strong>Please fill extra information below</strong> to get a
+            We received your quotation request! <strong>Please fill extra information below</strong> to get a
             quotation with delivery options. Otherwise, we will send you a
             quotation for only manufacturing with estimated production time.
           </Paragraph>
         </Col>
-        <Collapse activeKey={activeKeys} onChange={setActiveKeys}>
-          <Panel header="Shipping Address" key="1">
-            <Typography.Paragraph type="warning" style={{ marginTop: "10px" }}>
-              Warning: Products will be delivered to the specified address. The
-              unloading of the products belongs to the buyer.
-            </Typography.Paragraph>
-            <Form layout="vertical">
-              <Form.Item label="Country" name="shippingCountry">
-                <Input placeholder="Enter your country" />
-              </Form.Item>
-              <Form.Item label="Street Address" name="shippingStreet">
-                <Input placeholder="Enter your street address" />
-                <Input
-                  placeholder="Additional address information"
-                  style={{ marginTop: "10px" }}
-                />
-              </Form.Item>
-              <Form.Item label="City" name="shippingCity">
-                <Input placeholder="Enter your city" />
-              </Form.Item>
-              <Form.Item label="Province" name="shippingProvince">
-                <Input placeholder="Enter your province" />
-              </Form.Item>
-              <Form.Item label="Zip Code">
-                <Input placeholder="Enter your zip code" />
-              </Form.Item>
-            </Form>
-          </Panel>
-
-          <Panel header="Shipping Note & Delivery Date" key="3">
-            <Form layout="vertical">
-              <p>
-                We are currently unable to get rates from our shipping provider.
-                If you would like to proceed with checkout at this time, a
-                member of our support team will contact you to process a
-                shipping charge after you place your order.
-              </p>
-              <Form.Item label="Delivery Date Range">
-                <DatePicker.RangePicker
-                  style={{ width: "100%" }}
-                  format="YYYY-MM-DD"
-                  placeholder={[
-                    "Earliest delivery date",
-                    "Latest delivery date",
-                  ]}
-                />
-              </Form.Item>
-              <Form.Item label="Special Shipping Instructions">
-                <Input.TextArea
-                  rows={4}
-                  placeholder="Enter any special shipping instructions here such as maximum forklift capacity, shelf dimensions, any required packaging style etc."
-                />
-              </Form.Item>
-            </Form>
-          </Panel>
-
-          <Panel header="Information Required for Customs" key="5">
-            <Form layout="vertical">
-              <Form.Item label="Product Name" name="productName">
-                <Input placeholder="Enter product name" />
-              </Form.Item>
-
-              <Form.Item label="Purpose of Use" name="purposeOfUse">
-                <Input.TextArea
-                  rows={2}
-                  placeholder="Describe the purpose of use"
-                />
-              </Form.Item>
-
-              <Form.Item label="HS Code" name="hsCode">
-                <Input placeholder="Enter HS Code" />
-              </Form.Item>
-            </Form>
-          </Panel>
-        </Collapse>
+        <Form form={form} layout="vertical" onFieldsChange={() => checkPanelCompletion()}>
+          <Collapse activeKey={activeKeys} onChange={setActiveKeys}>
+            <Panel header={renderPanelHeader("Shipping Address", "1")} key="1" className={panelCompleted["1"] ? "panel-completed" : ""}>
+              <ShippingAddressPanel form={form} />
+            </Panel>
+            <Panel header={renderPanelHeader("Shipping Note & Delivery Date", "2")} key="2" className={panelCompleted["3"] ? "panel-completed" : ""}>
+              <ShippingNoteAndDeliveryDatePanel form={form} />
+            </Panel>
+            <Panel header={renderPanelHeader("Customs Information", "3")} key="3" className={panelCompleted["5"] ? "panel-completed" : ""}>
+              <CustomsInformationPanel form={form} />
+            </Panel>
+          </Collapse>
+        </Form>
       </Col>
     </Row>
   );
