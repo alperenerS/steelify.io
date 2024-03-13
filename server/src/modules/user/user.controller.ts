@@ -28,6 +28,6 @@ export class UserController {
 
     return res
       .status(HttpStatus.ACCEPTED)
-      .json({ message: 'Successfully created !', response: response });
+      .json({ message: 'Successfully created !', data: response });
   }
 }
