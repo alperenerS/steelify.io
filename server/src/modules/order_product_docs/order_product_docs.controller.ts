@@ -30,7 +30,7 @@ export class OrderProductDocsController {
     }
 
     return res
-      .status(HttpStatus.ACCEPTED)
+      .status(HttpStatus.OK)
       .json({ message: 'Successfully fetched !', result: result });
   }
 
@@ -44,7 +44,7 @@ export class OrderProductDocsController {
     }
 
     return res
-      .status(HttpStatus.ACCEPTED)
+      .status(HttpStatus.OK)
       .json({ message: 'Successfully Fetched !', result: result });
   }
 
@@ -78,7 +78,7 @@ export class OrderProductDocsController {
       await this.orderProductDocsService.deleteOrderProductDocs(id);
 
     return res
-      .status(HttpStatus.ACCEPTED)
+      .status(HttpStatus.OK)
       .json({ message: 'Successfully Deleted !', result: result });
   }
 }

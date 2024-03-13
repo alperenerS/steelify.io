@@ -36,7 +36,7 @@ export class OrderController {
     const updatedOrder = await this.orderService.updateOrder(order, id);
 
     return res
-      .status(HttpStatus.ACCEPTED)
+      .status(HttpStatus.OK)
       .json({ message: 'Successfully updated !', data: updatedOrder });
   }
 
@@ -53,7 +53,7 @@ export class OrderController {
       );
   
       return res
-        .status(HttpStatus.ACCEPTED)
+        .status(HttpStatus.OK)
         .json({ message: 'Status Updated !', data: updatedStatus });
     } catch (error) {
       console.log(error);
@@ -66,7 +66,7 @@ export class OrderController {
   async deleteOrder(@Param('id') id: number, @Res() res: Response) {
     await this.orderService.deleteOrder(id);
     return res
-      .status(HttpStatus.ACCEPTED)
+      .status(HttpStatus.OK)
       .json({ message: 'Order Successfully Deleted !' });
   }
 }

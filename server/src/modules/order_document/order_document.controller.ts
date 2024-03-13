@@ -22,14 +22,16 @@ export class OrderDocumentController {
   constructor(private readonly orderDocsService: OrderDocumentService) {}
 
   @Get()
-  async getAllOrderDocs() {
+  async getAllOrderDocs(@Res() res: Response) {
     try {
       const response = await this.orderDocsService.getAllOrderDocs();
 
       if (response.length === 0) {
         throw new NotFoundException('There is no OrderDocs !');
       }
-      return response;
+      return res
+        .status(HttpStatus.OK)
+        .json({ message: 'Successfully Fetched !', data: response });
     } catch (error) {
       console.log(error);
       throw new InternalServerErrorException(error);
@@ -45,9 +47,9 @@ export class OrderDocumentController {
         throw new NotFoundException('Order Document can not be found !');
       }
 
-      return res.status(HttpStatus.ACCEPTED).json({
+      return res.status(HttpStatus.OK).json({
         message: 'Order docs successfully fetched !',
-        result: orderDocs,
+        data: orderDocs,
       });
     } catch (error) {
       console.log(error);
@@ -63,7 +65,7 @@ export class OrderDocumentController {
 
       return res
         .status(HttpStatus.CREATED)
-        .json({ message: 'Successfully Created !', result: orderDocument });
+        .json({ message: 'Successfully Created !', data: orderDocument });
     } catch (error) {
       console.log(error);
       throw new InternalServerErrorException(error);
@@ -80,7 +82,7 @@ export class OrderDocumentController {
       }
 
       return res
-        .status(HttpStatus.ACCEPTED)
+        .status(HttpStatus.OK)
         .json({ message: 'Successfully Deleted !' });
     } catch (error) {
       console.log(error);

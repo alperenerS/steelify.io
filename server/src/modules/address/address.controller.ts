@@ -52,7 +52,7 @@ export class AddressController {
       const response = await this.addressService.updateAddress(address, id);
 
       return res
-        .status(HttpStatus.ACCEPTED)
+        .status(HttpStatus.OK)
         .json({ message: 'Address Successfully Update !', data: response });
     } catch (error) {
       console.log(error);
@@ -70,7 +70,7 @@ export class AddressController {
       }
       const response = await this.addressService.deleteAddress(id);
 
-      return res.status(HttpStatus.ACCEPTED).json({
+      return res.status(HttpStatus.OK).json({
         message: 'Address Successfully Deleted !',
         response: response,
       });
@@ -84,7 +84,7 @@ export class AddressController {
   async getAllAddresses(@Res() res:Response) {
     const data = await this.addressService.getAllAddresses();
     try {
-      return res.status(HttpStatus.ACCEPTED).json({message:'Addresses Successfully Fetched !',data:data})
+      return res.status(HttpStatus.OK).json({message:'Addresses Successfully Fetched !',data:data})
     } catch (error) {
       console.log(error);
       throw new BadRequestException(error);
@@ -102,7 +102,7 @@ export class AddressController {
       }
 
       return res
-        .status(HttpStatus.ACCEPTED)
+        .status(HttpStatus.OK)
         .json({ message: 'Address Successfully Fetched !', data: address });
     } catch (error) {
       console.log(error);
