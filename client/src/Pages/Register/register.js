@@ -28,30 +28,38 @@ const Register = () => {
     }
 
     try {
-      const response = await axios.post(
-        `${API_BASE_URL}/auth/register`,
-        values
-      );
+      const response = await axios.post(`${API_BASE_URL}/auth/register`, {
+        email: values.email,
+        password: values.password,
+        userType: values.userType,
+        website: values.website,
+        name: values.name,
+        surname: values.surname,
+      });
 
-      if (response.data.success) {
-        navigate("/");
+      // Sunucu yanıtını değerlendirme
+      if (response.data && response.data.data) {
+        // Sunucudan gelen mesajı kullanarak başarılı kayıt bildirimi
+        notification.success({
+          message: "Registration Successful",
+          description: response.data.message || "You have successfully registered. Please login.",
+        });
+        navigate("/login");
       } else {
         notification.error({
           message: "Registration Failed",
-          description: "An unexpected error occurred. Please try again.",
+          description: response.data.message || "An unexpected error occurred. Please try again.",
         });
       }
     } catch (error) {
       notification.error({
         message: "Registration Failed",
-        description: `An error occurred. Please try again. ${
-          error.response?.data?.error || "An unexpected error occurred."
-        }`,
+        description: error.response?.data?.message || "An error occurred. Please try again.",
       });
     }
   };
 
-  //  Popup on/off functions
+  // Popup on/off functions
   const showTermsAndConditionsPopup = () =>
     setTermsAndConditionsPopupVisible(true);
   const hideTermsAndConditionsPopup = () =>
@@ -64,7 +72,6 @@ const Register = () => {
         justifyContent: "center",
         alignItems: "center",
         minHeight: "100vh",
-        paddingTop: "0vh",
       }}
     >
       <Card
@@ -73,7 +80,6 @@ const Register = () => {
           maxWidth: 600,
           width: "100%",
           boxShadow: "0 4px 8px 0 rgba(0,0,0,0.2)",
-          marginTop: "-10vh",
         }}
       >
         <Form
@@ -82,7 +88,6 @@ const Register = () => {
           layout="horizontal"
           onFinish={handleSubmit}
         >
-          {/* Diğer form elemanları */}
           <Form.Item
             label="Email"
             name="email"
@@ -132,6 +137,7 @@ const Register = () => {
             <Select>
               <Select.Option value="customer">Customer</Select.Option>
               <Select.Option value="vendor">Vendor</Select.Option>
+              {/* Gerekirse daha fazla seçenek eklenebilir */}
             </Select>
           </Form.Item>
           <Form.Item
