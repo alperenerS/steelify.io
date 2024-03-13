@@ -24,8 +24,8 @@ export class OrderProductController {
   async getOrderProducts(@Res() res: Response) {
     const result = await this.orderProductService.getOrderProducts();
     return res
-      .status(HttpStatus.ACCEPTED)
-      .json({ message: 'Successfully Fetched !', result: result });
+      .status(HttpStatus.OK)
+      .json({ message: 'Successfully Fetched !', data: result });
   }
 
   @Get(':id')
@@ -36,7 +36,7 @@ export class OrderProductController {
       throw new NotFoundException('Order Product can not be found !');
     }
 
-    return res.status(HttpStatus.ACCEPTED).json({ result: result });
+    return res.status(HttpStatus.OK).json({ data: result });
   }
 
   @Post('create')
@@ -49,7 +49,7 @@ export class OrderProductController {
 
     return res.status(HttpStatus.CREATED).json({
       message: 'Order Product Created !',
-      OrderProduct: newOrderProduct,
+      data: newOrderProduct,
     });
   }
 
@@ -67,9 +67,9 @@ export class OrderProductController {
     const updatedOrderProduct =
       await this.orderProductService.updateOrderProduct(orderProductDto, id);
 
-    return res.status(HttpStatus.ACCEPTED).json({
+    return res.status(HttpStatus.OK).json({
       message: 'successfully updated !',
-      updatedProduct: updatedOrderProduct,
+      data: updatedOrderProduct,
     });
   }
 
@@ -85,10 +85,10 @@ export class OrderProductController {
       await this.orderProductService.deleteOrderProduct(id);
 
     return res
-      .status(HttpStatus.ACCEPTED)
+      .status(HttpStatus.OK)
       .json({
         message: 'Successfully Deleted !',
-        deleteProduct: deleteOrderProduct,
+        data: deleteOrderProduct,
       });
   }
 }

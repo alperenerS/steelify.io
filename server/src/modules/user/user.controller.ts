@@ -27,7 +27,7 @@ export class UserController {
     const response = await this.userService.updateOwnData(user, token);
 
     return res
-      .status(HttpStatus.ACCEPTED)
-      .json({ message: 'Successfully created !', response: response });
+      .status(HttpStatus.OK)
+      .json({ message: 'Successfully created !', data: response });
   }
 }

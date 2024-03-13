@@ -30,8 +30,8 @@ export class OrderProductDocsController {
     }
 
     return res
-      .status(HttpStatus.ACCEPTED)
-      .json({ message: 'Successfully fetched !', result: result });
+      .status(HttpStatus.OK)
+      .json({ message: 'Successfully fetched !', data: result });
   }
 
   @Get(':id')
@@ -44,8 +44,8 @@ export class OrderProductDocsController {
     }
 
     return res
-      .status(HttpStatus.ACCEPTED)
-      .json({ message: 'Successfully Fetched !', result: result });
+      .status(HttpStatus.OK)
+      .json({ message: 'Successfully Fetched !', data: result });
   }
 
   @Post('create')
@@ -60,7 +60,7 @@ export class OrderProductDocsController {
 
     return res
       .status(HttpStatus.CREATED)
-      .json({ message: 'Successfully Created !', result: newOrderProductDocs });
+      .json({ message: 'Successfully Created !', data: newOrderProductDocs });
   }
 
   @Delete('delete/:id')
@@ -78,7 +78,7 @@ export class OrderProductDocsController {
       await this.orderProductDocsService.deleteOrderProductDocs(id);
 
     return res
-      .status(HttpStatus.ACCEPTED)
-      .json({ message: 'Successfully Deleted !', result: result });
+      .status(HttpStatus.OK)
+      .json({ message: 'Successfully Deleted !', data: result });
   }
 }
