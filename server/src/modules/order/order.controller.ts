@@ -24,7 +24,7 @@ export class OrderController {
 
     return res
       .status(HttpStatus.CREATED)
-      .json({ message: 'Successfully Created !', response: newOrder });
+      .json({ message: 'Successfully Created !', data: newOrder });
   }
 
   @Put('updateOrder/:id')
@@ -37,7 +37,7 @@ export class OrderController {
 
     return res
       .status(HttpStatus.ACCEPTED)
-      .json({ message: 'Successfully updated !', response: updatedOrder });
+      .json({ message: 'Successfully updated !', data: updatedOrder });
   }
 
   @Put('updateStatus/:id')
@@ -54,14 +54,14 @@ export class OrderController {
   
       return res
         .status(HttpStatus.ACCEPTED)
-        .json({ message: 'Status Updated !', response: updatedStatus });
+        .json({ message: 'Status Updated !', data: updatedStatus });
     } catch (error) {
       console.log(error);
       throw error;
     }
   }
   
-
+ 
   @Delete('deleteOrder/:id')
   async deleteOrder(@Param('id') id: number, @Res() res: Response) {
     await this.orderService.deleteOrder(id);
