@@ -9,24 +9,24 @@ const Login = () => {
 
   const onFinish = async (values) => {
     try {
-      // values'daki username alanını email olarak değiştiriyoruz.
       const loginData = {
-        email: values.username,
-        password: values.password
+        email: values.email,
+        password: values.password,
       };
 
       const response = await axios.post(`${API_BASE_URL}/auth/login`, loginData);
 
-      if (response.data.success) {
-        // Optionally set local storage or cookie here if remember me is checked
-        if (values.remember) {
-          // Set relevant auth tokens or user data in local storage or cookies
-        }
-        navigate('/'); // Redirect to the home page or dashboard
+      if (response.data && response.data.data) {
+        notification.success({
+          message: 'Login Successful',
+          description: response.data.message || 'You have successfully logged in!',
+        });
+        
+        navigate('/');
       } else {
         notification.error({
           message: 'Login Failed',
-          description: response.data.message || 'Invalid email or password.',
+          description: 'Invalid email or password.',
         });
       }
     } catch (error) {
@@ -43,7 +43,7 @@ const Login = () => {
 
   return (
     <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100vh' }}>
-      <Card title="Login" style={{ maxWidth: 600, width: '100%', marginTop: '-20vh', boxShadow: '0 4px 8px 0 rgba(0,0,0,0.2)' }}>
+      <Card title="Login" style={{ maxWidth: 600, width: '100%', boxShadow: '0 4px 8px 0 rgba(0,0,0,0.2)' }}>
         <Form
           name="basic"
           labelCol={{ span: 8 }}
@@ -55,7 +55,7 @@ const Login = () => {
         >
           <Form.Item
             label="Email"
-            name="email" // Frontend formunu kullanıcı dostu tutmak için "Email" olarak etiketliyoruz ama name'i "username" olarak bırakabiliriz ya da backend ile uyumlu olacak şekilde bu alanı da "email" olarak güncelleyebiliriz.
+            name="email"
             rules={[{ required: true, message: 'Please input your email!' }]}
           >
             <Input />
