@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { Row, Col, Collapse, Form, Typography, DatePicker, Input } from "antd";
-import { CheckCircleOutlined } from '@ant-design/icons';
+import React, { useState } from "react";
+import { Row, Col, Collapse, Form, Typography } from "antd";
 import "./orderDetails.css";
 import { useForm } from "antd/lib/form/Form";
 import ShippingAddressPanel from "./Panels/shippingAddressPanel";
@@ -11,47 +10,32 @@ const { Panel } = Collapse;
 const { Paragraph, Title } = Typography;
 
 const OrderDetails = () => {
-  const [activeKeys, setActiveKeys] = useState([]);
   const [form] = useForm();
-  // Panel anahtarlarını "1", "2", "3" olarak güncellendi
-  const [panelCompleted, setPanelCompleted] = useState({ "1": false, "2": false, "3": false });
+  const [activeKey, setActiveKey] = useState("1");
+  const [panelCompletionStatus, setPanelCompletionStatus] = useState({
+    "1": false,
+    "3": false,
+    "5": false,
+  });
 
-  const checkPanelCompletion = () => {
-    // Panel anahtarları ve gerekli alanlar güncellendi
-    const requiredFieldsByPanel = {
+  // This function is called whenever form values change
+  const onFormValuesChange = (_, allValues) => {
+    const panelsInfo = {
       "1": ['shippingCountry', 'shippingStreet', 'shippingCity', 'shippingProvince', 'shippingZip'],
-      "3": ['deliveryDateRange', 'specialShippingInstructions'], // Shipping Note & Delivery Date paneli için güncellenmiş alanlar
-      "5": ['productName', 'purposeOfUse', 'hsCode'], // Customs Information paneli için güncellenmiş alanlar
+      "3": ['deliveryDateRange', 'specialShippingInstructions'],
+      "5": ['productName', 'purposeOfUse', 'hsCode'],
     };
 
-    const allValues = form.getFieldsValue(true);
+    const newPanelCompletionStatus = {};
 
-    Object.keys(requiredFieldsByPanel).forEach(panelKey => {
-      const fields = requiredFieldsByPanel[panelKey];
-      const isCompleted = fields.every(field => {
-        // RangePicker için kontrol
-        if (field === "deliveryDateRange") {
-          return allValues[field] && allValues[field].length === 2;
-        }
-        return allValues[field];
-      });
-      setPanelCompleted(prev => ({ ...prev, [panelKey]: isCompleted }));
+    Object.keys(panelsInfo).forEach(panelKey => {
+      const fields = panelsInfo[panelKey];
+      const isPanelComplete = fields.every(field => !!allValues[field]);
+      newPanelCompletionStatus[panelKey] = isPanelComplete;
     });
+
+    setPanelCompletionStatus(newPanelCompletionStatus);
   };
-
-  useEffect(() => {
-    // Form alanları değiştiğinde veya aktif panel değiştiğinde panel tamamlanma durumlarını kontrol eder
-    form.validateFields().then(() => {
-      checkPanelCompletion();
-    });
-  }, [activeKeys, form]); // activeKeys ve form değiştiğinde kontrol et
-
-  const renderPanelHeader = (title, key) => (
-    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-      {title}
-      {panelCompleted[key] && <CheckCircleOutlined style={{ color: 'green', fontSize: '16px' }} />}
-    </div>
-  );
 
   return (
     <Row>
@@ -64,15 +48,27 @@ const OrderDetails = () => {
             quotation for only manufacturing with estimated production time.
           </Paragraph>
         </Col>
-        <Form form={form} layout="vertical" onFieldsChange={() => checkPanelCompletion()}>
-          <Collapse activeKey={activeKeys} onChange={setActiveKeys}>
-            <Panel header={renderPanelHeader("Shipping Address", "1")} key="1" className={panelCompleted["1"] ? "panel-completed" : ""}>
+        <Form form={form} layout="vertical" onValuesChange={onFormValuesChange}>
+          <Collapse activeKey={activeKey} onChange={(key) => setActiveKey(key)}>
+            <Panel
+              header="Shipping Address"
+              key="1"
+              className={panelCompletionStatus["1"] ? "panel-completed" : ""}
+            >
               <ShippingAddressPanel form={form} />
             </Panel>
-            <Panel header={renderPanelHeader("Shipping Note & Delivery Date", "2")} key="2" className={panelCompleted["3"] ? "panel-completed" : ""}>
+            <Panel
+              header="Shipping Note & Delivery Date"
+              key="3"
+              className={panelCompletionStatus["3"] ? "panel-completed" : ""}
+            >
               <ShippingNoteAndDeliveryDatePanel form={form} />
             </Panel>
-            <Panel header={renderPanelHeader("Customs Information", "3")} key="3" className={panelCompleted["5"] ? "panel-completed" : ""}>
+            <Panel
+              header="Information Required for Customs"
+              key="5"
+              className={panelCompletionStatus["5"] ? "panel-completed" : ""}
+            >
               <CustomsInformationPanel form={form} />
             </Panel>
           </Collapse>
