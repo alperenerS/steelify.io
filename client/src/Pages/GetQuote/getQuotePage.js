@@ -1,33 +1,56 @@
 import React, { useState } from "react";
 import { Layout, Typography, Card, Row, Col, message } from "antd";
-import { useNavigate } from "react-router-dom"; // useNavigate hook'unu import edin
+import { useNavigate } from "react-router-dom";
 import GetQuoteForm from "./getQuoteForm";
 import FileUpload from "./fileUpload";
+import axios from "axios"; // Axios'u import edin
 
 const { Header, Content } = Layout;
 const { Title } = Typography;
 
 const GetQuotePage = () => {
   const [fileList, setFileList] = useState([]);
-  const navigate = useNavigate(); // useNavigate hook'unu kullanarak bir navigate fonksiyonu oluşturun
+  const navigate = useNavigate();
 
   const handleFileChange = (info) => {
     let newFileList = [...info.fileList];
-    // Dosya listesini güncelle
     setFileList(newFileList);
   };
 
-  const handleSubmit = (values) => {
+  const handleSubmit = async (values) => {
     if (!fileList.length) {
       message.error("Please upload at least one file.");
       return;
     }
-    // Burada form verilerini ve dosya listesini işleyebilirsiniz
-    console.log("Form Values:", values);
-    console.log("Uploaded Files:", fileList);
+    
+    // FormData nesnesi oluştur
+    const formData = new FormData();
+    fileList.forEach(file => {
+      formData.append('files', file.originFileObj);
+    });
 
-    // İşlem başarılı olduktan sonra order-details sayfasına yönlendir
-    navigate("/order-details"); // Kullanıcıyı order-details sayfasına yönlendir
+    // Form verilerini FormData nesnesine ekleyin
+    Object.keys(values).forEach(key => {
+      formData.append(key, values[key]);
+    });
+
+    try {
+      // API isteği
+      const response = await axios.post('API_ENDPOINT', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+
+      // İşlem başarılıysa kullanıcıyı yönlendir
+      if (response.data.success) {
+        navigate('/order-details');
+      } else {
+        message.error(response.data.message || "Submission failed. Please try again.");
+      }
+    } catch (error) {
+      message.error(`An error occurred: ${error.message}`);
+    }
   };
 
   return (
