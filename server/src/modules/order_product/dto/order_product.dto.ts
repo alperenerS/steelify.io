@@ -13,4 +13,7 @@ export class OrderProductDto {
   @IsNotEmpty()
   @IsNumber()
   readonly hs_code: number;
+  @IsNotEmpty()
+  @IsString()
+  readonly purpose_of_use: string;
 }

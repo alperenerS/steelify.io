@@ -9,7 +9,7 @@ import {
 import { Order } from '../order/order.entity';
 
 @Table
-export class OrderProduct extends Model<OrderProduct> {
+export class OrderSamplePhotos extends Model<OrderSamplePhotos> {
   @ForeignKey(() => Order)
   @Column({
     type: DataType.INTEGER,
@@ -23,23 +23,11 @@ export class OrderProduct extends Model<OrderProduct> {
     type: DataType.STRING,
     allowNull: false,
   })
-  name: string;
-
-  @Column({
-    type: DataType.INTEGER,
-    allowNull: false,
-  })
-  quantity: number;
-
-  @Column({
-    type: DataType.INTEGER,
-    allowNull: false,
-  })
-  hs_code: number;
+  filename: string;
 
   @Column({
     type: DataType.STRING,
     allowNull: false,
   })
-  purpose_of_use: string;
+  filelink: string;
 }

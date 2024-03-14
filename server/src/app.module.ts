@@ -9,6 +9,7 @@ import { OrderDocumentModule } from './modules/order_document/order_document.mod
 import { LoggerMiddleware } from './middlewares/customLogger';
 import { OrderProductModule } from './modules/order_product/order_product.module';
 import { OrderProductDocsModule } from './modules/order_product_docs/order_product_docs.module';
+import { OrderSamplePhotosModule } from './modules/order_sample_photos/order_sample_photos.module';
 
 
 @Module({
@@ -21,7 +22,8 @@ import { OrderProductDocsModule } from './modules/order_product_docs/order_produ
     AddressModule,
     OrderDocumentModule,
     OrderProductModule,
-    OrderProductDocsModule
+    OrderProductDocsModule,
+    OrderSamplePhotosModule
   ],
   controllers: [],
   providers: [],
