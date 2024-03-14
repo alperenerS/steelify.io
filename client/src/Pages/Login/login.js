@@ -13,10 +13,13 @@ const Login = () => {
         email: values.email,
         password: values.password,
       };
-
+  
       const response = await axios.post(`${API_BASE_URL}/auth/login`, loginData);
-
+  
       if (response.data && response.data.data) {
+        // save access token to local storage
+        localStorage.setItem('accessToken', response.data.data.access_token);
+  
         notification.success({
           message: 'Login Successful',
           description: response.data.message || 'You have successfully logged in!',
@@ -36,6 +39,7 @@ const Login = () => {
       });
     }
   };
+  
 
   const onFinishFailed = (errorInfo) => {
     console.log('Failed:', errorInfo);

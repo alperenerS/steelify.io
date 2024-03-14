@@ -10,6 +10,7 @@ import GetQuotePage from './Pages/GetQuote/getQuotePage';
 import PageNotFound from './Pages/PageNotFound/pageNotFound';
 import AboutUs from './Pages/AboutUs/aboutUs';
 import MyOrders from './Pages/MyOrders/myOrders';
+import PrivateRoute from './Components/PrivateRoute/privateRoute';
 
 function App() {
   return (
@@ -21,13 +22,11 @@ function App() {
           <Route path="/landing-page" element={<LandingPage />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/order-details" element={<OrderDetails />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/get-quote" element={<GetQuotePage />} />
+          <Route path="/order-details" element={<PrivateRoute><OrderDetails /></PrivateRoute>} />
+          <Route path="/get-quote" element={<PrivateRoute><GetQuotePage /></PrivateRoute>} />
           <Route path="/about-us" element={<AboutUs />} />
-          <Route path="/my-orders" element={<MyOrders />} />
+          <Route path="/my-orders" element={<PrivateRoute><MyOrders /></PrivateRoute>} />
           <Route path="/*" element={<PageNotFound />} />
-
         </Routes>
       </div>
     </Router>
