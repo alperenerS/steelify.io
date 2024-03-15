@@ -46,13 +46,24 @@ export class AuthService {
     const access_token = await this.signToken(
       existingUser.id,
       existingUser.email,
+      existingUser.name,
+      existingUser.surname,
+      existingUser.userType,
+      existingUser.website,
     );
 
     return { data: existingUser, access_token: access_token };
   }
 
-  signToken(userId: number, email: string): Promise<string> {
-    const payload = { userId, email };
+  signToken(
+    id: number,
+    email: string,
+    name: string,
+    surname: string,
+    userType: string,
+    website: string,
+  ): Promise<string> {
+    const payload = { id, email, name, surname, userType, website };
 
     return this.jwtService.signAsync(payload);
   }
