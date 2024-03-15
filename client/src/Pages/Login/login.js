@@ -46,7 +46,7 @@ const Login = () => {
   };
 
   return (
-    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100vh' }}>
+    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '80vh' }}>
       <Card title="Login" style={{ maxWidth: 600, width: '100%', boxShadow: '0 4px 8px 0 rgba(0,0,0,0.2)' }}>
         <Form
           name="basic"
