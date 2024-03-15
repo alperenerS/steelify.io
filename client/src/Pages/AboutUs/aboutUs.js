@@ -1,20 +1,15 @@
 import React from 'react';
 import { Typography, Row, Col, Card, Divider } from 'antd';
-import yetkinsag from './assets/yetkinsag.jpg';
-import enverbodur from './assets/enverbodur.jpg';
-import alperenalihaner from './assets/alperenalihaner.jpg';
-import emremataraci from './assets/emremataraci.jpg';
-// import aboutUsImage from './about-us-image.jpg';
-// import buyersImage from './buyers-image.jpg';
-// import workshopsImage from './workshops-image.jpg';
-// import innovationImage from './innovation-image.jpg'; // İnovasyon ile ilgili bir resim
+import yetkinsag from './assets/yetkinsag.png';
+import enverbodur from './assets/enverbodur.png';
+import alperenalihaner from './assets/alperenalihaner.png';
+import emremataraci from './assets/emremataraci.png';
 
 const { Title, Paragraph } = Typography;
 
 const AboutUs = () => {
   return (
     <div style={{ padding: '50px' }}>
-      {/* About Steelify */}
       <Row gutter={[16, 16]} align="middle">
         <Col span={12}>
           <Typography>
@@ -25,15 +20,12 @@ const AboutUs = () => {
           </Typography>
         </Col>
         <Col span={12}>
-          {/* <Image src={aboutUsImage} alt="Steelify Platform" /> */}
         </Col>
       </Row>
       <Divider />
 
-      {/* For Industrial Buyers */}
       <Row gutter={[16, 16]} align="middle" style={{ marginTop: '50px' }}>
         <Col span={12}>
-          {/* <Image src={buyersImage} alt="Industrial Buyers" /> */}
         </Col>
         <Col span={12}>
           <Typography>
@@ -46,7 +38,6 @@ const AboutUs = () => {
       </Row>
       <Divider />
 
-      {/* For Small Workshops */}
       <Row gutter={[16, 16]} align="middle" style={{ marginTop: '50px' }}>
         <Col span={12}>
           <Typography>
@@ -57,15 +48,12 @@ const AboutUs = () => {
           </Typography>
         </Col>
         <Col span={12}>
-          {/* <Image src={workshopsImage} alt="Small Workshops" /> */}
         </Col>
       </Row>
       <Divider />
 
-      {/* Innovation and Technology */}
       <Row gutter={[16, 16]} align="middle" style={{ marginTop: '50px' }}>
         <Col span={12}>
-          {/* <Image src={innovationImage} alt="Innovation" /> */}
         </Col>
         <Col span={12}>
           <Typography>
@@ -78,7 +66,6 @@ const AboutUs = () => {
       </Row>
       <Divider />
       <div style={{ padding: '50px' }}>
-      {/* Meet Our Team - Başlığı ortalamak için eklenen div */}
       <div style={{ textAlign: 'center', marginBottom: '20px' }}>
         <Typography>
           <Title level={2}>Meet Our Team</Title>
