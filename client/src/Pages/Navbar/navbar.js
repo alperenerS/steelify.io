@@ -1,23 +1,33 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Menu } from 'antd';
 import steelifyLogo from './steelifyLogo.png';
 import './navbar.css';
+import { getUserInfoFromToken } from '../../Utils/Auth/authService';
 
 const Navbar = () => {
   const navigate = useNavigate();
-  const isAuthenticated = localStorage.getItem('accessToken'); // Oturum kontrolü
+  const [userName, setUserName] = useState('Undefined');
 
-  // Kullanıcı oturum durumuna göre menü öğeleri
+  useEffect(() => {
+    const accessToken = localStorage.getItem('accessToken');
+    if (accessToken) {
+      const userName = getUserInfoFromToken(accessToken);
+      setUserName(userName);
+    }
+  }, []);
+console.log(userName)
+  const isAuthenticated = !!localStorage.getItem('accessToken');
+
   const items = isAuthenticated
     ? [
         { label: 'Get Quote', key: 'get-quote', path: '/get-quote' },
         { label: 'About Us', key: 'about-us', path: '/about-us' },
         {
-          label: 'Emre Mataracı', // Kullanıcı adınızı veya dinamik bir şekilde alınan bir ismi buraya yazabilirsiniz
+          label: userName, // Dinamik olarak kullanıcı adını burada gösteriyoruz
           key: 'user',
           children: [
-            { label: 'Profile', key: 'profile', path: '/profile' }, // OPSİYONEL
+            { label: 'Profile', key: 'profile', path: '/profile' },
             { label: 'My Requests/Orders', key: 'my-orders', path: '/my-orders' },
             { label: 'Log Out', key: 'logout' },
           ],
@@ -29,35 +39,25 @@ const Navbar = () => {
         { label: 'Get Quote', key: 'get-quote', path: '/get-quote' },
         { label: 'About Us', key: 'about-us', path: '/about-us' },
       ];
-      
-      //Logout
-      const onClick = (e) => {
-        if (e.key === 'logout') {
-          localStorage.removeItem('accessToken');
-          navigate('/login');
-          return;
-        }
-        
-        let item = items.find(item => item.key === e.key);
-        if (!item) {
-          items.forEach(i => {
-            if (i.children) {
-              const subItem = i.children.find(sub => sub.key === e.key);
-              if (subItem) item = subItem;
-            }
-          });
-        }
-      
-        if (item && item.path) {
-          navigate(item.path);
-        }
-      };
-      
+
+  const onClick = (e) => {
+    if (e.key === 'logout') {
+      localStorage.removeItem('accessToken');
+      navigate('/login');
+      return;
+    }
+
+    let item = items.find(item => item.key === e.key) || items.flatMap(i => i.children || []).find(sub => sub.key === e.key);
+
+    if (item && item.path) {
+      navigate(item.path);
+    }
+  };
 
   return (
     <div className="navbar-flex-container">
       <img src={steelifyLogo} alt="STEELIFY Logo" className="navbar-logo" onClick={() => navigate('/')} />
-      <Menu onClick={onClick} mode="horizontal" items={items} className="navbar-menu" />
+      <Menu onClick={onClick} mode="horizontal" items={items} selectedKeys={[]} className="navbar-menu" />
     </div>
   );
 };

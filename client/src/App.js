@@ -10,7 +10,7 @@ import GetQuotePage from './Pages/GetQuote/getQuotePage';
 import PageNotFound from './Pages/PageNotFound/pageNotFound';
 import AboutUs from './Pages/AboutUs/aboutUs';
 import MyOrders from './Pages/MyOrders/myOrders';
-import PrivateRoute from './Components/PrivateRoute/privateRoute';
+import PrivateRoute from './Utils/PrivateRoute/privateRoute';
 
 function App() {
   return (
