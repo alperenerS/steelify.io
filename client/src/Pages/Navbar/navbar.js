@@ -24,7 +24,7 @@ console.log(userName)
         { label: 'Get Quote', key: 'get-quote', path: '/get-quote' },
         { label: 'About Us', key: 'about-us', path: '/about-us' },
         {
-          label: userName, // Dinamik olarak kullanıcı adını burada gösteriyoruz
+          label: userName,
           key: 'user',
           children: [
             { label: 'Profile', key: 'profile', path: '/profile' },
