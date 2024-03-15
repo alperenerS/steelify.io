@@ -20,8 +20,8 @@ const GetQuoteForm = () => {
   return (
     <Form form={form} layout="vertical" onFinish={onFinish}>
       <Form.Item
-        name="description"
-        label="Description"
+        name="details"
+        label="Details"
         rules={[
           {
             required: true,
@@ -36,16 +36,16 @@ const GetQuoteForm = () => {
       </Form.Item>
 
       <Form.Item
-        name="reference"
-        label="Reference"
-        rules={[{ required: false, message: "Please provide a reference!" }]}
+        name="requestNo"
+        label="Request No"
+        rules={[{ required: false, message: "Please provide your request number!" }]}
       >
-        <Input placeholder="Your reference number" />
+        <Input placeholder="Please provide your request number" />
       </Form.Item>
 
       <Form.Item
-        name="samplePhotos"
-        label="Sample Photos"
+        name="productPhotos"
+        label="Product Photos"
         valuePropName="fileList"
         getValueFromEvent={(e) => {
           if (Array.isArray(e)) {
@@ -53,7 +53,7 @@ const GetQuoteForm = () => {
           }
           return e && e.fileList;
         }}
-        extra="Please upload product photos as final, packaged or in use"
+         extra="Packaging or in-built photos will help us to accelerate the quotation process."
       >
         <Upload
           name="samplePhotos"

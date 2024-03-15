@@ -26,7 +26,7 @@ const FileUpload = () => {
   const props = {
     name: "file",
     multiple: true,
-    action: "https://example.com/upload", 
+    action: "https://example.com/upload",
     beforeUpload,
     onChange(info) {
       const { status, name } = info.file;
@@ -47,12 +47,12 @@ const FileUpload = () => {
         <InboxOutlined />
       </p>
       <p className="ant-upload-text">
-        Please upload all your documents including lists & drawings.
+        UPLOAD LISTS & DRAWINGS
       </p>
       <p className="ant-upload-hint">
+        Supported file types: {allowedExtensions.join(", ")} <br />
         Supports single or bulk upload. Strictly prohibit from uploading company
-        data or other banned files. Supported file types:{" "}
-        {allowedExtensions.join(", ")}.
+        data or other banned files.
       </p>
     </Dragger>
   );

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Row, Col, Collapse, Form, Typography } from "antd";
-import "./orderDetails.css";
+import "./requestDetails.css";
 import { useForm } from "antd/lib/form/Form";
 import ShippingAddressPanel from "./Components/Panels/shippingAddressPanel";
 import ShippingNoteAndDeliveryDatePanel from "./Components/Panels/shippingNoteAndDeliveryDatePanel";
@@ -10,7 +10,7 @@ import SaveButton from "./Components/saveButton";
 const { Panel } = Collapse;
 const { Paragraph, Title } = Typography;
 
-const OrderDetails = () => {
+const RequestDetails = () => {
   const [form] = useForm();
   const [activeKey, setActiveKey] = useState("1");
   const [panelCompletionStatus, setPanelCompletionStatus] = useState({
@@ -48,9 +48,10 @@ const OrderDetails = () => {
     <Row>
       <Col span={16} offset={4}>
         <Col span={24} style={{ marginBottom: "20px" }}>
-          <Title level={4}>Quotation Request Received</Title>
+          <div style={{ textAlign: "center" }}>
+            <Title level={4}>We received your quotation!</Title>
+          </div>{" "}
           <Paragraph>
-            We received your quotation request!{" "}
             <strong>Please fill extra information below</strong> to get a
             quotation with delivery options. Otherwise, we will send you a
             quotation for only manufacturing with estimated production time.
@@ -89,4 +90,4 @@ const OrderDetails = () => {
   );
 };
 
-export default OrderDetails;
+export default RequestDetails;

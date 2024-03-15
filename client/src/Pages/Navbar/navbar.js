@@ -23,12 +23,12 @@ console.log(userName)
     ? [
         { label: 'Get Quote', key: 'get-quote', path: '/get-quote' },
         { label: 'About Us', key: 'about-us', path: '/about-us' },
+        { label: 'My Requests/Orders', key: 'my-requests', path: '/my-requests' },
         {
           label: userName,
           key: 'user',
           children: [
             { label: 'Profile', key: 'profile', path: '/profile' },
-            { label: 'My Requests/Orders', key: 'my-orders', path: '/my-orders' },
             { label: 'Log Out', key: 'logout' },
           ],
         },

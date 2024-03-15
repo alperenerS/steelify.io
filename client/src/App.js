@@ -4,12 +4,12 @@ import HomePage from './Pages/Homepage/homePage';
 import Login from './Pages/Login/login';
 import Register from './Pages/Register/register';
 import LandingPage from './Pages/LandingPage/landingPage';
-import OrderDetails from './Pages/OrderDetails/orderDetails';
+import RequestDetails from './Pages/RequestDetails/requestDetails';
 import Navbar from './Pages/Navbar/navbar';
 import GetQuotePage from './Pages/GetQuote/getQuotePage';
 import PageNotFound from './Pages/PageNotFound/pageNotFound';
 import AboutUs from './Pages/AboutUs/aboutUs';
-import MyOrders from './Pages/MyOrders/myOrders';
+import MyRequests from './Pages/MyRequests/myRequests';
 import PrivateRoute from './Utils/PrivateRoute/privateRoute';
 
 function App() {
@@ -22,10 +22,10 @@ function App() {
           <Route path="/landing-page" element={<LandingPage />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/order-details" element={<PrivateRoute><OrderDetails /></PrivateRoute>} />
+          <Route path="/request-details" element={<PrivateRoute><RequestDetails /></PrivateRoute>} />
           <Route path="/get-quote" element={<PrivateRoute><GetQuotePage /></PrivateRoute>} />
           <Route path="/about-us" element={<AboutUs />} />
-          <Route path="/my-orders" element={<PrivateRoute><MyOrders /></PrivateRoute>} />
+          <Route path="/my-requests" element={<PrivateRoute><MyRequests /></PrivateRoute>} />
           <Route path="/*" element={<PageNotFound />} />
         </Routes>
       </div>
