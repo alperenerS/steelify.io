@@ -50,6 +50,11 @@ export class Order extends Model<Order> {
         allowNull:false
     })
     status:string
+    @Column({
+        type:DataType.STRING,
+        allowNull:false
+    })
+    referance:string
 
     @HasMany(() => OrderDocument)
     orderDocument:OrderDocument[]

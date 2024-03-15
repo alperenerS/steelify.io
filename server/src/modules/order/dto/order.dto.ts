@@ -24,4 +24,7 @@ export class OrderDto {
     @IsString()
     @IsNotEmpty()
     readonly status: string;
+    @IsString()
+    @IsNotEmpty()
+    readonly referance: string;
   }
