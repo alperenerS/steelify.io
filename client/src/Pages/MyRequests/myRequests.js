@@ -27,7 +27,6 @@ const MyOrders = () => {
       title: "Details",
       dataIndex: "details",
       key: "Details",
-      sorter: (a, b) => a.details.localeCompare(b.details),
     },
 
     {
