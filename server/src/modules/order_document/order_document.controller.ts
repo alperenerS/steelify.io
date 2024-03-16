@@ -8,13 +8,21 @@ import {
   NotFoundException,
   Param,
   Post,
+  Req,
   Res,
+  UploadedFile,
   UseGuards,
+  UseInterceptors,
 } from '@nestjs/common';
 import { OrderDocumentService } from './order_document.service';
-import { Response } from 'express';
+import { Request, Response } from 'express';
 import { OrderDocsDto } from './dto/order_document.dto';
 import { JwtGuard } from '../auth/guard/jwt.guard';
+import {
+  FileFieldsInterceptor,
+  FileInterceptor,
+} from '@nestjs/platform-express';
+import { uploadFile } from '../utils/upload_azure';
 
 @UseGuards(JwtGuard)
 @Controller('api/order-document')
@@ -58,10 +66,23 @@ export class OrderDocumentController {
   }
 
   @Post('create')
-  async createOrderDocs(@Body() orderDocs: OrderDocsDto, @Res() res: Response) {
+  @UseInterceptors(FileInterceptor('file_link'))
+  async createOrderDocs(
+    @UploadedFile() file_link: Express.Multer.File,
+    @Req() req: Request,
+    @Res() res: Response,
+  ) {
     try {
+      const { order_id, filename } = req.body;
+      const azureUrl = await uploadFile(file_link.buffer, filename);
+
+      const orderDocsDto: OrderDocsDto = {
+        order_id: order_id,
+        filename: filename,
+        file_link: azureUrl,
+      };
       const orderDocument =
-        await this.orderDocsService.createOrderDocs(orderDocs);
+        await this.orderDocsService.createOrderDocs(orderDocsDto);
 
       return res
         .status(HttpStatus.CREATED)
