@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Row, Col, Collapse, Form, Typography } from "antd";
 import "./requestDetails.css";
 import { useForm } from "antd/lib/form/Form";
@@ -12,37 +12,7 @@ const { Paragraph, Title } = Typography;
 
 const RequestDetails = () => {
   const [form] = useForm();
-  const [activeKey, setActiveKey] = useState("1");
-  const [panelCompletionStatus, setPanelCompletionStatus] = useState({
-    1: false,
-    3: false,
-    5: false,
-  });
-
-  // This function is called whenever form values change
-  const onFormValuesChange = (_, allValues) => {
-    const panelsInfo = {
-      1: [
-        "shippingCountry",
-        "shippingStreet",
-        "shippingCity",
-        "shippingProvince",
-        "shippingZip",
-      ],
-      3: ["deliveryDateRange", "specialShippingInstructions"],
-      5: ["productName", "purposeOfUse", "hsCode"],
-    };
-
-    const newPanelCompletionStatus = {};
-
-    Object.keys(panelsInfo).forEach((panelKey) => {
-      const fields = panelsInfo[panelKey];
-      const isPanelComplete = fields.every((field) => !!allValues[field]);
-      newPanelCompletionStatus[panelKey] = isPanelComplete;
-    });
-
-    setPanelCompletionStatus(newPanelCompletionStatus);
-  };
+  const [activeKey, setActiveKey] = React.useState("1");
 
   return (
     <Row>
@@ -50,34 +20,22 @@ const RequestDetails = () => {
         <Col span={24} style={{ marginBottom: "20px" }}>
           <div style={{ textAlign: "center" }}>
             <Title level={4}>We received your quotation!</Title>
-          </div>{" "}
+          </div>
           <Paragraph>
             <strong>Please fill extra information below</strong> to get a
             quotation with delivery options. Otherwise, we will send you a
             quotation for only manufacturing with estimated production time.
           </Paragraph>
         </Col>
-        <Form form={form} layout="vertical" onValuesChange={onFormValuesChange}>
+        <Form form={form} layout="vertical">
           <Collapse activeKey={activeKey} onChange={(key) => setActiveKey(key)}>
-            <Panel
-              header="Shipping Address"
-              key="1"
-              className={panelCompletionStatus["1"] ? "panel-completed" : ""}
-            >
+          <Panel header="Shipping Address" key="1">
               <ShippingAddressPanel form={form} />
             </Panel>
-            <Panel
-              header="Shipping Note & Delivery Date"
-              key="3"
-              className={panelCompletionStatus["3"] ? "panel-completed" : ""}
-            >
+            <Panel header="Shipping Note & Delivery Date" key="3">
               <ShippingNoteAndDeliveryDatePanel form={form} />
             </Panel>
-            <Panel
-              header="Information Required for Customs"
-              key="5"
-              className={panelCompletionStatus["5"] ? "panel-completed" : ""}
-            >
+            <Panel header="Information Required for Customs" key="5">
               <CustomsInformationPanel form={form} />
             </Panel>
           </Collapse>

@@ -11,7 +11,6 @@ const ShippingAddressPanel = ({ form }) => {
 
   return (
     <Form.Item name="shippingAddressPanel">
-      <Form layout="vertical" form={form}>
         <Form.Item label="Country" name="shippingCountry">
           <Input placeholder="Enter your country" />
         </Form.Item>
@@ -27,7 +26,6 @@ const ShippingAddressPanel = ({ form }) => {
         <Form.Item label="Zip Code" name="shippingZip">
           <Input placeholder="Enter your zip code" />
         </Form.Item>
-      </Form>
     </Form.Item>
   );
 };
