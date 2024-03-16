@@ -7,12 +7,20 @@ import {
   NotFoundException,
   Param,
   Post,
+  Req,
   Res,
+  UploadedFile,
+  UseGuards,
+  UseInterceptors,
 } from '@nestjs/common';
 import { OrderSamplePhotosService } from './order_sample_photos.service';
-import { Response } from 'express';
+import { Request, Response } from 'express';
 import { OrderSamplePhotoDto } from './dto/order_sample_photo.dto';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { uploadFile } from '../utils/upload_azure';
+import { JwtGuard } from '../auth/guard/jwt.guard';
 
+@UseGuards(JwtGuard)
 @Controller('api/order-sample-photos')
 export class OrderSamplePhotosController {
   constructor(
@@ -45,11 +53,23 @@ export class OrderSamplePhotosController {
   }
 
   @Post('create')
+  @UseInterceptors(FileInterceptor('filelink'))
   async createPhoto(
-    @Body() photoDto: OrderSamplePhotoDto,
+    @UploadedFile() filelink: Express.Multer.File,
+    @Req() req: Request,
     @Res() res: Response,
   ) {
-    const newPhoto = await this.orderSamplePhotoService.createPhoto(photoDto);
+    const { order_id, filename } = req.body;
+
+    const azureUrl = await uploadFile(filelink.buffer, filename);
+
+    const newphotoDto: OrderSamplePhotoDto = {
+      order_id: order_id,
+      filename: filename,
+      filelink: azureUrl,
+    };
+
+    const newPhoto = await this.orderSamplePhotoService.createPhoto(newphotoDto);
 
     return res
       .status(HttpStatus.CREATED)
