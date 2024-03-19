@@ -17,19 +17,16 @@ export class Order extends Model<Order> {
 
     @Column({
         type:DataType.STRING,
-        allowNull:false
     })
     incoterm:string
 
     @Column({
         type:DataType.STRING,
-        allowNull:false
     })
     paymentterm:string
 
     @Column({
         type:DataType.STRING,
-        allowNull:false
     })
     incoterm_description:string
 
@@ -41,7 +38,6 @@ export class Order extends Model<Order> {
 
     @Column({
         type:DataType.DATE,
-        allowNull:false
     })
     delivery_date:Date
 
@@ -52,9 +48,8 @@ export class Order extends Model<Order> {
     status:string
     @Column({
         type:DataType.STRING,
-        allowNull:false
     })
-    referance:string
+    reference:string
 
     @HasMany(() => OrderDocument)
     orderDocument:OrderDocument[]

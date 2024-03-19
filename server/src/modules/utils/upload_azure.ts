@@ -9,8 +9,6 @@ dotenv.config();
 
 const AZURE_STORAGE_ACCOUNT_NAME = process.env.AZURE_STORAGE_ACCOUNT_NAME || '';
 const AZURE_STORAGE_ACCOUNT_KEY = process.env.AZURE_STORAGE_ACCOUNT_KEY || '';
-const AZURE_STORAGE_CONTAINER_NAME =
-  process.env.AZURE_STORAGE_CONTAINER_NAME || '';
 const AZURE_STORAGE_STEELIFY_CONTAINER_NAME =
   process.env.AZURE_STORAGE_STEELIFY_CONTAINER_NAME || '';
 
@@ -23,7 +21,7 @@ async function uploadFile(
   fileName: string,
 ): Promise<string> {
   const containerClient: ContainerClient = blobServiceClient.getContainerClient(
-    AZURE_STORAGE_CONTAINER_NAME,
+    AZURE_STORAGE_STEELIFY_CONTAINER_NAME,
   );
   await containerClient.createIfNotExists();
   const blockBlobClient: BlockBlobClient =
