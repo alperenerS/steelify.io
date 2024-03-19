@@ -1,8 +1,8 @@
-import React from 'react';
-import axios from 'axios';
-import { useNavigate, Link } from 'react-router-dom';
-import { Form, Input, Button, Checkbox, Card, notification } from 'antd';
-import { API_BASE_URL } from '../../config';
+import React from "react";
+import axios from "axios";
+import { useNavigate, Link } from "react-router-dom";
+import { Form, Input, Button, Checkbox, Card, notification } from "antd";
+import { API_BASE_URL } from "../../config";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -13,41 +13,60 @@ const Login = () => {
         email: values.email,
         password: values.password,
       };
-  
-      const response = await axios.post(`${API_BASE_URL}/auth/login`, loginData);
-  
+
+      const response = await axios.post(
+        `${API_BASE_URL}/auth/login`,
+        loginData
+      );
+
       if (response.data && response.data.data) {
         // save access token to local storage
-        localStorage.setItem('accessToken', response.data.data.access_token);
-  
+        localStorage.setItem("accessToken", response.data.data.access_token);
+
         notification.success({
-          message: 'Login Successful',
-          description: response.data.message || 'You have successfully logged in!',
+          message: "Login Successful",
+          description:
+            response.data.message || "You have successfully logged in!",
         });
-        
-        navigate('/');
+
+        navigate("/");
       } else {
         notification.error({
-          message: 'Login Failed',
-          description: 'Invalid email or password.',
+          message: "Login Failed",
+          description: "Invalid email or password.",
         });
       }
     } catch (error) {
       notification.error({
-        message: 'Login Failed',
-        description: `An error occurred. Please try again later. ${error.response?.data?.message || ''}`,
+        message: "Login Failed",
+        description: `An error occurred. Please try again later. ${
+          error.response?.data?.message || ""
+        }`,
       });
     }
   };
-  
 
   const onFinishFailed = (errorInfo) => {
-    console.log('Failed:', errorInfo);
+    console.log("Failed:", errorInfo);
   };
 
   return (
-    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '80vh' }}>
-      <Card title="Login" style={{ maxWidth: 600, width: '100%', boxShadow: '0 4px 8px 0 rgba(0,0,0,0.2)' }}>
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        minHeight: "80vh",
+      }}
+    >
+      <Card
+        title="Login"
+        style={{
+          maxWidth: 600,
+          width: "100%",
+          boxShadow: "0 4px 8px 0 rgba(0,0,0,0.2)",
+        }}
+      >
         <Form
           name="basic"
           labelCol={{ span: 8 }}
@@ -60,7 +79,7 @@ const Login = () => {
           <Form.Item
             label="Email"
             name="email"
-            rules={[{ required: true, message: 'Please input your email!' }]}
+            rules={[{ required: true, message: "Please input your email!" }]}
           >
             <Input />
           </Form.Item>
@@ -68,7 +87,7 @@ const Login = () => {
           <Form.Item
             label="Password"
             name="password"
-            rules={[{ required: true, message: 'Please input your password!' }]}
+            rules={[{ required: true, message: "Please input your password!" }]}
           >
             <Input.Password />
           </Form.Item>
@@ -87,7 +106,7 @@ const Login = () => {
             </Button>
           </Form.Item>
         </Form>
-        <div style={{ marginTop: 16, textAlign: 'center' }}>
+        <div style={{ marginTop: 16, textAlign: "center" }}>
           Don't have an account? <Link to="/register">Click to Register</Link>
         </div>
       </Card>
