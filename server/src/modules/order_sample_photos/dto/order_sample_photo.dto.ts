@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
+import { IsArray, IsNotEmpty, IsNumber, IsString } from 'class-validator';
 
 export class OrderSamplePhotoDto {
   @IsNotEmpty()
@@ -9,6 +9,5 @@ export class OrderSamplePhotoDto {
   readonly filename: string;
   @IsNotEmpty()
   @IsString()
-  readonly filelink: string;
-
+  readonly filelink: string[];
 }

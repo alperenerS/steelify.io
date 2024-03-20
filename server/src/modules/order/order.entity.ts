@@ -31,7 +31,7 @@ export class Order extends Model<Order> {
     incoterm_description:string
 
     @Column({
-        type:DataType.STRING,
+        type:DataType.TEXT,
         allowNull:false
     })
     quotation_note:string

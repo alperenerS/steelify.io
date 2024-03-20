@@ -26,8 +26,8 @@ export class OrderSamplePhotos extends Model<OrderSamplePhotos> {
   filename: string;
 
   @Column({
-    type: DataType.STRING,
+    type: DataType.JSON,
     allowNull: false,
   })
-  filelink: string;
+  filelink: string[];
 }

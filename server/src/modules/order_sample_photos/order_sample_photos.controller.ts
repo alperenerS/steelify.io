@@ -10,13 +10,14 @@ import {
   Req,
   Res,
   UploadedFile,
+  UploadedFiles,
   UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
 import { OrderSamplePhotosService } from './order_sample_photos.service';
 import { Request, Response } from 'express';
 import { OrderSamplePhotoDto } from './dto/order_sample_photo.dto';
-import { FileInterceptor } from '@nestjs/platform-express';
+import { FileInterceptor, FilesInterceptor } from '@nestjs/platform-express';
 import { uploadFile } from '../utils/upload_azure';
 import { JwtGuard } from '../auth/guard/jwt.guard';
 
@@ -53,28 +54,38 @@ export class OrderSamplePhotosController {
   }
 
   @Post('create')
-  @UseInterceptors(FileInterceptor('filelink'))
-  async createPhoto(
-    @UploadedFile() filelink: Express.Multer.File,
-    @Req() req: Request,
-    @Res() res: Response,
-  ) {
-    const { order_id, filename } = req.body;
+@UseInterceptors(FilesInterceptor('filelink', 25))
+async createPhoto(
+  @UploadedFiles() filelink: Array<Express.Multer.File>, 
+  @Req() req: Request,
+  @Res() res: Response,
+) {
+  const { order_id, filename } = req.body;
 
-    const azureUrl = await uploadFile(filelink.buffer, filename);
-
-    const newphotoDto: OrderSamplePhotoDto = {
-      order_id: order_id,
-      filename: filename,
-      filelink: azureUrl,
-    };
-
-    const newPhoto = await this.orderSamplePhotoService.createPhoto(newphotoDto);
-
-    return res
-      .status(HttpStatus.CREATED)
-      .json({ message: 'Successfully Created !', data: newPhoto });
+  if (!filelink || filelink.length === 0) {
+    return res.status(HttpStatus.BAD_REQUEST).json({ message: 'No files uploaded' });
   }
+
+  const azureUrls = await Promise.all(
+    filelink.map(async (file) => {
+      const azureUrl = await uploadFile(file.buffer, filename);
+      return azureUrl;
+    }),
+  );
+
+  const newphotoDto: OrderSamplePhotoDto = {
+    order_id: order_id,
+    filename: filename,
+    filelink: azureUrls,
+  };
+
+  const newPhoto = await this.orderSamplePhotoService.createPhoto(newphotoDto);
+
+  return res
+    .status(HttpStatus.CREATED)
+    .json({ message: 'Successfully Created !', data: newPhoto });
+}
+
 
   @Delete('delete/:id')
   async deletePhoto(@Param('id') id: number, @Res() res: Response) {
