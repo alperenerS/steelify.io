@@ -54,38 +54,45 @@ export class OrderSamplePhotosController {
   }
 
   @Post('create')
-@UseInterceptors(FilesInterceptor('filelink', 25))
-async createPhoto(
-  @UploadedFiles() filelink: Array<Express.Multer.File>, 
-  @Req() req: Request,
-  @Res() res: Response,
-) {
-  const { order_id, filename } = req.body;
+  @UseInterceptors(FilesInterceptor('filelink', 25))
+  async createPhoto(
+    @UploadedFiles() filelink: Array<Express.Multer.File>,
+    @Req() req: Request,
+    @Res() res: Response,
+  ) {
+    const { order_id, filename } = req.body;
 
-  if (!filelink || filelink.length === 0) {
-    return res.status(HttpStatus.BAD_REQUEST).json({ message: 'No files uploaded' });
+    const order = await this.orderSamplePhotoService.findOrderById(order_id);
+
+    
+    
+
+    if (!filelink || filelink.length === 0) {
+      return res
+        .status(HttpStatus.BAD_REQUEST)
+        .json({ message: 'No files uploaded' });
+    }
+
+    const azureUrls = await Promise.all(
+      filelink.map(async (file) => {
+        const azureUrl = await uploadFile(file.buffer, `${order.name}/${file.originalname}`);
+        return azureUrl;
+      }),
+    );
+
+    const newphotoDto: OrderSamplePhotoDto = {
+      order_id: order_id,
+      filename: filename,
+      filelink: azureUrls,
+    };
+
+    const newPhoto =
+      await this.orderSamplePhotoService.createPhoto(newphotoDto);
+
+    return res
+      .status(HttpStatus.CREATED)
+      .json({ message: 'Successfully Created !', data: newPhoto });
   }
-
-  const azureUrls = await Promise.all(
-    filelink.map(async (file) => {
-      const azureUrl = await uploadFile(file.buffer, filename);
-      return azureUrl;
-    }),
-  );
-
-  const newphotoDto: OrderSamplePhotoDto = {
-    order_id: order_id,
-    filename: filename,
-    filelink: azureUrls,
-  };
-
-  const newPhoto = await this.orderSamplePhotoService.createPhoto(newphotoDto);
-
-  return res
-    .status(HttpStatus.CREATED)
-    .json({ message: 'Successfully Created !', data: newPhoto });
-}
-
 
   @Delete('delete/:id')
   async deletePhoto(@Param('id') id: number, @Res() res: Response) {
