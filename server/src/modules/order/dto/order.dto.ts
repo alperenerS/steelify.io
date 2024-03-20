@@ -1,8 +1,6 @@
 import { IsDate, IsEmail, IsNotEmpty, IsString } from "class-validator";
 
 export class OrderDto {
-    @IsString()
-    @IsNotEmpty()
     readonly name: string;
     @IsString()
     @IsNotEmpty()

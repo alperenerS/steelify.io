@@ -5,28 +5,38 @@ import { OrderDto } from './dto/order.dto';
 
 @Injectable()
 export class OrderService {
-    constructor(@Inject(ORDER_REPOSITORY) private readonly orderRepository: typeof Order){}
+  constructor(
+    @Inject(ORDER_REPOSITORY) private readonly orderRepository: typeof Order,
+  ) {}
 
-    async createOrder(order:OrderDto):Promise<Order>{
-        const response = await this.orderRepository.create(order);
+  async createOrder(order: OrderDto): Promise<Order> {
+    const response = await this.orderRepository.create(order);
 
-        return response;
-    }
+    return response;
+  }
 
-    async updateOrder(order:OrderDto,id:number){
-        const response = await this.orderRepository.update(order,{where:{id:id}});
-        
-        return response;
-    }
+  async updateOrder(order: OrderDto, id: number) {
+    const response = await this.orderRepository.update(order, {
+      where: { id: id },
+    });
 
-    async updateOrderStatus(status: string, id: number) {
-        const response = await this.orderRepository.update({ status }, { where: { id } });
-      
-        return response;
-      }
-      
+    return response;
+  }
 
-    async deleteOrder(id:number){
-        return await this.orderRepository.destroy({where:{id:id}});
-    }
+  async updateOrderStatus(status: string, id: number) {
+    const response = await this.orderRepository.update(
+      { status },
+      { where: { id } },
+    );
+
+    return response;
+  }
+
+  async deleteOrder(id: number) {
+    return await this.orderRepository.destroy({ where: { id: id } });
+  }
+
+  async countOrders(): Promise<any> {
+    return await this.orderRepository.count();
+  }
 }
