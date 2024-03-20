@@ -2,7 +2,6 @@ import React from 'react';
 import { Row, Col } from 'antd';
 import LandingPageHeader from './landingPageHeader';
 import FeaturesSection from './featuresSection';
-import AboutSteelifySection from './aboutSteelifySection';
 import InfoSection from './infoSection';
 
 function LandingPage() {
