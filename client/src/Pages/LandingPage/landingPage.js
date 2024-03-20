@@ -10,9 +10,8 @@ function LandingPage() {
     <div>
       <LandingPageHeader />
       <Row justify="center">
-        <Col xs={24} md={20} lg={16} xl={14}>
+        <Col xs={24} md={22} lg={20} xl={16}>
           <FeaturesSection />
-          {/* <AboutSteelifySection /> */}
           <InfoSection />
         </Col>
       </Row>
