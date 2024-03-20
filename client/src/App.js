@@ -1,6 +1,5 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import HomePage from './Pages/Homepage/homePage';
 import Login from './Pages/Login/login';
 import Register from './Pages/Register/register';
 import LandingPage from './Pages/LandingPage/landingPage';
@@ -10,6 +9,7 @@ import GetQuotePage from './Pages/GetQuote/getQuotePage';
 import PageNotFound from './Pages/PageNotFound/pageNotFound';
 import AboutUs from './Pages/AboutUs/aboutUs';
 import MyRequests from './Pages/MyRequests/myRequests';
+import Profile from './Pages/Profile/profile';
 import PrivateRoute from './Utils/PrivateRoute/privateRoute';
 
 function App() {
@@ -26,6 +26,7 @@ function App() {
           <Route path="/get-quote" element={<PrivateRoute><GetQuotePage /></PrivateRoute>} />
           <Route path="/about-us" element={<AboutUs />} />
           <Route path="/my-requests" element={<PrivateRoute><MyRequests /></PrivateRoute>} />
+          <Route path="/profile" element={<PrivateRoute><Profile /></PrivateRoute>} />
           <Route path="/*" element={<PageNotFound />} />
         </Routes>
       </div>

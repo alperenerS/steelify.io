@@ -1,31 +1,45 @@
-import React from 'antd';
-import { Upload, message } from 'antd';
-import { InboxOutlined } from '@ant-design/icons';
+import React from "react";
+import { Upload, message } from "antd";
+import { InboxOutlined } from "@ant-design/icons";
 
 const { Dragger } = Upload;
 
 const FileUpload = ({ onFileListChange }) => {
-  const onChange = (info) => {
-      const newFiles = info.fileList.map(file => file.originFileObj ? file.originFileObj : file);
-      onFileListChange(newFiles);
+  const allowedExtensions = [".xlsx", ".step", ".stp", ".dwg", ".dxf", ".pdf", ".mp4"];
+
+  const beforeUpload = (file) => {
+    const isAllowed = allowedExtensions.some(extension => file.name.endsWith(extension));
+    if (!isAllowed) {
+      message.error(`${file.name} is not a supported file type.`);
+    }
+    return isAllowed || Upload.LIST_IGNORE; // Eğer dosya izin verilen türde değilse, yüklemeyi engelle
   };
 
-    return (
-        <Dragger
-            name="file"
-            multiple={true}
-            beforeUpload={() => false} // Dosya yükleme işlemini engeller
-            onChange={onChange}
-        >
-            <p className="ant-upload-drag-icon">
-                <InboxOutlined />
-            </p>
-            <p className="ant-upload-text">Upload files here</p>
-            <p className="ant-upload-hint">
-                Support for a single or bulk upload.
-            </p>
-        </Dragger>
+  const onChange = (info) => {
+    const newFiles = info.fileList.map(file =>
+      file.originFileObj ? file.originFileObj : file
     );
+    onFileListChange(newFiles);
+  };
+
+  return (
+    <Dragger
+      name="file"
+      multiple={true}
+      beforeUpload={beforeUpload} // Dosya yükleme işlemini engeller ve izin verilen uzantıları kontrol eder
+      onChange={onChange}
+    >
+      <p className="ant-upload-drag-icon">
+        <InboxOutlined />
+      </p>
+      <p className="ant-upload-text">UPLOAD LISTS & DRAWINGS</p>
+      <p className="ant-upload-hint">
+        Supported file types: {allowedExtensions.join(", ")} <br />
+        Supports single or bulk upload. Strictly prohibit from uploading company
+        data or other banned files.
+      </p>
+    </Dragger>
+  );
 };
 
 export default FileUpload;
