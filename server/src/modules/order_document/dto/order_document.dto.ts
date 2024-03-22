@@ -9,5 +9,5 @@ export class OrderDocsDto {
   readonly filename: string;
   @IsString()
   @IsNotEmpty()
-  readonly file_link: string;
+  readonly file_link: string[];
 }

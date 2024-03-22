@@ -26,8 +26,8 @@ export class OrderDocument extends Model<OrderDocument> {
   filename:string
 
   @Column({
-    type:DataType.STRING,
+    type:DataType.JSON,
     allowNull:false
   })
-  file_link:string
+  file_link:string[]
 }

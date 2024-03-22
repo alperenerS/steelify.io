@@ -11,6 +11,7 @@ import {
   Req,
   Res,
   UploadedFile,
+  UploadedFiles,
   UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
@@ -21,6 +22,7 @@ import { JwtGuard } from '../auth/guard/jwt.guard';
 import {
   FileFieldsInterceptor,
   FileInterceptor,
+  FilesInterceptor,
 } from '@nestjs/platform-express';
 import { uploadFile } from '../utils/upload_azure';
 
@@ -66,20 +68,35 @@ export class OrderDocumentController {
   }
 
   @Post('create')
-  @UseInterceptors(FileInterceptor('file_link'))
+  @UseInterceptors(FilesInterceptor('file_link',25))
   async createOrderDocs(
-    @UploadedFile() file_link: Express.Multer.File,
+    @UploadedFiles() file_link: Array<Express.Multer.File>,
     @Req() req: Request,
     @Res() res: Response,
   ) {
     try {
       const { order_id, filename } = req.body;
-      const azureUrl = await uploadFile(file_link.buffer, filename);
+
+      const order = await this.orderDocsService.findOrderById(order_id);
+      
+      
+      if (!file_link || file_link.length === 0) {
+        return res
+          .status(HttpStatus.BAD_REQUEST)
+          .json({ message: 'No files uploaded' });
+      }
+  
+      const azureUrls = await Promise.all(
+        file_link.map(async (file) => {
+          const azureUrl = await uploadFile(file.buffer, `${order.name}/OrderDocuments/${file.originalname}`);
+          return azureUrl;
+        }),
+      ); //multifile kismini buraya entegre et order_sample_photos icinden
 
       const orderDocsDto: OrderDocsDto = {
         order_id: order_id,
         filename: filename,
-        file_link: azureUrl,
+        file_link: azureUrls,
       };
       const orderDocument =
         await this.orderDocsService.createOrderDocs(orderDocsDto);
