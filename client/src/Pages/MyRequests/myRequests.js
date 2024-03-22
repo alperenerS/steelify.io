@@ -1,9 +1,10 @@
 import React from "react";
-import { Table, Row, Col, Badge} from "antd";
+import { Table, Row, Col, Badge, Button } from "antd";
 import { requestsData } from "./requestsData";
 import "./myRequests.css";
+import { Link } from "react-router-dom";
 
-const MyOrders = () => {
+const MyRequests = () => {
   const columns = [
     {
       title: "Request Number",
@@ -27,6 +28,15 @@ const MyOrders = () => {
       title: "Details",
       dataIndex: "details",
       key: "Details",
+      render: (text, record) => (
+        <Link to={`/request-details/${record.key}`}>
+          <span
+            className={`view-request ${record.details ? "filled" : "empty"}`}
+          >
+            View Request
+          </span>
+        </Link>
+      ),
     },
 
     {
@@ -67,7 +77,7 @@ const MyOrders = () => {
   ];
 
   return (
-    <Row justify="center" className="myOrdersContainer">
+    <Row justify="center" className="myRequestsContainer">
       <Col span={24} md={20} lg={18}>
         <Table
           columns={columns}
@@ -79,4 +89,4 @@ const MyOrders = () => {
   );
 };
 
-export default MyOrders;
+export default MyRequests;
