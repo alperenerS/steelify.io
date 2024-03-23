@@ -72,7 +72,12 @@ export class OrderService {
     }
 
     const response = await this.photosRepository.create(dto);
-    
+
     return response;
   }
+
+  async getOrders(): Promise<Order[]> {
+    return await this.orderRepository.findAll();
+  }
+
 }

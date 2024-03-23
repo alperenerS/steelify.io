@@ -2,7 +2,9 @@ import {
   Body,
   Controller,
   Delete,
+  Get,
   HttpStatus,
+  NotFoundException,
   Param,
   Post,
   Put,
@@ -26,6 +28,19 @@ import { uploadFile } from '../utils/upload_azure';
 @Controller('api/order')
 export class OrderController {
   constructor(private readonly orderService: OrderService) {}
+
+  @Get()
+  async getOrders(@Res() res: Response) {
+    const orders = await this.orderService.getOrders();
+
+    if (orders.length === 0) {
+      throw new NotFoundException('There is no orders !');
+    }
+
+    return res
+      .status(HttpStatus.OK)
+      .json({ message: 'Successfully Fetched !', data: orders });
+  }
 
   @Post('createOrder')
   @UseInterceptors(
@@ -62,7 +77,11 @@ export class OrderController {
 
       const newOrderName = `ST-${formattedOrderNumber}`;
 
-      if (!files || files.orderDocs.length === 0 || files.samplePhotos.length === 0) {
+      if (
+        !files ||
+        files.orderDocs.length === 0 ||
+        files.samplePhotos.length === 0
+      ) {
         return res
           .status(HttpStatus.BAD_REQUEST)
           .json({ message: 'No files uploaded' });
