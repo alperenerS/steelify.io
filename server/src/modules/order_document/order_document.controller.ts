@@ -91,7 +91,7 @@ export class OrderDocumentController {
           const azureUrl = await uploadFile(file.buffer, `${order.name}/OrderDocuments/${file.originalname}`);
           return azureUrl;
         }),
-      ); //multifile kismini buraya entegre et order_sample_photos icinden
+      ); 
 
       const orderDocsDto: OrderDocsDto = {
         order_id: order_id,

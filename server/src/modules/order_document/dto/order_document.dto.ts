@@ -6,7 +6,7 @@ export class OrderDocsDto {
   readonly order_id: number;
   @IsString()
   @IsNotEmpty()
-  readonly filename: string;
+  readonly filename: string[];
   @IsString()
   @IsNotEmpty()
   readonly file_link: string[];
