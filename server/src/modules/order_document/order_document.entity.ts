@@ -20,14 +20,14 @@ export class OrderDocument extends Model<OrderDocument> {
   order: Order;
 
   @Column({
-    type:DataType.STRING,
+    type:DataType.JSON,
     allowNull:false
   })
-  filename:string
+  filename:string[]
 
   @Column({
-    type:DataType.STRING,
+    type:DataType.JSON,
     allowNull:false
   })
-  file_link:string
+  file_link:string[]
 }

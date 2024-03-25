@@ -6,7 +6,7 @@ export class OrderSamplePhotoDto {
   readonly order_id: number;
   @IsNotEmpty()
   @IsString()
-  readonly filename: string;
+  readonly filename: string[];
   @IsNotEmpty()
   @IsString()
   readonly filelink: string[];

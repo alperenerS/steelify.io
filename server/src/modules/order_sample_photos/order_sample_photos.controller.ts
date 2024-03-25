@@ -75,7 +75,7 @@ export class OrderSamplePhotosController {
 
     const azureUrls = await Promise.all(
       filelink.map(async (file) => {
-        const azureUrl = await uploadFile(file.buffer, `${order.name}/${file.originalname}`);
+        const azureUrl = await uploadFile(file.buffer, `${order.name}/SamplePhotos/${file.originalname}`);
         return azureUrl;
       }),
     );

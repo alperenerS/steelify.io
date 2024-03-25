@@ -2,26 +2,60 @@ import {
   Body,
   Controller,
   Delete,
+  Get,
   HttpStatus,
+  NotFoundException,
   Param,
   Post,
   Put,
   Req,
   Res,
+  UploadedFiles,
   UseGuards,
+  UseInterceptors,
 } from '@nestjs/common';
 import { JwtGuard } from '../auth/guard/jwt.guard';
 import { OrderService } from './order.service';
 import { OrderDto } from './dto/order.dto';
 import { Request, Response } from 'express';
+import {
+  FileFieldsInterceptor,
+  FilesInterceptor,
+} from '@nestjs/platform-express';
+import { QuoteDto } from './dto/quote.dto';
+import { uploadFile } from '../utils/upload_azure';
 @UseGuards(JwtGuard)
 @Controller('api/order')
 export class OrderController {
   constructor(private readonly orderService: OrderService) {}
 
+  @Get()
+  async getOrders(@Res() res: Response) {
+    const orders = await this.orderService.getOrders();
+
+    if (orders.length === 0) {
+      throw new NotFoundException('There is no orders !');
+    }
+
+    return res
+      .status(HttpStatus.OK)
+      .json({ message: 'Successfully Fetched !', data: orders });
+  }
+
   @Post('createOrder')
+  @UseInterceptors(
+    FileFieldsInterceptor([
+      { name: 'orderDocs', maxCount: 25 },
+      { name: 'samplePhotos', maxCount: 25 },
+    ]),
+  )
   async createOrder(
-    @Body() order: OrderDto,
+    @UploadedFiles()
+    files: {
+      orderDocs?: Express.Multer.File[];
+      samplePhotos?: Express.Multer.File[];
+    },
+    @Body() quoteDto: QuoteDto,
     @Res() res: Response,
     @Req() req: Request,
   ) {
@@ -39,9 +73,27 @@ export class OrderController {
       const existingOrdersCount = await this.orderService.countOrders();
 
       const newOrderNumber = existingOrdersCount + 1;
-      const formattedOrderNumber = newOrderNumber.toString().padStart(5, '0'); // Numarayı 5 haneli olacak şekilde formatlayın
+      const formattedOrderNumber = newOrderNumber.toString().padStart(5, '0');
 
       const newOrderName = `ST-${formattedOrderNumber}`;
+
+      if (
+        !files ||
+        files.orderDocs.length === 0 ||
+        files.samplePhotos.length === 0
+      ) {
+        return res
+          .status(HttpStatus.BAD_REQUEST)
+          .json({ message: 'No files uploaded' });
+      }
+
+      const orderDocsOriginalName: any = files.orderDocs.map((file) => {
+        return file.originalname;
+      });
+
+      const samplePhotosOriginalName: any = files.samplePhotos.map((file) => {
+        return file.originalname;
+      });
 
       const orderDto: OrderDto = {
         name: newOrderName,
@@ -54,13 +106,52 @@ export class OrderController {
         status: status,
         reference: reference,
       };
+
       const newOrder = await this.orderService.createOrder(orderDto);
 
-      return res
-        .status(HttpStatus.CREATED)
-        .json({ message: 'Successfully Created !', data: newOrder });
+      const orderDocsFiles = await Promise.all(
+        files.orderDocs.map(async (file) => {
+          const azureUrl = await uploadFile(
+            file.buffer,
+            `${orderDto.name}/OrderDocuments/${file.originalname}`,
+          );
+          file.originalname = orderDocsOriginalName;
+          return azureUrl;
+        }),
+      );
+
+      const samplePhotosFiles = await Promise.all(
+        files.samplePhotos.map(async (file) => {
+          const azureUrl = await uploadFile(
+            file.buffer,
+            `${orderDto.name}/SamplePhotos/${file.originalname}`,
+          );
+          file.originalname = samplePhotosOriginalName;
+          return azureUrl;
+        }),
+      );
+
+      const orderDocsDto: any = {
+        order_id: newOrder.id,
+        filename: orderDocsOriginalName,
+        file_link: orderDocsFiles,
+      };
+
+      const samplePhotosDto: any = {
+        order_id: newOrder.id,
+        filename: samplePhotosOriginalName,
+        filelink: samplePhotosFiles,
+      };
+
+      const samplePhotos = await this.orderService.createPhoto(samplePhotosDto);
+      const orderDocs = await this.orderService.createOrderDocs(orderDocsDto);
+      return res.status(HttpStatus.CREATED).json({
+        message: 'Successfully Created !',
+        data: newOrder,
+        photos: samplePhotos,
+        orderDocs: orderDocs,
+      });
     } catch (error) {
-      // Hata durumunda uygun şekilde işleyin
       return res
         .status(HttpStatus.INTERNAL_SERVER_ERROR)
         .json({ message: 'Failed to create order.', error: error.message });
