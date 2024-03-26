@@ -80,4 +80,9 @@ export class OrderService {
     return await this.orderRepository.findAll();
   }
 
+  async getOrdersByCustomer(customer: string): Promise<Order> {
+    return await this.orderRepository.findOne({
+      where: { customer: customer },
+    });
+  }
 }
