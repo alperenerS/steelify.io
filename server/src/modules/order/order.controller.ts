@@ -8,6 +8,7 @@ import {
   Param,
   Post,
   Put,
+  Query,
   Req,
   Res,
   UploadedFiles,
@@ -40,6 +41,22 @@ export class OrderController {
     return res
       .status(HttpStatus.OK)
       .json({ message: 'Successfully Fetched !', data: orders });
+  }
+
+  @Get('customerName')
+  async getOrderByCustomer(
+    @Query('customer') customer: string,
+    @Res() res: Response,
+  ) {
+    const selectedOrder = await this.orderService.getOrdersByCustomer(customer);
+
+    if (!selectedOrder) {
+      throw new NotFoundException('Order can not be found !');
+    }
+
+    return res
+      .status(HttpStatus.OK)
+      .json({ message: 'Order Successfully fetched !', data: selectedOrder });
   }
 
   @Post('createOrder')
