@@ -43,6 +43,19 @@ export class OrderController {
       .json({ message: 'Successfully Fetched !', data: orders });
   }
 
+  @Get(':id')
+  async getOrderById(@Param('id') id: number, @Res() res: Response) {
+    const order = await this.orderService.getOrderById(id);
+
+    if (!order) {
+      throw new NotFoundException('Order can not be found !');
+    }
+
+    return res
+      .status(HttpStatus.OK)
+      .json({ message: 'Order Successfully Fetched !', data: order });
+  }
+
   @Get('customerName')
   async getOrderByCustomer(
     @Query('customer') customer: string,

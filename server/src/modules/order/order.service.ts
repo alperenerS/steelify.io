@@ -85,4 +85,8 @@ export class OrderService {
       where: { customer: customer },
     });
   }
+
+  async getOrderById(id: number): Promise<Order> {
+    return await this.orderRepository.findByPk(id);
+  }
 }
