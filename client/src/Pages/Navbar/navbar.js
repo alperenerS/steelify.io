@@ -16,7 +16,6 @@ const Navbar = () => {
       setUserName(userName);
     }
   }, []);
-console.log(userName)
   const isAuthenticated = !!localStorage.getItem('accessToken');
 
   const items = isAuthenticated

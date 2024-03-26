@@ -12,7 +12,9 @@ const FileUpload = ({ onFileListChange }) => {
     if (!isAllowed) {
       message.error(`${file.name} is not a supported file type.`);
     }
-    return isAllowed || Upload.LIST_IGNORE; // Eğer dosya izin verilen türde değilse, yüklemeyi engelle
+    // Dosya izin verilen türdeyse bile yüklemeyi engelle.
+    // Eğer dosya izin verilen türde değilse, kullanıcıya hata mesajı gösterdikten sonra yine yüklemeyi engelle.
+    return false; // Bu, her durumda dosyanın yüklenmesini engeller.
   };
 
   const onChange = (info) => {
