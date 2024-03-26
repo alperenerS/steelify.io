@@ -22,8 +22,9 @@ function App() {
           <Route path="/landing-page" element={<LandingPage />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/request-details" element={<PrivateRoute><RequestDetails /></PrivateRoute>} />
+          <Route path="/request-details/:order_id" element={<PrivateRoute><RequestDetails /></PrivateRoute>} />
           <Route path="/get-quote" element={<PrivateRoute><GetQuotePage /></PrivateRoute>} />
+          <Route path="/get-quote/:order_id" element={<PrivateRoute><GetQuotePage /></PrivateRoute>} />
           <Route path="/about-us" element={<AboutUs />} />
           <Route path="/my-requests" element={<PrivateRoute><MyRequests /></PrivateRoute>} />
           <Route path="/profile" element={<PrivateRoute><Profile /></PrivateRoute>} />
