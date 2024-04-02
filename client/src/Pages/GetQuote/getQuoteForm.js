@@ -4,6 +4,7 @@ import { UploadOutlined } from "@ant-design/icons";
 import FileUpload from "./fileUpload";
 import axios from "axios";
 import { API_BASE_URL } from "../../config";
+import { getUserInfo } from "../../Utils/Auth/authService"; // Yolunu projenize göre ayarlayın
 
 const GetQuoteForm = ({ onSubmit, order_id, isPreFilled = false }) => {
   const [form] = Form.useForm();
@@ -11,6 +12,14 @@ const GetQuoteForm = ({ onSubmit, order_id, isPreFilled = false }) => {
   const [photoList, setPhotoList] = useState([]);
 
   useEffect(() => {
+    // Kullanıcı bilgisi ayarlaması
+    const userInfo = getUserInfo();
+    if (userInfo) {
+      form.setFieldsValue({
+        customer: userInfo.name, // Kullanıcının adını form'a ayarla
+      });
+    }
+
     const fetchQuoteDetails = async () => {
       if (isPreFilled && order_id) {
         try {
@@ -49,14 +58,15 @@ const GetQuoteForm = ({ onSubmit, order_id, isPreFilled = false }) => {
 
   const handlePhotoChange = ({ fileList: newPhotoList }) => {
     const newPhotos = newPhotoList.map((file) => file.originFileObj ? file.originFileObj : file);
-    setPhotoList(newPhotos);
-  };
+    setPhotoList(newPhotos);  };
 
   const onFinish = (values) => {
+    // Extended values ile birlikte kullanıcı adını dahil etme
+    const userInfo = getUserInfo(); // Form gönderilirken tekrar kullanıcı bilgisini al
     const extendedValues = {
       ...values,
       name: "3",
-      customer:"3",
+      customer: userInfo ? userInfo.data.name : "Unknown", // Kullanıcı adı veya varsayılan değer
       incoterm: "3",
       paymentterm: "3",
       incoterm_description: "3",
