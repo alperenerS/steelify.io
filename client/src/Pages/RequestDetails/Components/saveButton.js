@@ -1,55 +1,69 @@
 import React from "react";
 import { Button, notification } from "antd";
-import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
-import { API_BASE_URL } from "../../../config";
+import { getUserInfo } from "../../../Utils/Auth/authService";
 
-const SaveButton = ({ orderData }) => {
-  const navigate = useNavigate();
-  const { order_id } = useParams();
+const SaveButton = ({ shippingFormData }) => {
+  // API isteği için gerekli kullanıcı bilgilerini al
+  const userInfo = getUserInfo();
 
   const handleSave = async () => {
-    if (!order_id) {
+    if (!userInfo || !userInfo.data.id) {
       notification.error({
         message: "Error",
-        description: "Order ID is missing.",
+        description: "User information is missing.",
       });
       return;
     }
   
-    // 'accessToken' adıyla kaydedilen token'ı localStorage'dan al
-    const accessToken = localStorage.getItem('accessToken');
-  
+    if (!shippingFormData || !shippingFormData.shippingStreet) {
+      notification.error({
+        message: "Error",
+        description: "Shipping form data is missing or incomplete.",
+      });
+      return;
+    }
+
+    // `shippingFormData`'dan gelen verileri API'nin beklediği formata dönüştür
+    const addressData = {
+      user_id: userInfo.data.id, // authService'den alınan kullanıcı ID'si
+      address_type: "address_type", // Sabit bir değer ya da formdan alınabilir
+      first_row: shippingFormData.shippingStreet,
+      second_row: "second_row", // Bu alan formda yoksa sabit bir değer kullanılabilir
+      city: shippingFormData.shippingCity,
+      country: shippingFormData.shippingCountry,
+      zip: shippingFormData.shippingZip,
+      phone: "phone",
+      email: userInfo.data.email,
+    };
+    console.log("Sending request to API with data:", addressData);
+
     try {
-      // `orderData` içinde güncellenmesi gereken sipariş bilgileri olmalıdır.
-      const response = await axios.put(
-        `${API_BASE_URL}/order/updateOrder/${order_id}`,
-        orderData,
+      const response = await axios.post(
+        `http://localhost:3001/api/address/create`, // API URL'i
+        addressData,
         {
           headers: {
-            // Bearer token ile Authorization başlığını ekleyin
-            'Authorization': `Bearer ${accessToken}`
+            'Authorization': `Bearer ${localStorage.getItem('accessToken')}`, // Token erişimi
           }
         }
       );
-  
-      if (response.status === 200) {
+
+      if (response.data && response.data.data) {
         notification.success({
           message: "Success",
-          description: "Order updated successfully!",
+          description: "Address created successfully!",
         });
-        navigate("/my-requests");
       } else {
-        throw new Error("Order update failed");
+        throw new Error("Address creation failed");
       }
     } catch (error) {
       notification.error({
         message: "Error",
-        description: `Order update failed. ${error.message}`,
+        description: `Address creation failed. ${error.message}`,
       });
     }
   };
-  
 
   return (
     <Button type="primary" onClick={handleSave}>
