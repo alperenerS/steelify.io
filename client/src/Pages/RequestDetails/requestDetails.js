@@ -13,7 +13,7 @@ const { Paragraph, Title } = Typography;
 
 const RequestDetails = () => {
   const [form] = useForm();
-  const [activeKey, setActiveKey] = React.useState("0");
+  const [activeKey, setActiveKey] = React.useState("1");
 
   return (
     <Row>
@@ -30,9 +30,9 @@ const RequestDetails = () => {
         </Col>
         <Form form={form} layout="vertical">
           <Collapse activeKey={activeKey} onChange={(key) => setActiveKey(key)}>
-            <Panel header="Request Details" key="0">
+            {/* <Panel header="Request Details" key="0">
               <GetQuoteDetails form={form} />
-            </Panel>
+            </Panel> */}
             <Panel header="Shipping Address" key="1">
               <ShippingAddressPanel form={form} />
             </Panel>

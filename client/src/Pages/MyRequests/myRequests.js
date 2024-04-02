@@ -1,10 +1,42 @@
-import React from "react";
-import { Table, Row, Col, Badge, Button } from "antd";
-import { requestsData } from "./requestsData";
-import "./myRequests.css";
+import React, { useEffect, useState } from "react";
+import { Table, Row, Col, Badge } from "antd";
 import { Link } from "react-router-dom";
+import axios from "axios";
+import { getUserInfo } from "../../Utils/Auth/authService"; // Yolunuz proje yapınıza göre değişebilir
+import { API_BASE_URL } from "../../config"; // Yolunuz proje yapınıza göre değişebilir
+import "./myRequests.css";
 
 const MyRequests = () => {
+  const [requestsData, setRequestsData] = useState([]);
+
+  useEffect(() => {
+    const fetchOrdersByCustomer = async () => {
+      const customerName = "emre"; // Dinamik olarak kullanıcıdan alınabilir
+      const accessToken = localStorage.getItem('accessToken');
+  
+      if (accessToken) {
+        try {
+          const response = await axios.get(`${API_BASE_URL}/order/customerName`, {
+            params: {
+              customer: customerName,
+            },
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+            },
+          });
+  
+          console.log(response.data); // Çekilen siparişler
+        } catch (error) {
+          console.error("Siparişler çekilirken bir hata oluştu:", error.response ? error.response.data : error);
+        }
+      }
+    };
+  
+    fetchOrdersByCustomer();
+  }, []);
+  
+  
+
   const columns = [
     {
       title: "Request Number",
@@ -30,48 +62,21 @@ const MyRequests = () => {
       key: "Details",
       render: (text, record) => (
         <Link to={`/request-details/${record.key}`}>
-          <span
-            className={`view-request ${record.details ? "filled" : "empty"}`}
-          >
+          <span className={`view-request ${record.details ? "filled" : "empty"}`}>
             View Request
           </span>
         </Link>
       ),
-    },
-
-    {
-      title: "Action",
-      dataIndex: "action",
-      key: "action",
     },
     {
       title: "State",
       key: "state",
       dataIndex: "state",
       render: (status) => {
-        let color = "success";
-        let text = "Finished";
-        switch (status) {
-          case "Delivered":
-            color = "success";
-            text = "Delivered";
-            break;
-          case "In Transit":
-            color = "processing";
-            text = "In Transit";
-            break;
-          case "Processing":
-            color = "warning";
-            text = "Processing";
-            break;
-          case "Cancelled":
-            color = "error";
-            text = "Cancelled";
-            break;
-          default:
-            break;
-        }
-        return <Badge status={color} text={text} />;
+        let color = status === "Delivered" ? "success" :
+                    status === "In Transit" ? "processing" :
+                    status === "Processing" ? "warning" : "error";
+        return <Badge status={color} text={status} />;
       },
     },
   ];
