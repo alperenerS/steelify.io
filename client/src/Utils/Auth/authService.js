@@ -1,12 +1,16 @@
-// authService.js
-import {jwtDecode} from 'jwt-decode';
+export const saveUserInfo = (response) => {
+  const { access_token, data } = response;
+  localStorage.setItem('accessToken', access_token);
+  localStorage.setItem('userInfo', JSON.stringify(data));
+};
 
-export const getUserInfoFromToken = (token) => {
-  try {
-    const decodedToken = jwtDecode(token);
-    return decodedToken?.name || 'Undefined';
-  } catch (error) {
-    console.error("Error decoding token: ", error);
-    return 'Undefined';
-  }
+
+export const getUserInfo = () => {
+  const userInfoStr = localStorage.getItem('userInfo');
+  return userInfoStr ? JSON.parse(userInfoStr) : null;
+};
+
+export const clearUserInfo = () => {
+  localStorage.removeItem('accessToken');
+  localStorage.removeItem('userInfo');
 };

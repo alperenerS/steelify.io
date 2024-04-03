@@ -3,19 +3,23 @@ import { useNavigate } from 'react-router-dom';
 import { Menu } from 'antd';
 import steelifyLogo from './steelifyLogo.jpeg';
 import './navbar.css';
-import { getUserInfoFromToken } from '../../Utils/Auth/authService';
+import { getUserInfo } from '../../Utils/Auth/authService'; // Güncellenmiş import
 
 const Navbar = () => {
   const navigate = useNavigate();
   const [userName, setUserName] = useState('Undefined');
 
   useEffect(() => {
-    const accessToken = localStorage.getItem('accessToken');
-    if (accessToken) {
-      const userName = getUserInfoFromToken(accessToken);
-      setUserName(userName);
+    const userInfo = getUserInfo(); // Kullanıcı bilgilerini çek
+    if (userInfo && userInfo.data) {
+      setUserName(userInfo.data.name || 'Guest'); // userInfo.data içinden name'i kullan
     }
   }, []);
+  
+  
+  
+  console.log(localStorage.getItem('userInfo'));
+
   const isAuthenticated = !!localStorage.getItem('accessToken');
 
   const items = isAuthenticated
@@ -24,7 +28,7 @@ const Navbar = () => {
         { label: 'About Us', key: 'about-us', path: '/about-us' },
         { label: 'My Requests/Orders', key: 'my-requests', path: '/my-requests' },
         {
-          label: userName,
+          label: userName, // Kullanıcı adını menüde göster
           key: 'user',
           children: [
             { label: 'Profile', key: 'profile', path: '/profile' },
@@ -42,11 +46,12 @@ const Navbar = () => {
   const onClick = (e) => {
     if (e.key === 'logout') {
       localStorage.removeItem('accessToken');
+      setUserName('Undefined'); // Kullanıcı çıkış yaptığında kullanıcı adını sıfırla
       navigate('/login');
       return;
     }
 
-    let item = items.find(item => item.key === e.key) || items.flatMap(i => i.children || []).find(sub => sub.key === e.key);
+    const item = items.find(item => item.key === e.key) || items.flatMap(i => i.children || []).find(sub => sub.key === e.key);
 
     if (item && item.path) {
       navigate(item.path);

@@ -9,9 +9,6 @@ export class OrderProductDto {
   readonly name: string;
   @IsNotEmpty()
   @IsNumber()
-  readonly quantity: number;
-  @IsNotEmpty()
-  @IsNumber()
   readonly hs_code: number;
   @IsNotEmpty()
   @IsString()

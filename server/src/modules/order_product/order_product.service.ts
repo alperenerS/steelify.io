@@ -42,7 +42,6 @@ export class OrderProductService {
       {
         order_id: updateOrderProductDto.order_id,
         name: updateOrderProductDto.name,
-        quantity: updateOrderProductDto.quantity,
         hs_code: updateOrderProductDto.hs_code,
       },
       { where: { id: id } },

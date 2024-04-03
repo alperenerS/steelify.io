@@ -1,11 +1,31 @@
-import React from 'react';
-import { Form, Input, Typography } from 'antd';
-import { CheckCircleOutlined } from '@ant-design/icons';
+import React, { useEffect, useState } from 'react';
+import { Form, Input } from 'antd';
+import { getUserInfo } from '../../../../Utils/Auth/authService';
 
 const ShippingAddressPanel = ({ form }) => {
+  const [initialValues, setInitialValues] = useState({
+    shippingCountry: "000",
+    shippingStreet: "000",
+    shippingCity: "000",
+    shippingProvince: "000",
+    shippingZip: "000",
+    phone: "000", // Varsayılan telefon numarası
+    email: "default@example.com" // Bu, kullanıcı bilgisi çekildikten sonra güncellenecek
+  });
+
+  useEffect(() => {
+    const userInfo = getUserInfo();
+    if (userInfo) {
+      form.setFieldsValue({
+        email: userInfo.email, // Kullanıcının emailini form'a ayarla
+      });
+      setInitialValues(prevValues => ({ ...prevValues, email: userInfo.email }));
+    }
+  }, [form]);
+
   const checkFieldsCompletion = () => {
     const values = form.getFieldsValue();
-    const fields = ['shippingCountry', 'shippingStreet', 'shippingCity', 'shippingProvince', 'shippingZip'];
+    const fields = ['shippingCountry', 'shippingStreet', 'shippingCity', 'shippingProvince', 'shippingZip', 'phone', 'email'];
     return fields.every(field => values[field]);
   };
 

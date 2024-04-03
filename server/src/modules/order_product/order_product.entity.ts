@@ -25,11 +25,7 @@ export class OrderProduct extends Model<OrderProduct> {
   })
   name: string;
 
-  @Column({
-    type: DataType.INTEGER,
-    allowNull: false,
-  })
-  quantity: number;
+
 
   @Column({
     type: DataType.INTEGER,
