@@ -40,7 +40,6 @@ const GetQuotePage = () => {
         }
     });
 
-    console.log("Sending request with data:", JSON.stringify(formDataForLog, null, 2));
 
     try {
       const response = await axios.post(`${API_BASE_URL}/order/createOrder`, formData, {

@@ -1,11 +1,13 @@
 import React from "react";
+import { useParams } from "react-router-dom";
 import { Button, notification } from "antd";
 import axios from "axios";
 import { getUserInfo } from "../../../Utils/Auth/authService";
+import { API_BASE_URL } from "../../../config";
 
 const SaveButton = ({ shippingFormData }) => {
-  // API isteği için gerekli kullanıcı bilgilerini al
   const userInfo = getUserInfo();
+  const { order_id } = useParams();
 
   const handleSave = async () => {
     if (!userInfo || !userInfo.data.id) {
@@ -16,51 +18,59 @@ const SaveButton = ({ shippingFormData }) => {
       return;
     }
   
-    if (!shippingFormData || !shippingFormData.shippingStreet) {
+    if (!shippingFormData) {
       notification.error({
         message: "Error",
-        description: "Shipping form data is missing or incomplete.",
+        description: "Form data is missing or incomplete.",
       });
       return;
     }
 
-    // `shippingFormData`'dan gelen verileri API'nin beklediği formata dönüştür
     const addressData = {
-      user_id: userInfo.data.id, // authService'den alınan kullanıcı ID'si
-      address_type: "address_type", // Sabit bir değer ya da formdan alınabilir
+      user_id: userInfo.data.id,
+      address_type: "address_type",
       first_row: shippingFormData.shippingStreet,
-      second_row: "second_row", // Bu alan formda yoksa sabit bir değer kullanılabilir
+      second_row: "second_row",
       city: shippingFormData.shippingCity,
       country: shippingFormData.shippingCountry,
       zip: shippingFormData.shippingZip,
       phone: "phone",
       email: userInfo.data.email,
     };
-    console.log("Sending request to API with data:", addressData);
+
+    const orderData = {
+      name: userInfo.data.name,
+      customer: userInfo.data.name,
+      incoterm: "incoterm",
+      paymentterm: "paymentterm",
+      incoterm_description: shippingFormData.incoterm_description,
+      quotation_note: "quotation_note2",
+      delivery_date: shippingFormData.deliveryDate ? shippingFormData.deliveryDate.format("DD-MM-YYYY") : undefined,
+      status: "status2",
+      reference: "herhangiBirReferans" // Bu alanı eksiksiz ve string bir değerle doldurun
+
+    };
 
     try {
-      const response = await axios.post(
-        `http://localhost:3001/api/address/create`, // API URL'i
-        addressData,
-        {
-          headers: {
-            'Authorization': `Bearer ${localStorage.getItem('accessToken')}`, // Token erişimi
-          }
-        }
-      );
+      await Promise.all([
+        axios.post(`${API_BASE_URL}/address/create`, addressData, {
+          headers: { 'Authorization': `Bearer ${localStorage.getItem('accessToken')}` }
+        }),
+        axios.put(`${API_BASE_URL}/order/updateOrder/${order_id}`, orderData, {
+          headers: { 'Authorization': `Bearer ${localStorage.getItem('accessToken')}` }
+        })
+      ]);
 
-      if (response.data && response.data.data) {
-        notification.success({
-          message: "Success",
-          description: "Address created successfully!",
-        });
-      } else {
-        throw new Error("Address creation failed");
-      }
+      notification.success({
+        message: "Success",
+        description: "Address and order updated successfully!",
+      });
     } catch (error) {
+      console.error("API request failed with error:", error);
+      console.log(error.response.data); // Sunucunun döndürdüğü hata mesajını loglayın
       notification.error({
         message: "Error",
-        description: `Address creation failed. ${error.message}`,
+        description: `Failed to process. ${error.message}`,
       });
     }
   };
