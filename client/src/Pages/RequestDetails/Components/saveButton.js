@@ -51,6 +51,14 @@ const SaveButton = ({ shippingFormData }) => {
 
     };
 
+    const productData = {
+      order_id: parseInt(order_id), // useParams ile alınan order_id değerini sayıya çevir
+      name: shippingFormData.productName,
+      quantity: 0,
+      hs_code: parseInt(shippingFormData.hsCode), // HS Code'u sayıya çevir
+      purpose_of_use: shippingFormData.purposeOfUse,
+    };
+
     try {
       await Promise.all([
         axios.post(`${API_BASE_URL}/address/create`, addressData, {
@@ -58,9 +66,12 @@ const SaveButton = ({ shippingFormData }) => {
         }),
         axios.put(`${API_BASE_URL}/order/updateOrder/${order_id}`, orderData, {
           headers: { 'Authorization': `Bearer ${localStorage.getItem('accessToken')}` }
+        }),
+        axios.post(`${API_BASE_URL}/order-product/create`, productData, {
+          headers: { 'Authorization': `Bearer ${localStorage.getItem('accessToken')}` }
         })
       ]);
-
+      console.log(productData)
       notification.success({
         message: "Success",
         description: "Address and order updated successfully!",
