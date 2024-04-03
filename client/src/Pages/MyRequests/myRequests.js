@@ -2,82 +2,70 @@ import React, { useEffect, useState } from "react";
 import { Table, Row, Col, Badge } from "antd";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import { getUserInfo } from "../../Utils/Auth/authService"; // Yolunuz proje yapınıza göre değişebilir
-import { API_BASE_URL } from "../../config"; // Yolunuz proje yapınıza göre değişebilir
+import { getUserInfo } from "../../Utils/Auth/authService";
+import { API_BASE_URL } from "../../config";
 import "./myRequests.css";
 
 const MyRequests = () => {
-  const [requestsData, setRequestsData] = useState([]);
+  const [orders, setOrders] = useState([]);
 
   useEffect(() => {
-    const fetchOrdersByCustomer = async () => {
-      const customerName = "emre"; // Dinamik olarak kullanıcıdan alınabilir
+    const fetchOrders = async () => {
       const accessToken = localStorage.getItem('accessToken');
-  
-      if (accessToken) {
-        try {
-          const response = await axios.get(`${API_BASE_URL}/order/customerName`, {
-            params: {
-              customer: customerName,
-            },
-            headers: {
-              Authorization: `Bearer ${accessToken}`,
-            },
-          });
-  
-          console.log(response.data); // Çekilen siparişler
-        } catch (error) {
-          console.error("Siparişler çekilirken bir hata oluştu:", error.response ? error.response.data : error);
+      const userInfo = getUserInfo();
+
+      if (!accessToken || !userInfo) {
+        console.error("User information or access token is missing.");
+        return;
+      }
+
+      try {
+        const response = await axios.get(`${API_BASE_URL}/order/customerName`, {
+          params: {
+            customer: userInfo.data.name, // userInfo.data.name kullanılarak dinamik customer adı
+          },
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        });
+
+        if (response.data && response.data.data) {
+          setOrders(response.data.data);
         }
+      } catch (error) {
+        console.error("Failed to fetch orders:", error);
       }
     };
-  
-    fetchOrdersByCustomer();
+
+    fetchOrders();
   }, []);
-  
-  
 
   const columns = [
     {
-      title: "Request Number",
-      dataIndex: "requestNumber",
-      key: "requestNumber",
-      sorter: (a, b) => a.requestNumber.localeCompare(b.requestNumber),
+      title: "Order ID",
+      dataIndex: "id",
+      key: "id",
     },
     {
-      title: "Reference Number",
-      dataIndex: "referenceNumber",
-      key: "referenceNumber",
-      sorter: (a, b) => a.referenceNumber.localeCompare(b.referenceNumber),
+      title: "Name",
+      dataIndex: "name",
+      key: "name",
     },
     {
-      title: "Request Date",
-      dataIndex: "requestDate",
-      key: "requestDate",
-      sorter: (a, b) => a.requestDate.localeCompare(b.requestDate),
-    },
-    {
-      title: "Details",
-      dataIndex: "details",
-      key: "Details",
-      render: (text, record) => (
-        <Link to={`/request-details/${record.key}`}>
-          <span className={`view-request ${record.details ? "filled" : "empty"}`}>
-            View Request
-          </span>
-        </Link>
-      ),
-    },
-    {
-      title: "State",
-      key: "state",
-      dataIndex: "state",
-      render: (status) => {
-        let color = status === "Delivered" ? "success" :
-                    status === "In Transit" ? "processing" :
-                    status === "Processing" ? "warning" : "error";
+      title: "Status",
+      key: "status",
+      dataIndex: "status",
+      render: status => {
+        let color = status === "3" ? "geekblue" : "green";
         return <Badge status={color} text={status} />;
-      },
+      }
+    },
+    {
+      title: "Action",
+      key: "action",
+      render: (text, record) => (
+        <Link to={`/request-details/${record.id}`}>View Details</Link>
+      ),
     },
   ];
 
@@ -86,7 +74,7 @@ const MyRequests = () => {
       <Col span={24} md={20} lg={18}>
         <Table
           columns={columns}
-          dataSource={requestsData}
+          dataSource={orders}
           pagination={{ pageSize: 10 }}
         />
       </Col>

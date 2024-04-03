@@ -71,14 +71,11 @@ const SaveButton = ({ shippingFormData }) => {
           headers: { 'Authorization': `Bearer ${localStorage.getItem('accessToken')}` }
         })
       ]);
-      console.log(productData)
       notification.success({
         message: "Success",
         description: "Address and order updated successfully!",
       });
     } catch (error) {
-      console.error("API request failed with error:", error);
-      console.log(error.response.data); // Sunucunun döndürdüğü hata mesajını loglayın
       notification.error({
         message: "Error",
         description: `Failed to process. ${error.message}`,

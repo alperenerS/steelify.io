@@ -18,7 +18,6 @@ const Navbar = () => {
   
   
   
-  console.log(localStorage.getItem('userInfo'));
 
   const isAuthenticated = !!localStorage.getItem('accessToken');
 
@@ -31,7 +30,7 @@ const Navbar = () => {
           label: userName, // Kullanıcı adını menüde göster
           key: 'user',
           children: [
-            { label: 'Profile', key: 'profile', path: '/profile' },
+            // { label: 'Profile', key: 'profile', path: '/profile' },
             { label: 'Log Out', key: 'logout' },
           ],
         },
