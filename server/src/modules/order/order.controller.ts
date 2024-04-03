@@ -43,7 +43,7 @@ export class OrderController {
       .json({ message: 'Successfully Fetched !', data: orders });
   }
 
-  @Get(':id')
+  @Get('byOrderId/:id')
   async getOrderById(@Param('id') id: number, @Res() res: Response) {
     const order = await this.orderService.getOrderById(id);
 
