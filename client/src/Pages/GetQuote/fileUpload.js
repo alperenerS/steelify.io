@@ -5,20 +5,28 @@ import { InboxOutlined } from "@ant-design/icons";
 const { Dragger } = Upload;
 
 const FileUpload = ({ onFileListChange }) => {
-  const allowedExtensions = [".xlsx", ".step", ".stp", ".dwg", ".dxf", ".pdf", ".mp4"];
+  const allowedExtensions = [
+    ".xlsx",
+    ".step",
+    ".stp",
+    ".dwg",
+    ".dxf",
+    ".pdf",
+    ".mp4",
+  ];
 
   const beforeUpload = (file) => {
-    const isAllowed = allowedExtensions.some(extension => file.name.endsWith(extension));
+    const isAllowed = allowedExtensions.some((extension) =>
+      file.name.endsWith(extension)
+    );
     if (!isAllowed) {
       message.error(`${file.name} is not a supported file type.`);
     }
-    // Dosya izin verilen türdeyse bile yüklemeyi engelle.
-    // Eğer dosya izin verilen türde değilse, kullanıcıya hata mesajı gösterdikten sonra yine yüklemeyi engelle.
-    return false; // Bu, her durumda dosyanın yüklenmesini engeller.
+    return false;
   };
 
   const onChange = (info) => {
-    const newFiles = info.fileList.map(file =>
+    const newFiles = info.fileList.map((file) =>
       file.originFileObj ? file.originFileObj : file
     );
     onFileListChange(newFiles);
@@ -28,7 +36,7 @@ const FileUpload = ({ onFileListChange }) => {
     <Dragger
       name="file"
       multiple={true}
-      beforeUpload={beforeUpload} // Dosya yükleme işlemini engeller ve izin verilen uzantıları kontrol eder
+      beforeUpload={beforeUpload}
       onChange={onChange}
     >
       <p className="ant-upload-drag-icon">

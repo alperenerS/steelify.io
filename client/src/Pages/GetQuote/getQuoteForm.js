@@ -29,18 +29,22 @@ const GetQuoteForm = ({ onSubmit, order_id, isPreFilled = false }) => {
               ...response.data.data,
               quotation_note: response.data.data.quotation_note,
             });
-            setFileList(response.data.orderDocs.filename.map((name, index) => ({
-              uid: index,
-              name: name,
-              status: 'done',
-              url: response.data.orderDocs.file_link[index],
-            })));
-            setPhotoList(response.data.photos.filename.map((name, index) => ({
-              uid: index,
-              name: name,
-              status: 'done',
-              url: response.data.photos.filelink[index],
-            })));
+            setFileList(
+              response.data.orderDocs.filename.map((name, index) => ({
+                uid: index,
+                name: name,
+                status: "done",
+                url: response.data.orderDocs.file_link[index],
+              }))
+            );
+            setPhotoList(
+              response.data.photos.filename.map((name, index) => ({
+                uid: index,
+                name: name,
+                status: "done",
+                url: response.data.photos.filelink[index],
+              }))
+            );
           }
         } catch (error) {
           console.error("Failed to fetch quote details:", error);
@@ -57,16 +61,18 @@ const GetQuoteForm = ({ onSubmit, order_id, isPreFilled = false }) => {
   };
 
   const handlePhotoChange = ({ fileList: newPhotoList }) => {
-    const newPhotos = newPhotoList.map((file) => file.originFileObj ? file.originFileObj : file);
-    setPhotoList(newPhotos);  };
+    const newPhotos = newPhotoList.map((file) =>
+      file.originFileObj ? file.originFileObj : file
+    );
+    setPhotoList(newPhotos);
+  };
 
   const onFinish = (values) => {
-    // Extended values ile birlikte kullanıcı adını dahil etme
-    const userInfo = getUserInfo(); // Form gönderilirken tekrar kullanıcı bilgisini al
+    const userInfo = getUserInfo();
     const extendedValues = {
       ...values,
       name: "3",
-      customer: userInfo ? userInfo.data.name : "Unknown", // Kullanıcı adı veya varsayılan değer
+      customer: userInfo ? userInfo.data.name : "Unknown",
       incoterm: "3",
       paymentterm: "3",
       incoterm_description: "3",
@@ -74,7 +80,7 @@ const GetQuoteForm = ({ onSubmit, order_id, isPreFilled = false }) => {
       delivery_date: "2024-02-25",
       status: "3",
       reference: "3",
-      filename: "3"
+      filename: "3",
     };
     onSubmit(extendedValues, fileList, photoList);
   };

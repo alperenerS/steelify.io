@@ -14,17 +14,17 @@ const GetQuoteDetails = () => {
     const fetchQuoteDetails = async () => {
       try {
         const response = await axios.get(`${API_BASE_URL}/order/${order_id}`);
-        if(response.data && response.data.data) {
-          // Form alanlarını doldur
+        if (response.data && response.data.data) {
           form.setFieldsValue({
-            requestNumber: response.data.data.name, // Örnek olarak 'name' kullanıldı, gelen veriye göre güncelleyin
-            details: response.data.data.details // 'details' verisini form alanına ata
+            requestNumber: response.data.data.name,
+            details: response.data.data.details,
           });
-          // Dosya listesini ayarla (dosya adı ve linki örneği, gerçek veri yapınıza göre değiştirin)
-          setFileList(response.data.orderDocs.filename.map((name, index) => ({
-            name,
-            url: response.data.orderDocs.file_link[index]
-          })));
+          setFileList(
+            response.data.orderDocs.filename.map((name, index) => ({
+              name,
+              url: response.data.orderDocs.file_link[index],
+            }))
+          );
         }
       } catch (error) {
         console.error("Failed to fetch quote details:", error);
@@ -37,7 +37,6 @@ const GetQuoteDetails = () => {
   const goBack = () => {
     navigate(`/get-quote/${order_id}`);
   };
-  
 
   return (
     <div>
@@ -49,7 +48,6 @@ const GetQuoteDetails = () => {
         <Form.Item name="details" label="Details">
           <Input.TextArea disabled />
         </Form.Item>
-        {/* İhtiyacınıza göre diğer form alanları */}
       </Form>
       <List
         header={<div>Uploaded Files</div>}
@@ -57,7 +55,9 @@ const GetQuoteDetails = () => {
         dataSource={fileList}
         renderItem={(item) => (
           <List.Item>
-            <a href={item.url} target="_blank" rel="noopener noreferrer">{item.name}</a>
+            <a href={item.url} target="_blank" rel="noopener noreferrer">
+              {item.name}
+            </a>
           </List.Item>
         )}
       />

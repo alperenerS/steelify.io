@@ -37,9 +37,7 @@ const Register = () => {
         surname: values.surname,
       });
 
-      // Sunucu yanıtını değerlendirme
       if (response.data && response.data.data) {
-        // Sunucudan gelen mesajı kullanarak başarılı kayıt bildirimi
         notification.success({
           message: "Registration Successful",
           description: response.data.message || "You have successfully registered. Please login.",
@@ -59,7 +57,6 @@ const Register = () => {
     }
   };
 
-  // Popup on/off functions
   const showTermsAndConditionsPopup = () =>
     setTermsAndConditionsPopupVisible(true);
   const hideTermsAndConditionsPopup = () =>

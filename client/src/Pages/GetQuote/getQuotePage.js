@@ -12,70 +12,72 @@ const GetQuotePage = () => {
   const navigate = useNavigate();
 
   const handleSubmit = async (values, fileList, photoList) => {
-    const token = localStorage.getItem('accessToken');
+    const token = localStorage.getItem("accessToken");
     const formData = new FormData();
-    
-    // Dosya ve fotoğraf listelerini FormData'ya ekleyin
-    fileList.forEach(file => {
-        formData.append('orderDocs', file);
+
+    fileList.forEach((file) => {
+      formData.append("orderDocs", file);
     });
 
-    photoList.forEach(photo => {
-        formData.append('samplePhotos', photo);
+    photoList.forEach((photo) => {
+      formData.append("samplePhotos", photo);
     });
 
-    // Form verilerini FormData'ya ekleyin
-    Object.keys(values).forEach(key => {
-        formData.append(key, values[key]);
+    Object.keys(values).forEach((key) => {
+      formData.append(key, values[key]);
     });
 
-    // FormData içeriğini loglama için önce bir objeye dönüştürme
     const formDataForLog = {};
     formData.forEach((value, key) => {
-        // Dosyaları doğrudan loglamak yerine, dosya adlarını loglayacağız
-        if (value instanceof File) {
-            formDataForLog[key] = value.name;
-        } else {
-            formDataForLog[key] = value;
-        }
+      if (value instanceof File) {
+        formDataForLog[key] = value.name;
+      } else {
+        formDataForLog[key] = value;
+      }
     });
 
-
     try {
-      const response = await axios.post(`${API_BASE_URL}/order/createOrder`, formData, {
+      const response = await axios.post(
+        `${API_BASE_URL}/order/createOrder`,
+        formData,
+        {
           headers: {
-              'Authorization': `Bearer ${token}`,
+            Authorization: `Bearer ${token}`,
           },
-      });
-  
-      // Sunucu başarılı bir yanıt döndürdüyse
-      if (response.data && response.data.message === "Successfully Created !") {
-          message.success(response.data.message); // Başarılı yanıt mesajını göster
-          navigate(`/request-details/${response.data.data.id}`); // Başarılı oluşturulan siparişin ID'si ile yönlendir
-      } else {
-          // Beklenmeyen bir yanıt varsa, sunucudan gelen yanıtı logla ve genel bir hata mesajı göster
-          console.log("Server response:", response.data);
-          const errorMessage = response.data && response.data.message ? response.data.message : 'Failed to submit quote request.';
-          message.error(errorMessage);
-      }
-  } catch (error) {
-      // Hata yakalama bloğu
-      if (error.response) {
-          // Sunucu tarafından spesifik bir hata mesajı döndürüldüyse
-          console.log(`Error: ${error.response.status} - ${error.response.data}`);
-          const errorMessage = error.response.data && error.response.data.message ? error.response.data.message : 'Error submitting quote request.';
-          message.error(errorMessage);
-      } else if (error.request) {
-          console.log('Error: The request was made but no response was received', error.request);
-          message.error('No response was received for the request.');
-      } else {
-          console.log('Error', error.message);
-          message.error('Error creating the request.');
-      }
-  }
-  
-};
+        }
+      );
 
+      if (response.data && response.data.message === "Successfully Created !") {
+        message.success(response.data.message);
+        navigate(`/request-details/${response.data.data.id}`);
+      } else {
+        console.log("Server response:", response.data);
+        const errorMessage =
+          response.data && response.data.message
+            ? response.data.message
+            : "Failed to submit quote request.";
+        message.error(errorMessage);
+      }
+    } catch (error) {
+      if (error.response) {
+        console.log(`Error: ${error.response.status} - ${error.response.data}`);
+        const errorMessage =
+          error.response.data && error.response.data.message
+            ? error.response.data.message
+            : "Error submitting quote request.";
+        message.error(errorMessage);
+      } else if (error.request) {
+        console.log(
+          "Error: The request was made but no response was received",
+          error.request
+        );
+        message.error("No response was received for the request.");
+      } else {
+        console.log("Error", error.message);
+        message.error("Error creating the request.");
+      }
+    }
+  };
 
   return (
     <Layout style={{ backgroundColor: "#fff" }}>

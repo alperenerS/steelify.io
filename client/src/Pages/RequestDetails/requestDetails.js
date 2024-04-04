@@ -13,9 +13,8 @@ const { Paragraph, Title } = Typography;
 const RequestDetails = () => {
   const [form] = useForm();
   const [activeKey, setActiveKey] = useState("1");
-  const [formValues, setFormValues] = useState({}); // Form verilerini saklamak için state
+  const [formValues, setFormValues] = useState({});
 
-  // Form verilerindeki değişiklikleri ele al
   const handleFormChange = (_, allValues) => {
     setFormValues(allValues);
   };
@@ -44,7 +43,6 @@ const RequestDetails = () => {
             </Panel>
           </Collapse>
           <Col span={24} style={{ marginTop: "20px" }}>
-            {/* SaveButton'a form verilerini prop olarak geçir */}
             <SaveButton shippingFormData={formValues} />
           </Col>
         </Form>

@@ -17,7 +17,7 @@ const SaveButton = ({ shippingFormData }) => {
       });
       return;
     }
-  
+
     if (!shippingFormData) {
       notification.error({
         message: "Error",
@@ -45,31 +45,38 @@ const SaveButton = ({ shippingFormData }) => {
       paymentterm: "paymentterm",
       incoterm_description: shippingFormData.incoterm_description,
       quotation_note: "quotation_note2",
-      delivery_date: shippingFormData.deliveryDate ? shippingFormData.deliveryDate.format("DD-MM-YYYY") : undefined,
+      delivery_date: shippingFormData.deliveryDate
+        ? shippingFormData.deliveryDate.format("DD-MM-YYYY")
+        : undefined,
       status: "status2",
-      reference: "herhangiBirReferans" // Bu alanı eksiksiz ve string bir değerle doldurun
-
+      reference: "herhangiBirReferans",
     };
 
     const productData = {
-      order_id: parseInt(order_id), // useParams ile alınan order_id değerini sayıya çevir
+      order_id: parseInt(order_id),
       name: shippingFormData.productName,
       quantity: 0,
-      hs_code: parseInt(shippingFormData.hsCode), // HS Code'u sayıya çevir
+      hs_code: parseInt(shippingFormData.hsCode),
       purpose_of_use: shippingFormData.purposeOfUse,
     };
 
     try {
       await Promise.all([
         axios.post(`${API_BASE_URL}/address/create`, addressData, {
-          headers: { 'Authorization': `Bearer ${localStorage.getItem('accessToken')}` }
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          },
         }),
         axios.put(`${API_BASE_URL}/order/updateOrder/${order_id}`, orderData, {
-          headers: { 'Authorization': `Bearer ${localStorage.getItem('accessToken')}` }
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          },
         }),
         axios.post(`${API_BASE_URL}/order-product/create`, productData, {
-          headers: { 'Authorization': `Bearer ${localStorage.getItem('accessToken')}` }
-        })
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          },
+        }),
       ]);
       notification.success({
         message: "Success",

@@ -22,7 +22,7 @@ const MyRequests = () => {
       try {
         const response = await axios.get(`${API_BASE_URL}/order/customerName`, {
           params: {
-            customer: userInfo.data.name, // userInfo.data.name kullanılarak dinamik customer adı
+            customer: userInfo.data.name,
           },
           headers: {
             Authorization: `Bearer ${accessToken}`,
