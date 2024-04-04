@@ -1,17 +1,17 @@
 import React from 'react';
 import { Row, Col, Card, Typography } from 'antd';
-import { SettingOutlined, RocketOutlined, SafetyOutlined, BulbOutlined, CustomerServiceOutlined, EnvironmentOutlined } from '@ant-design/icons';
+import { FormOutlined, SearchOutlined, ToolOutlined, FileProtectOutlined, CustomerServiceOutlined, TruckOutlined } from '@ant-design/icons';
 import './featuresSection.css';
 
 const { Title, Paragraph } = Typography;
 
 const featureCardsData = [
-  { title: 'Automation', icon: <SettingOutlined />, description: 'Streamline your production with advanced automation.' },
-  { title: 'Efficiency', icon: <RocketOutlined />, description: 'Enhance your operational efficiency and output.' },
-  { title: 'Reliability', icon: <SafetyOutlined />, description: 'Depend on reliable and consistent service.' },
-  { title: 'Innovation', icon: <BulbOutlined />, description: 'Innovative solutions for complex challenges.' },
-  { title: 'Customer Service', icon: <CustomerServiceOutlined />, description: 'Exceptional support for all our clients.' },
-  { title: 'Sustainability', icon: <EnvironmentOutlined />, description: 'Committed to sustainable industrial practices.' },
+  { title: 'Quote Management', icon: <FormOutlined />, description: 'Create, send, and track quotes easily.' },
+  { title: 'Best Matches', icon: <SearchOutlined />, description: 'Match with the suitable supplier from our network.' },
+  { title: 'Production', icon: <ToolOutlined />, description: 'Production is closely monitored by our engineers.' },
+  { title: 'Quality', icon: <FileProtectOutlined />, description: 'Quality control processes are documented and shared with you.' },
+  { title: 'Shipment Tracking', icon: <TruckOutlined />, description: 'Know where your shipment is, in real-time.' },
+  { title: 'Customer Service', icon: <CustomerServiceOutlined />, description: 'Exceptional support, every step of the way. Ready to assist.' },
 ];
 
 const FeaturesSection = () => {
