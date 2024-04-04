@@ -11,7 +11,7 @@ function LandingPage() {
       <Row justify="center">
         <Col xs={24} md={22} lg={20} xl={16}>
           <FeaturesSection />
-          <InfoSection />
+          {/* <InfoSection /> */}
         </Col>
       </Row>
     </div>

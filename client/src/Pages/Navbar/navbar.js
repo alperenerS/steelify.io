@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Menu } from "antd";
-import steelifyLogo from "./steelifyLogo.jpeg";
+import steelifyLogo from "./steelifyLogo.png";
 import "./navbar.css";
 import { getUserInfo } from "../../Utils/Auth/authService";
 

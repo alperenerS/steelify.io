@@ -17,7 +17,7 @@ const LandingPageHeader = () => {
   return (
     <Header className="landing-page-header">
       <Title className="title" level={1}>Welcome to Steelify</Title>
-      <Paragraph className="subtitle">Innovating the future of steel manufacturing</Paragraph>
+      <Paragraph className="subtitle" style={{ fontSize: '16px' }}>Innovating the future of steel manufacturing</Paragraph>
       <Button type="primary" onClick={handleGetQuoteClick}>Get Quote</Button>
     </Header>
   );

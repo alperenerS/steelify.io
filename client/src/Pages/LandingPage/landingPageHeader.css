@@ -1,9 +1,9 @@
 .landing-page-header {
   position: relative;
-  background-image: url('backgroundWelding.png');
+  background-image: url('./assets/steelifyBackgroundImage.png');
   background-size: cover;
   background-position: center;
-  height: 90vh;
+  height: 87vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
