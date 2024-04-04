@@ -1,0 +1,43 @@
+.footer {
+    background-color: #39414d; /* Orta ton gri bir renk */
+    padding: 20px 50px;
+  }
+  
+  .footer-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .footer-logo-wrapper {
+    margin-bottom: 20px;
+  }
+  
+  .footer-upper-content, .footer-lower-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 1000px;
+  }
+  
+  .footer-upper-content {
+    flex-direction: row;
+    align-items: center;
+  }
+  
+  .footer-divider {
+    border-top: 1px solid rgba(255, 255, 255, 0.65);
+    width: 100%;
+    max-width: 1000px;
+  }
+  
+  .footer-text, .footer-link {
+    color: rgba(255, 255, 255, 0.65);
+  }
+  
+  .footer-icon {
+    font-size: 24px;
+    color: rgba(255, 255, 255, 0.65);
+  }
+  

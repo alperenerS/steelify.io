@@ -11,6 +11,7 @@ import AboutUs from './Pages/AboutUs/aboutUs';
 import MyRequests from './Pages/MyRequests/myRequests';
 import Profile from './Pages/Profile/profile';
 import PrivateRoute from './Utils/PrivateRoute/privateRoute';
+import AppFooter from './Pages/Footer/footer';
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
           <Route path="/profile" element={<PrivateRoute><Profile /></PrivateRoute>} />
           <Route path="/*" element={<PageNotFound />} />
         </Routes>
+        <AppFooter />
       </div>
     </Router>
   );
