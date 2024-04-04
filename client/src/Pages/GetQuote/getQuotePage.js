@@ -1,17 +1,20 @@
-import React from "react";
-import { Layout, Typography, Card, Row, Col, message } from "antd";
+import React, { useState } from "react";
+import { Layout, Typography, Card, Row, Col, message, Modal, Spin } from "antd";
 import GetQuoteForm from "./getQuoteForm";
 import axios from "axios";
 import { API_BASE_URL } from "../../config";
 import { useNavigate } from "react-router-dom";
+import { CheckCircleOutlined } from "@ant-design/icons";
 
 const { Header, Content } = Layout;
 const { Title } = Typography;
 
 const GetQuotePage = () => {
   const navigate = useNavigate();
+  const [isSubmitting, setIsSubmitting] = useState(false); // Sipariş gönderiliyor durumunu takip edecek
 
   const handleSubmit = async (values, fileList, photoList) => {
+    setIsSubmitting(true); // Sipariş gönderimini başlat
     const token = localStorage.getItem("accessToken");
     const formData = new FormData();
 
@@ -27,15 +30,6 @@ const GetQuotePage = () => {
       formData.append(key, values[key]);
     });
 
-    const formDataForLog = {};
-    formData.forEach((value, key) => {
-      if (value instanceof File) {
-        formDataForLog[key] = value.name;
-      } else {
-        formDataForLog[key] = value;
-      }
-    });
-
     try {
       const response = await axios.post(
         `${API_BASE_URL}/order/createOrder`,
@@ -47,35 +41,21 @@ const GetQuotePage = () => {
         }
       );
 
+      setIsSubmitting(false); // Sipariş gönderimi tamamlandı
+
       if (response.data && response.data.message === "Successfully Created !") {
         message.success(response.data.message);
         navigate(`/request-details/${response.data.data.id}`);
       } else {
         console.log("Server response:", response.data);
-        const errorMessage =
-          response.data && response.data.message
-            ? response.data.message
-            : "Failed to submit quote request.";
-        message.error(errorMessage);
+        message.error("Failed to submit quote request.");
       }
     } catch (error) {
-      if (error.response) {
-        console.log(`Error: ${error.response.status} - ${error.response.data}`);
-        const errorMessage =
-          error.response.data && error.response.data.message
-            ? error.response.data.message
-            : "Error submitting quote request.";
-        message.error(errorMessage);
-      } else if (error.request) {
-        console.log(
-          "Error: The request was made but no response was received",
-          error.request
-        );
-        message.error("No response was received for the request.");
-      } else {
-        console.log("Error", error.message);
-        message.error("Error creating the request.");
-      }
+      setIsSubmitting(false); // Hata durumunda da sipariş gönderimi tamamlandı olarak işaretle
+      console.log("Submit order error:", error);
+      message.error(
+        error.response?.data?.message || "Error submitting quote request."
+      );
     }
   };
 
@@ -95,6 +75,37 @@ const GetQuotePage = () => {
           </Col>
         </Row>
       </Content>
+      <Modal
+        title={null}
+        visible={isSubmitting}
+        closable={false}
+        footer={null}
+        centered
+        maskClosable={false}
+        bodyStyle={{
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "200px",
+        }}
+      >
+        {isSubmitting ? (
+          <>
+            <Spin size="large" />
+            <p style={{ marginTop: "16px" }}>
+              Please wait while we are processing your request...
+            </p>
+          </>
+        ) : (
+          <>
+            <CheckCircleOutlined style={{ fontSize: 48, color: "green" }} />
+            <p style={{ marginTop: "16px" }}>
+              Your quote has been successfully submitted!
+            </p>
+          </>
+        )}
+      </Modal>
     </Layout>
   );
 };
