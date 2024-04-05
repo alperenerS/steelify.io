@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Menu } from "antd";
 import steelifyLogo from "./steelifyLogo.png";
 import "./navbar.css";
-import { getUserInfo } from "../../Utils/Auth/authService";
+import { getUserInfo, clearUserInfo } from "../../Utils/Auth/authService";
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -11,8 +11,8 @@ const Navbar = () => {
 
   useEffect(() => {
     const userInfo = getUserInfo();
-    if (userInfo && userInfo.data) {
-      setUserName(userInfo.data.name || "Guest");
+    if (userInfo && userInfo.data.name) {
+      setUserName(userInfo.data.name);
     }
   }, []);
 
@@ -45,8 +45,7 @@ const Navbar = () => {
 
   const onClick = (e) => {
     if (e.key === "logout") {
-      localStorage.removeItem("accessToken");
-      setUserName("Undefined");
+      clearUserInfo();
       navigate("/login");
       return;
     }

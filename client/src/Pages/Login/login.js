@@ -3,6 +3,7 @@ import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
 import { Form, Input, Button, Checkbox, Card, notification } from "antd";
 import { API_BASE_URL } from "../../config";
+import * as authService from "../../Utils/Auth/authService";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -14,19 +15,14 @@ const Login = () => {
         password: values.password,
       };
 
-      const response = await axios.post(
-        `${API_BASE_URL}/auth/login`,
-        loginData
-      );
+      const response = await axios.post(`${API_BASE_URL}/auth/login`, loginData);
 
       if (response.data && response.data.data) {
-        // save access token to local storage
-        localStorage.setItem("accessToken", response.data.data.access_token);
+        authService.saveUserInfo(response.data); // authService kullanarak kullanıcı bilgilerini kaydedin
 
         notification.success({
           message: "Login Successful",
-          description:
-            response.data.message || "You have successfully logged in!",
+          description: response.data.message || "You have successfully logged in!",
         });
 
         navigate("/");
@@ -39,14 +35,13 @@ const Login = () => {
     } catch (error) {
       notification.error({
         message: "Login Failed",
-        description: `An error occurred. Please try again later. ${
-          error.response?.data?.message || ""
-        }`,
+        description: `An error occurred. Please try again later. ${error.response?.data?.message || ""}`,
       });
     }
   };
 
   const onFinishFailed = (errorInfo) => {
+    // Burada başarısızlık durumu için özel bir işlem yapılacaksa eklenebilir
   };
 
   return (
