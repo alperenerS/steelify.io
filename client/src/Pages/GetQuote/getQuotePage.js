@@ -77,7 +77,7 @@ const GetQuotePage = () => {
       </Content>
       <Modal
         title={null}
-        visible={isSubmitting}
+        open={isSubmitting}
         closable={false}
         footer={null}
         centered
