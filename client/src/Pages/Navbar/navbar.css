@@ -3,27 +3,18 @@
   justify-content: space-between;
   align-items: center;
   padding: 0 20px;
-  position: fixed;
-  top: 0;
-  width: 100%;
-  z-index: 1000;
-  background-color: #f8f8f8;
-}
-
-.body-content {
-  padding-top: 70px;
 }
 
 .navbar-logo {
-  cursor: pointer;
-  max-width: 13% !important;
+  cursor: pointer; 
+  max-width:13% !important;
   margin-left: 3.5rem;
 }
 
 .navbar-menu {
-  flex-grow: 1;
+  flex-grow: 1; /* Menünün konteynerin kalan alanını doldurmasını sağlar */
   display: flex;
-  justify-content: flex-end;
+  justify-content: flex-end; /* Menü öğelerini sağa hizalar */
   background-color: #f8f8f8;
   border-bottom: none;
   margin: 1rem;

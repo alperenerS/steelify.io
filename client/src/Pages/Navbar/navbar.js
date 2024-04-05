@@ -7,7 +7,7 @@ import { getUserInfo } from "../../Utils/Auth/authService";
 
 const Navbar = () => {
   const navigate = useNavigate();
-  const [userName, setUserName] = useState("Undefined");
+  const [userName, setUserName] = useState("Guest");
 
   useEffect(() => {
     const userInfo = getUserInfo();
