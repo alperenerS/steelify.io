@@ -82,7 +82,7 @@ const GetQuotePage = () => {
         footer={null}
         centered
         maskClosable={false}
-        bodyStyle={{
+        style={{
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",
