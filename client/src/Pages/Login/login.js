@@ -18,7 +18,7 @@ const Login = () => {
       const response = await axios.post(`${API_BASE_URL}/auth/login`, loginData);
 
       if (response.data && response.data.data) {
-        authService.saveUserInfo(response.data); // authService kullanarak kullanıcı bilgilerini kaydedin
+        authService.saveUserInfo(response.data);
 
         notification.success({
           message: "Login Successful",
@@ -41,7 +41,6 @@ const Login = () => {
   };
 
   const onFinishFailed = (errorInfo) => {
-    // Burada başarısızlık durumu için özel bir işlem yapılacaksa eklenebilir
   };
 
   return (

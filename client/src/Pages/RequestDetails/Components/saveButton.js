@@ -1,16 +1,18 @@
 import React from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { Button, notification } from "antd";
 import axios from "axios";
 import { getUserInfo } from "../../../Utils/Auth/authService";
 import { API_BASE_URL } from "../../../config";
+import "./saveButton.css";
 
 const SaveButton = ({ shippingFormData }) => {
   const userInfo = getUserInfo();
   const { order_id } = useParams();
+  const navigate = useNavigate();
 
   const handleSave = async () => {
-    if (!userInfo || !userInfo.data.id) {
+    if (!userInfo || !userInfo.id) {
       notification.error({
         message: "Error",
         description: "User information is missing.",
@@ -27,7 +29,7 @@ const SaveButton = ({ shippingFormData }) => {
     }
 
     const addressData = {
-      user_id: userInfo.data.id,
+      user_id: userInfo.id,
       address_type: "address_type",
       first_row: shippingFormData.shippingStreet,
       second_row: "second_row",
@@ -35,21 +37,21 @@ const SaveButton = ({ shippingFormData }) => {
       country: shippingFormData.shippingCountry,
       zip: shippingFormData.shippingZip,
       phone: "phone",
-      email: userInfo.data.email,
+      email: userInfo.email,
     };
 
     const orderData = {
-      name: userInfo.data.name,
-      customer: userInfo.data.name,
-      incoterm: "incoterm",
-      paymentterm: "paymentterm",
+      name: userInfo.name,
+      customer: userInfo.name,
+      incoterm: "00incoterm",
+      paymentterm: "00paymentterm",
       incoterm_description: shippingFormData.incoterm_description,
-      quotation_note: "quotation_note2",
+      quotation_note: "00quotation_note",
       delivery_date: shippingFormData.deliveryDate
         ? shippingFormData.deliveryDate.format("DD-MM-YYYY")
         : undefined,
-      status: "status2",
-      reference: "herhangiBirReferans",
+      status: "00status",
+      reference: "00ref",
     };
 
     const productData = {
@@ -82,6 +84,7 @@ const SaveButton = ({ shippingFormData }) => {
         message: "Success",
         description: "Address and order updated successfully!",
       });
+      navigate("/my-requests");
     } catch (error) {
       notification.error({
         message: "Error",
@@ -91,7 +94,7 @@ const SaveButton = ({ shippingFormData }) => {
   };
 
   return (
-    <Button type="primary" onClick={handleSave}>
+    <Button type="primary" onClick={handleSave} className="save-button">
       Save
     </Button>
   );

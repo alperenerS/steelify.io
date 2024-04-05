@@ -11,8 +11,8 @@ const Navbar = () => {
 
   useEffect(() => {
     const userInfo = getUserInfo();
-    if (userInfo && userInfo.data.name) {
-      setUserName(userInfo.data.name);
+    if (userInfo && userInfo.name) {
+      setUserName(userInfo.name);
     }
   }, []);
 

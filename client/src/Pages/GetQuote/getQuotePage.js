@@ -11,10 +11,10 @@ const { Title } = Typography;
 
 const GetQuotePage = () => {
   const navigate = useNavigate();
-  const [isSubmitting, setIsSubmitting] = useState(false); // Sipariş gönderiliyor durumunu takip edecek
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleSubmit = async (values, fileList, photoList) => {
-    setIsSubmitting(true); // Sipariş gönderimini başlat
+    setIsSubmitting(true);
     const token = localStorage.getItem("accessToken");
     const formData = new FormData();
 
@@ -41,7 +41,7 @@ const GetQuotePage = () => {
         }
       );
 
-      setIsSubmitting(false); // Sipariş gönderimi tamamlandı
+      setIsSubmitting(false);
 
       if (response.data && response.data.message === "Successfully Created !") {
         message.success(response.data.message);
@@ -51,7 +51,7 @@ const GetQuotePage = () => {
         message.error("Failed to submit quote request.");
       }
     } catch (error) {
-      setIsSubmitting(false); // Hata durumunda da sipariş gönderimi tamamlandı olarak işaretle
+      setIsSubmitting(false);
       console.log("Submit order error:", error);
       message.error(
         error.response?.data?.message || "Error submitting quote request."

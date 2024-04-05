@@ -13,7 +13,7 @@ const MyRequests = () => {
     const fetchOrders = async () => {
       const accessToken = localStorage.getItem('accessToken');
       const userInfo = getUserInfo();
-
+      
       if (!accessToken || !userInfo) {
         console.error("User information or access token is missing.");
         return;
@@ -22,7 +22,7 @@ const MyRequests = () => {
       try {
         const response = await axios.get(`${API_BASE_URL}/order/customerName`, {
           params: {
-            customer: userInfo.data.name,
+            customer: userInfo.name,
           },
           headers: {
             Authorization: `Bearer ${accessToken}`,
