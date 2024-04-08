@@ -42,15 +42,16 @@ const MyRequests = () => {
 
   const columns = [
     {
-      title: "Order ID",
+      title: "Reference No",
       dataIndex: "id",
       key: "id",
     },
     {
-      title: "Name",
+      title: "Request No",
       dataIndex: "name",
       key: "name",
     },
+    // Request Date eklenecek bilgisi Create Date olcak
     {
       title: "Status",
       key: "status",

@@ -6,6 +6,7 @@ import ShippingAddressPanel from "./Components/Panels/shippingAddressPanel";
 import ShippingNoteAndDeliveryDatePanel from "./Components/Panels/shippingNoteAndDeliveryDatePanel";
 import CustomsInformationPanel from "./Components/Panels/customsInformationPanel";
 import SaveButton from "./Components/saveButton";
+import GetQuoteDetails from "./getQuoteDetails"
 
 const { Panel } = Collapse;
 const { Paragraph, Title } = Typography;
@@ -32,6 +33,9 @@ const RequestDetails = () => {
         </Col>
         <Form form={form} layout="vertical" onValuesChange={handleFormChange}>
           <Collapse activeKey={activeKey} onChange={(key) => setActiveKey(key)}>
+            <Panel>
+              <GetQuoteDetails header="Request Details"/>
+            </Panel>
             <Panel header="Shipping Address" key="1">
               <ShippingAddressPanel form={form} />
             </Panel>
