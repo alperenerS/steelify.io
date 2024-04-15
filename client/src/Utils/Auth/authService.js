@@ -4,7 +4,6 @@ export const saveUserInfo = ({ data }) => {
   localStorage.setItem('userInfo', JSON.stringify(userData));
 };
 
-
 export const getUserInfo = () => {
   const userInfoStr = localStorage.getItem('userInfo');
   try {
@@ -21,3 +20,20 @@ export const clearUserInfo = () => {
   localStorage.removeItem('userInfo');
 };
 
+// export const checkTokenExpiry = () => {
+//   const accessToken = localStorage.getItem('accessToken');
+//   if (!accessToken) {
+//     clearUserInfo();
+//     return false;
+//   }
+
+//   const { exp } = JSON.parse(atob(accessToken.split('.')[1]));
+//   const now = Date.now() / 1000;
+
+//   if (exp < now) {
+//     clearUserInfo();
+//     return false;
+//   }
+
+//   return true;
+// };
