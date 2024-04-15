@@ -61,13 +61,13 @@ const MyRequests = () => {
         return <Badge status={color} text={status} />;
       }
     },
-    {
-      title: "Action",
-      key: "action",
-      render: (text, record) => (
-        <Link to={`/request-details/${record.id}`}>View Details</Link>
-      ),
-    },
+    // {
+    //   title: "Action",
+    //   key: "action",
+    //   render: (text, record) => (
+    //     <Link to={`/request-details/${record.id}`}>View Details</Link>
+    //   ),
+    // },
   ];
 
   return (
