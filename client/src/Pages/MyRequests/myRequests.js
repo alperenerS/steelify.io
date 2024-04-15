@@ -30,7 +30,11 @@ const MyRequests = () => {
         });
 
         if (response.data && response.data.data) {
-          setOrders(response.data.data);
+          const ordersWithKey = response.data.data.map(order => ({
+            ...order,
+            key: order.id,
+          }));
+          setOrders(ordersWithKey);
         }
       } catch (error) {
         console.error("Failed to fetch orders:", error);
@@ -51,11 +55,20 @@ const MyRequests = () => {
       dataIndex: "name",
       key: "name",
     },
-    // Request Date eklenecek bilgisi Create Date olcak
+    {
+      title: "Request Date",
+      dataIndex: "createdAt",
+      key: "createDate",
+      render: createdAt => {
+        const date = new Date(createdAt);
+        const formattedDate = date.toLocaleDateString('en-GB');
+        return formattedDate;
+      }
+    },
     {
       title: "Status",
-      key: "status",
       dataIndex: "status",
+      key: "status",
       render: status => {
         let color = status === "3" ? "geekblue" : "green";
         return <Badge status={color} text={status} />;
