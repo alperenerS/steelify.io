@@ -33,9 +33,9 @@ const RequestDetails = () => {
         </Col>
         <Form form={form} layout="vertical" onValuesChange={handleFormChange}>
           <Collapse activeKey={activeKey} onChange={(key) => setActiveKey(key)}>
-            <Panel>
-              <GetQuoteDetails header="Request Details"/>
-            </Panel>
+            {/* <Panel header="Request Details">
+              <GetQuoteDetails />
+            </Panel> */}
             <Panel header="Shipping Address" key="1">
               <ShippingAddressPanel form={form} />
             </Panel>
