@@ -10,8 +10,8 @@ const { Title, Paragraph } = Typography;
 const AboutUs = () => {
   return (
     <div style={{ padding: '50px' }}>
-      <Row gutter={[16, 16]} align="middle">
-        <Col span={12}>
+      <Row justify="center" >
+        <Col span={8}>
           <Typography>
             <Title>About Steelify</Title>
             <Paragraph>
@@ -19,15 +19,15 @@ const AboutUs = () => {
             </Paragraph>
           </Typography>
         </Col>
-        <Col span={12}>
+        <Col span={8}>
         </Col>
       </Row>
       <Divider />
 
-      <Row gutter={[16, 16]} align="middle" style={{ marginTop: '50px' }}>
-        <Col span={12}>
+      <Row justify="center" >
+        <Col span={8}>
         </Col>
-        <Col span={12}>
+        <Col span={8}>
           <Typography>
             <Title level={2}>For Industrial Buyers</Title>
             <Paragraph>
@@ -38,8 +38,8 @@ const AboutUs = () => {
       </Row>
       <Divider />
 
-      <Row gutter={[16, 16]} align="middle" style={{ marginTop: '50px' }}>
-        <Col span={12}>
+      <Row justify="center">
+        <Col span={8}>
           <Typography>
             <Title level={2}>For Small Workshops</Title>
             <Paragraph>
@@ -47,15 +47,15 @@ const AboutUs = () => {
             </Paragraph>
           </Typography>
         </Col>
-        <Col span={12}>
+        <Col span={8}>
         </Col>
       </Row>
       <Divider />
 
-      <Row gutter={[16, 16]} align="middle" style={{ marginTop: '50px' }}>
-        <Col span={12}>
+      <Row justify="center">
+        <Col span={8}>
         </Col>
-        <Col span={12}>
+        <Col span={8}>
           <Typography>
             <Title level={2}>Innovation and Technology</Title>
             <Paragraph>
