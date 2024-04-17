@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Menu } from "antd";
-import steelifyLogo from "./steelifyLogo.png";
 import "./navbar.css";
 import { getUserInfo, clearUserInfo } from "../../Utils/Auth/authService";
 
@@ -62,7 +61,7 @@ const Navbar = () => {
   return (
     <div className="navbar-flex-container">
       <img
-        src={steelifyLogo}
+        src="https://yenastorage.blob.core.windows.net/steelify/steelify_logo.png"
         alt="STEELIFY Logo"
         className="navbar-logo"
         onClick={() => navigate("/")}

@@ -1,7 +1,6 @@
 import React from "react";
 import { Layout, Typography, Space } from "antd";
 import { YoutubeOutlined, LinkedinOutlined } from "@ant-design/icons";
-import steelifyLogo from "./assets/steelifyLogo.png";
 import "./footer.css";
 
 const { Footer } = Layout;
@@ -14,7 +13,7 @@ const AppFooter = () => {
         <div className="footer-upper-content">
           <div style={{ flex: 1 }}>
             <img
-              src={steelifyLogo}
+              src="https://yenastorage.blob.core.windows.net/steelify/steelify_logo.png"
               alt="Steelify Logo"
               style={{ width: "120px" }}
             />
@@ -52,7 +51,10 @@ const AppFooter = () => {
             <Link href="https://www.youtube.com" target="_blank">
               <YoutubeOutlined className="footer-icon" />
             </Link>
-            <Link href="https://www.linkedin.com/company/steelify/" target="_blank">
+            <Link
+              href="https://www.linkedin.com/company/steelify/"
+              target="_blank"
+            >
               <LinkedinOutlined className="footer-icon" />
             </Link>
           </Space>
