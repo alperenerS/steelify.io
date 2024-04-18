@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import { Layout, Typography, Card, Row, Col, message, Modal, Spin } from "antd";
+import { Layout, Typography, Card, Row, Col, message, Modal, Spin, Button } from "antd";
+import { CheckCircleOutlined } from "@ant-design/icons";
 import GetQuoteForm from "./getQuoteForm";
 import axios from "axios";
 import { API_BASE_URL } from "../../config";
 import { useNavigate } from "react-router-dom";
-import { CheckCircleOutlined } from "@ant-design/icons";
 
 const { Header, Content } = Layout;
 const { Title } = Typography;
@@ -12,21 +12,23 @@ const { Title } = Typography;
 const GetQuotePage = () => {
   const navigate = useNavigate();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [successModalVisible, setSuccessModalVisible] = useState(false);
+  const [orderData, setOrderData] = useState(null);
 
   const handleSubmit = async (values, fileList, photoList) => {
     setIsSubmitting(true);
     const token = localStorage.getItem("accessToken");
     const formData = new FormData();
 
-    fileList.forEach((file) => {
+    fileList.forEach(file => {
       formData.append("orderDocs", file);
     });
 
-    photoList.forEach((photo) => {
+    photoList.forEach(photo => {
       formData.append("samplePhotos", photo);
     });
 
-    Object.keys(values).forEach((key) => {
+    Object.keys(values).forEach(key => {
       formData.append(key, values[key]);
     });
 
@@ -42,10 +44,10 @@ const GetQuotePage = () => {
       );
 
       setIsSubmitting(false);
-
       if (response.data && response.data.message === "Successfully Created !") {
+        setOrderData(response.data.data);
+        setSuccessModalVisible(true);
         message.success(response.data.message);
-        navigate(`/request-details/${response.data.data.id}`);
       } else {
         console.log("Server response:", response.data);
         message.error("Failed to submit quote request.");
@@ -57,6 +59,11 @@ const GetQuotePage = () => {
         error.response?.data?.message || "Error submitting quote request."
       );
     }
+  };
+
+
+  const goToRequestDetails = () => {
+    navigate(`/request-details/${orderData ? orderData.id : ''}`);
   };
 
   return (
@@ -76,35 +83,18 @@ const GetQuotePage = () => {
         </Row>
       </Content>
       <Modal
-        title={null}
-        open={isSubmitting}
-        closable={false}
-        footer={null}
+        // title={`Order #${orderData ? orderData.id : ''} Created`}
+        open={successModalVisible}
+        footer={[
+          <Button key="submit" type="primary" onClick={goToRequestDetails}>Go to Request Details</Button>,
+        ]}
         centered
-        maskClosable={false}
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          alignItems: "center",
-          height: "200px",
-        }}
       >
-        {isSubmitting ? (
-          <>
-            <Spin size="large" />
-            <p style={{ marginTop: "16px" }}>
-              Please wait while we are processing your request...
-            </p>
-          </>
-        ) : (
-          <>
-            <CheckCircleOutlined style={{ fontSize: 48, color: "green" }} />
-            <p style={{ marginTop: "16px" }}>
-              Your quote has been successfully submitted!
-            </p>
-          </>
-        )}
+        <div style={{ textAlign: 'center' }}>
+          <CheckCircleOutlined style={{ fontSize: 48, color: "#52c41a" }} />
+          <p style={{ marginTop: "16px", fontSize: "16px", fontWeight: "bold" }}>Your quote request has been received!</p>
+          <p>We will review it and get back to you via email as soon as possible.</p>
+        </div>
       </Modal>
     </Layout>
   );
