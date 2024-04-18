@@ -74,7 +74,7 @@ const MyRequests = () => {
         return <Badge status={color} text={status} />;
       }
     },
-    // {
+        // {
     //   title: "Action",
     //   key: "action",
     //   render: (text, record) => (
@@ -89,7 +89,7 @@ const MyRequests = () => {
         <Table
           columns={columns}
           dataSource={orders}
-          pagination={{ pageSize: 10 }}
+          pagination={{ pageSize: 10, showSizeChanger: false }}
         />
       </Col>
     </Row>
