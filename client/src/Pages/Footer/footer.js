@@ -1,12 +1,15 @@
 import React from "react";
 import { Layout, Typography, Space } from "antd";
 import { YoutubeOutlined, LinkedinOutlined } from "@ant-design/icons";
+import { useNavigate } from "react-router-dom";
 import "./footer.css";
 
 const { Footer } = Layout;
-const { Text, Link } = Typography;
+const { Text } = Typography;
 
 const AppFooter = () => {
+  const navigate = useNavigate();
+
   return (
     <Footer className="footer">
       <div className="footer-content">
@@ -22,24 +25,24 @@ const AppFooter = () => {
             <br />
             <Text className="footer-text">Beursplein 37, Rotterdam, NL</Text>
             <br />
-            <Link href="mailto:info@steelify.io" className="footer-link">
+            <Text className="footer-link" style={{ cursor: 'pointer' }} onClick={() => window.location = 'mailto:info@steelify.io'}>
               info@steelify.io
-            </Link>
+            </Text>
           </div>
 
           <Space direction="vertical" className="footer-links">
-            <Link href="get-quote" className="footer-link">
+            <Text className="footer-link" style={{ cursor: 'pointer' }} onClick={() => navigate("/get-quote")}>
               Get Quote
-            </Link>
-            <Link href="#" className="footer-link">
+            </Text>
+            <Text className="footer-link" style={{ cursor: 'pointer' }} onClick={() => navigate("")}>
               Become a supplier
-            </Link>
-            <Link href="/about-us" className="footer-link">
+            </Text>
+            <Text className="footer-link" style={{ cursor: 'pointer' }} onClick={() => navigate("/about-us")}>
               About us
-            </Link>
-            <Link href="#" className="footer-link">
+            </Text>
+            <Text className="footer-link" style={{ cursor: 'pointer' }} onClick={() => navigate("")}>
               Contact us
-            </Link>
+            </Text>
           </Space>
         </div>
 
@@ -48,15 +51,12 @@ const AppFooter = () => {
         <div className="footer-lower-content">
           <Text className="footer-text">&copy; COPYRIGHT 2024 STEELIFY</Text>
           <Space size="middle">
-            <Link href="https://www.youtube.com" target="_blank">
-              <YoutubeOutlined className="footer-icon" />
-            </Link>
-            <Link
-              href="https://www.linkedin.com/company/steelify/"
-              target="_blank"
-            >
-              <LinkedinOutlined className="footer-icon" />
-            </Link>
+            <Text className="footer-icon" style={{ cursor: 'pointer' }} onClick={() => window.open("https://www.youtube.com", "_blank")}>
+              <YoutubeOutlined />
+            </Text>
+            <Text className="footer-icon" style={{ cursor: 'pointer' }} onClick={() => window.open("https://www.linkedin.com/company/steelify/", "_blank")}>
+              <LinkedinOutlined />
+            </Text>
           </Space>
         </div>
       </div>
