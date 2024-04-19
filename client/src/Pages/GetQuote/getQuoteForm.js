@@ -71,15 +71,15 @@ const GetQuoteForm = ({ onSubmit, order_id, isPreFilled = false }) => {
     const extendedValues = {
       ...values,
       name: userInfo ? userInfo.name : "Guest",
-      customer: userInfo ? userInfo.name : "Guest",
-      incoterm: "3",
-      paymentterm: "3",
-      incoterm_description: "3",
+      customer: userInfo ? userInfo.name : "Customer",
+      incoterm: "-",
+      paymentterm: "-",
+      incoterm_description: "-",
       quotation_note: values.quotation_note,
       delivery_date: "2024-02-25",
-      status: "3",
-      reference: "3",
-      filename: "3",
+      status: "-",
+      reference: "-",
+      filename: "-",
     };
     onSubmit(extendedValues, fileList, photoList);
   };
