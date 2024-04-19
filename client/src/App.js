@@ -13,6 +13,7 @@ import MyRequests from './Pages/MyRequests/myRequests';
 import Profile from './Pages/Profile/profile';
 import PrivateRoute from './Utils/PrivateRoute/privateRoute';
 import AppFooter from './Pages/Footer/footer';
+import ActivationNotification from './Pages/ActivationNotification/activationNotification';
 import './App.css';
 
 function App() {
@@ -32,6 +33,7 @@ function App() {
             <Route path="/about-us" element={<AboutUs />} />
             <Route path="/my-requests" element={<PrivateRoute><MyRequests /></PrivateRoute>} />
             <Route path="/profile" element={<PrivateRoute><Profile /></PrivateRoute>} />
+            {/* <Route path="/activation-notification" element={<ActivationNotification />} /> */}
             <Route path="/*" element={<PageNotFound />} />
           </Routes>
         </Layout.Content>
