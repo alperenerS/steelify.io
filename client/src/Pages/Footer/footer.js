@@ -25,7 +25,7 @@ const AppFooter = () => {
             <br />
             <Text className="footer-text">Beursplein 37, Rotterdam, NL</Text>
             <br />
-            <Text className="footer-link" style={{ cursor: 'pointer' }} onClick={() => window.location = 'mailto:info@steelify.io'}>
+            <Text className="footer-link" style={{ cursor: 'pointer', color: '#0077cc' }} onClick={() => window.location = 'mailto:info@steelify.io'}>
               info@steelify.io
             </Text>
           </div>
