@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Table, Row, Col, Badge } from "antd";
-import { Link } from "react-router-dom";
+import { Table, Row, Col, Tag } from "antd";
 import axios from "axios";
 import { getUserInfo } from "../../Utils/Auth/authService";
 import { API_BASE_URL } from "../../config";
@@ -30,11 +29,14 @@ const MyRequests = () => {
         });
 
         if (response.data && response.data.data) {
-          const ordersWithKey = response.data.data.map(order => ({
-            ...order,
-            key: order.id,
-          }));
-          setOrders(ordersWithKey);
+          const sortedOrders = response.data.data
+            .map(order => ({
+              ...order,
+              key: order.id,
+              id: parseInt(order.id), // Ensure the id is an integer
+            }))
+            .sort((a, b) => a.id - b.id); // Sort by id in ascending order
+          setOrders(sortedOrders);
         }
       } catch (error) {
         console.error("Failed to fetch orders:", error);
@@ -43,6 +45,37 @@ const MyRequests = () => {
 
     fetchOrders();
   }, []);
+
+  const getStatusColor = status => {
+    switch (status) {
+      case 'Pending Review':
+        return 'volcano';
+      case 'Reviewing':
+        return 'geekblue';
+      case 'Awaiting Approval':
+        return 'orange';
+      case 'Approved':
+        return 'green';
+      case 'Rejected':
+        return 'red';
+      case 'In Production':
+        return 'cyan';
+      case 'Quality Check':
+        return 'blue';
+      case 'Ready for Shipment':
+        return 'purple';
+      case 'In Transit':
+        return 'lime';
+      case 'Delivered':
+        return 'gold';
+      case 'Completed':
+        return 'green';
+      case 'Cancelled':
+        return 'red';
+      default:
+        return 'default';
+    }
+  };
 
   const columns = [
     {
@@ -70,17 +103,10 @@ const MyRequests = () => {
       dataIndex: "status",
       key: "status",
       render: status => {
-        let color = status === "3" ? "geekblue" : "green";
-        return <Badge status={color} text={status} />;
+        const color = getStatusColor(status);
+        return <Tag color={color}>{status}</Tag>;
       }
     },
-        // {
-    //   title: "Action",
-    //   key: "action",
-    //   render: (text, record) => (
-    //     <Link to={`/request-details/${record.id}`}>View Details</Link>
-    //   ),
-    // },
   ];
 
   return (

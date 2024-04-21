@@ -77,7 +77,7 @@ const GetQuoteForm = ({ onSubmit, order_id, isPreFilled = false }) => {
       incoterm_description: "-",
       quotation_note: values.quotation_note,
       delivery_date: "2024-02-25",
-      status: "-",
+      status: "Pending Review",
       reference: "-",
       filename: "-",
     };
