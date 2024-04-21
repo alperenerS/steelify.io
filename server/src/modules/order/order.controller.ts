@@ -19,12 +19,10 @@ import { JwtGuard } from '../auth/guard/jwt.guard';
 import { OrderService } from './order.service';
 import { OrderDto } from './dto/order.dto';
 import { Request, Response } from 'express';
-import {
-  FileFieldsInterceptor,
-  FilesInterceptor,
-} from '@nestjs/platform-express';
+import { FileFieldsInterceptor } from '@nestjs/platform-express';
 import { QuoteDto } from './dto/quote.dto';
 import { uploadFile } from '../utils/upload_azure';
+
 @UseGuards(JwtGuard)
 @Controller('api/order')
 export class OrderController {
@@ -33,11 +31,9 @@ export class OrderController {
   @Get()
   async getOrders(@Res() res: Response) {
     const orders = await this.orderService.getOrders();
-
     if (orders.length === 0) {
       throw new NotFoundException('There is no orders !');
     }
-
     return res
       .status(HttpStatus.OK)
       .json({ message: 'Successfully Fetched !', data: orders });
@@ -46,11 +42,9 @@ export class OrderController {
   @Get('byOrderId/:id')
   async getOrderById(@Param('id') id: number, @Res() res: Response) {
     const order = await this.orderService.getOrderById(id);
-
     if (!order) {
       throw new NotFoundException('Order can not be found !');
     }
-
     return res
       .status(HttpStatus.OK)
       .json({ message: 'Order Successfully Fetched !', data: order });
@@ -62,11 +56,9 @@ export class OrderController {
     @Res() res: Response,
   ) {
     const selectedOrder = await this.orderService.getOrdersByCustomer(customer);
-
     if (!selectedOrder) {
       throw new NotFoundException('Order can not be found !');
     }
-
     return res
       .status(HttpStatus.OK)
       .json({ message: 'Order Successfully fetched !', data: selectedOrder });
@@ -99,31 +91,29 @@ export class OrderController {
       status,
       reference,
     } = req.body;
+
     try {
       const existingOrdersCount = await this.orderService.countOrders();
-
       const newOrderNumber = existingOrdersCount + 1;
       const formattedOrderNumber = newOrderNumber.toString().padStart(5, '0');
-
       const newOrderName = `ST-${formattedOrderNumber}`;
 
-      if (
-        !files ||
-        files.orderDocs.length === 0 ||
-        files.samplePhotos.length === 0
-      ) {
+      if (!files || files.orderDocs.length === 0) {
         return res
           .status(HttpStatus.BAD_REQUEST)
-          .json({ message: 'No files uploaded' });
+          .json({ message: 'Order documents are required' });
       }
 
-      const orderDocsOriginalName: any = files.orderDocs.map((file) => {
-        return file.originalname;
-      });
+      const orderDocsOriginalName = files.orderDocs.map(
+        (file) => file.originalname,
+      );
 
-      const samplePhotosOriginalName: any = files.samplePhotos.map((file) => {
-        return file.originalname;
-      });
+      let samplePhotosOriginalName = [];
+      if (files.samplePhotos && files.samplePhotos.length > 0) {
+        samplePhotosOriginalName = files.samplePhotos.map(
+          (file) => file.originalname,
+        );
+      }
 
       const orderDto: OrderDto = {
         name: newOrderName,
@@ -145,21 +135,22 @@ export class OrderController {
             file.buffer,
             `${orderDto.name}/OrderDocuments/${file.originalname}`,
           );
-          file.originalname = orderDocsOriginalName;
           return azureUrl;
         }),
       );
 
-      const samplePhotosFiles = await Promise.all(
-        files.samplePhotos.map(async (file) => {
-          const azureUrl = await uploadFile(
-            file.buffer,
-            `${orderDto.name}/SamplePhotos/${file.originalname}`,
-          );
-          file.originalname = samplePhotosOriginalName;
-          return azureUrl;
-        }),
-      );
+      let samplePhotosFiles = [];
+      if (files.samplePhotos && files.samplePhotos.length > 0) {
+        samplePhotosFiles = await Promise.all(
+          files.samplePhotos.map(async (file) => {
+            const azureUrl = await uploadFile(
+              file.buffer,
+              `${orderDto.name}/SamplePhotos/${file.originalname}`,
+            );
+            return azureUrl;
+          }),
+        );
+      }
 
       const orderDocsDto: any = {
         order_id: newOrder.id,
@@ -167,14 +158,18 @@ export class OrderController {
         file_link: orderDocsFiles,
       };
 
-      const samplePhotosDto: any = {
-        order_id: newOrder.id,
-        filename: samplePhotosOriginalName,
-        filelink: samplePhotosFiles,
-      };
-
-      const samplePhotos = await this.orderService.createPhoto(samplePhotosDto);
       const orderDocs = await this.orderService.createOrderDocs(orderDocsDto);
+
+      let samplePhotos = null;
+      if (samplePhotosFiles.length > 0) {
+        const samplePhotosDto = {
+          order_id: newOrder.id,
+          filename: samplePhotosOriginalName,
+          filelink: samplePhotosFiles,
+        };
+        samplePhotos = await this.orderService.createPhoto(samplePhotosDto);
+      }
+
       return res.status(HttpStatus.CREATED).json({
         message: 'Successfully Created !',
         data: newOrder,
@@ -195,7 +190,6 @@ export class OrderController {
     @Res() res: Response,
   ) {
     const updatedOrder = await this.orderService.updateOrder(order, id);
-
     return res
       .status(HttpStatus.OK)
       .json({ message: 'Successfully updated !', data: updatedOrder });
@@ -204,22 +198,13 @@ export class OrderController {
   @Put('updateStatus/:id')
   async updateOrderStatus(
     @Param('id') id: number,
-    @Body('status') status: string, // status parametresini body'den alıyoruz
+    @Body('status') status: string,
     @Res() res: Response,
   ) {
-    try {
-      const updatedStatus = await this.orderService.updateOrderStatus(
-        status,
-        id,
-      );
-
-      return res
-        .status(HttpStatus.OK)
-        .json({ message: 'Status Updated !', data: updatedStatus });
-    } catch (error) {
-      console.log(error);
-      throw error;
-    }
+    const updatedStatus = await this.orderService.updateOrderStatus(status, id);
+    return res
+      .status(HttpStatus.OK)
+      .json({ message: 'Status Updated !', data: updatedStatus });
   }
 
   @Delete('deleteOrder/:id')
