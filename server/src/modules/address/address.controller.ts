@@ -81,10 +81,12 @@ export class AddressController {
   }
 
   @Get()
-  async getAllAddresses(@Res() res:Response) {
+  async getAllAddresses(@Res() res: Response) {
     const data = await this.addressService.getAllAddresses();
     try {
-      return res.status(HttpStatus.OK).json({message:'Addresses Successfully Fetched !',data:data})
+      return res
+        .status(HttpStatus.OK)
+        .json({ message: 'Addresses Successfully Fetched !', data: data });
     } catch (error) {
       console.log(error);
       throw new BadRequestException(error);
@@ -96,9 +98,30 @@ export class AddressController {
     try {
       const address = await this.addressService.getAddressById(id);
 
-      if(!address) {
-        res.status(HttpStatus.NOT_FOUND)
-        throw new NotFoundException('Address Can Not Be Found !')
+      if (!address) {
+        res.status(HttpStatus.NOT_FOUND);
+        throw new NotFoundException('Address Can Not Be Found !');
+      }
+
+      return res
+        .status(HttpStatus.OK)
+        .json({ message: 'Address Successfully Fetched !', data: address });
+    } catch (error) {
+      console.log(error);
+      throw new BadRequestException(error);
+    }
+  }
+
+  @Get('order/:order_id')
+  async getAddressByOrderId(
+    @Param('order_id') order_id: number,
+    @Res() res: Response,
+  ) {
+    try {
+      const address = await this.addressService.getAddressByOrderId(order_id);
+
+      if (!address) {
+        throw new NotFoundException('Address can not be found !');
       }
 
       return res

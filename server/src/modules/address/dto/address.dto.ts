@@ -4,6 +4,9 @@ export class AddressDto {
     @IsNumber()
     @IsNotEmpty()
     readonly user_id: number;
+    @IsNumber()
+    @IsNotEmpty()
+    readonly order_id: number;
     @IsString()
     @IsNotEmpty()
     readonly address_type: string;

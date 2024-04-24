@@ -7,6 +7,7 @@ import {
   Table,
 } from 'sequelize-typescript';
 import { User } from '../user/user.entity';
+import { Order } from '../order/order.entity';
 
 @Table
 export class Address extends Model<Address> {
@@ -19,6 +20,16 @@ export class Address extends Model<Address> {
 
   @BelongsTo(() => User)
   user:User
+
+  @ForeignKey(() => Order)
+  @Column({
+    type: DataType.INTEGER,
+    allowNull:false
+  })
+  order_id:number;
+
+  @BelongsTo(() => Order)
+  order:Order
 
   @Column({
     type: DataType.STRING,
