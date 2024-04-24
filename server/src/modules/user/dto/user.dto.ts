@@ -1,4 +1,4 @@
-import { IsEmail, IsNotEmpty, IsString,registerDecorator, ValidationOptions, ValidationArguments } from 'class-validator';
+import { IsEmail, IsNotEmpty, IsString,registerDecorator, ValidationOptions } from 'class-validator';
 import * as zxcvbn from 'zxcvbn';
 
 export function IsPasswordValid(validationOptions?: ValidationOptions) {
@@ -44,7 +44,7 @@ export class UserDto {
   readonly email: string;
   @IsString()
   @IsNotEmpty()
-  @IsPasswordValid()
+  //@IsPasswordValid()
   readonly password: string;
   @IsString()
   @IsNotEmpty()

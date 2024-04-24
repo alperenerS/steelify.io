@@ -50,7 +50,7 @@ export class UserService {
     const decodedToken = this.jwtService.verify(token, {
       publicKey: process.env.JWTKEY,
     });
-    const userId = decodedToken.userId;
+    const userId = decodedToken.id;
     const hashedPassword = await bcrypt.hash(user.password, 12);
 
     const existingUser = this.userRepository.findByPk(userId);
