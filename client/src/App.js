@@ -14,6 +14,8 @@ import Profile from './Pages/Profile/profile';
 import PrivateRoute from './Utils/PrivateRoute/privateRoute';
 import AppFooter from './Pages/Footer/footer';
 import ActivationNotification from './Pages/ActivationNotification/activationNotification';
+import ResetPassword from './Pages/ResetPasword/resetPassword';
+import ForgotPassword from './Pages/ForgotPassword/forgotPassword';
 import './App.css';
 
 function App() {
@@ -33,6 +35,8 @@ function App() {
             <Route path="/about-us" element={<AboutUs />} />
             <Route path="/my-requests" element={<PrivateRoute><MyRequests /></PrivateRoute>} />
             <Route path="/profile" element={<PrivateRoute><Profile /></PrivateRoute>} />
+            <Route path="/reset-password" element={<PrivateRoute><ResetPassword /></PrivateRoute>} />
+            <Route path="/forgot-password" element={<PrivateRoute><ForgotPassword /></PrivateRoute>} />
             {/* <Route path="/activation-notification" element={<ActivationNotification />} /> */}
             <Route path="/*" element={<PageNotFound />} />
           </Routes>
