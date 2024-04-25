@@ -1,4 +1,5 @@
 import {
+  BadRequestException,
   Body,
   Controller,
   Delete,
@@ -209,6 +210,17 @@ export class OrderController {
 
   @Delete('deleteOrder/:id')
   async deleteOrder(@Param('id') id: number, @Res() res: Response) {
+    const samplePhotos = await this.orderService.getPhotosByOrderId(id);
+    const orderDocs = await this.orderService.getOrderDocsByOrderId(id);
+    const address = await this.orderService.getAddressByOrderId(id);
+
+    if (!samplePhotos || !orderDocs || !address) {
+      throw new BadRequestException('Something Went Wrong !');
+    }
+
+    await this.orderService.deleteSamplePhotosByOrderId(id);
+    await this.orderService.deleteOrderDocsByOrderId(id);
+    await this.orderService.deleteAddressByOrderId(id);
     await this.orderService.deleteOrder(id);
     return res
       .status(HttpStatus.OK)

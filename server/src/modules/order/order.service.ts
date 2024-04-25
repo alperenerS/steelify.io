@@ -1,5 +1,6 @@
 import { Inject, Injectable, NotFoundException } from '@nestjs/common';
 import {
+  ADDRESS_REPOSITORY,
   ORDERDOCS_REPOSITORY,
   ORDERSAMPLEPHOTOS_REPOSITORY,
   ORDER_REPOSITORY,
@@ -10,6 +11,7 @@ import { OrderDocument } from '../order_document/order_document.entity';
 import { OrderSamplePhotos } from '../order_sample_photos/order_sample_photos.entity';
 import { OrderDocsDto } from '../order_document/dto/order_document.dto';
 import { OrderSamplePhotoDto } from '../order_sample_photos/dto/order_sample_photo.dto';
+import { Address } from '../address/address.entity';
 
 @Injectable()
 export class OrderService {
@@ -19,7 +21,44 @@ export class OrderService {
     private readonly orderDocsRepository: typeof OrderDocument,
     @Inject(ORDERSAMPLEPHOTOS_REPOSITORY)
     private readonly photosRepository: typeof OrderSamplePhotos,
+    @Inject(ADDRESS_REPOSITORY)
+    private readonly addressRepository: typeof Address,
   ) {}
+
+  async getAddressByOrderId(order_id: number): Promise<Address> {
+    return await this.addressRepository.findOne({
+      where: { order_id: order_id },
+    });
+  }
+
+  async deleteAddressByOrderId(order_id: number) {
+    return await this.addressRepository.destroy({
+      where: { order_id: order_id },
+    });
+  }
+
+  async getPhotosByOrderId(order_id: number): Promise<OrderSamplePhotos> {
+    const samplePhoto = await this.photosRepository.findOne({
+      where: { order_id: order_id },
+    });
+
+    return samplePhoto;
+  }
+
+  async getOrderDocsByOrderId(order_id: number): Promise<OrderDocument> {
+    const orderDocs = await this.orderDocsRepository.findOne({
+      where: { order_id: order_id },
+    });
+    return orderDocs;
+  }
+
+  async deleteSamplePhotosByOrderId(order_id: number) {
+    await this.photosRepository.destroy({ where: { order_id: order_id } });
+  }
+
+  async deleteOrderDocsByOrderId(order_id: number) {
+    await this.orderDocsRepository.destroy({ where: { order_id: order_id } });
+  }
 
   async createOrder(order: OrderDto): Promise<Order> {
     const response = await this.orderRepository.create(order);
