@@ -80,8 +80,8 @@ const MyRequests = () => {
   const columns = [
     {
       title: "Reference No",
-      dataIndex: "id",
-      key: "id",
+      dataIndex: "reference",
+      key: "reference",
     },
     {
       title: "Request No",
