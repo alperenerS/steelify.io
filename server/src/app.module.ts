@@ -10,11 +10,14 @@ import { LoggerMiddleware } from './middlewares/customLogger';
 import { OrderProductModule } from './modules/order_product/order_product.module';
 import { OrderProductDocsModule } from './modules/order_product_docs/order_product_docs.module';
 import { OrderSamplePhotosModule } from './modules/order_sample_photos/order_sample_photos.module';
+import { EmailSenderModule } from './modules/email-sender/email-sender.module';
+import { MailerModule } from '@nestjs-modules/mailer';
 
 
 @Module({
   imports: [
     ConfigModule.forRoot({isGlobal:true}),
+    MailerModule,
     AuthModule,
     UserModule,
     DatabaseModule,
@@ -23,7 +26,8 @@ import { OrderSamplePhotosModule } from './modules/order_sample_photos/order_sam
     OrderDocumentModule,
     OrderProductModule,
     OrderProductDocsModule,
-    OrderSamplePhotosModule
+    OrderSamplePhotosModule,
+    EmailSenderModule
   ],
   controllers: [],
   providers: [],
