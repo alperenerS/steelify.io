@@ -17,7 +17,7 @@ import { SendEmailDto } from './email.interface';
 export class EmailSenderController {
   constructor(private readonly emailService: EmailSenderService) {}
 
-  @Get('create-token')
+  @Post('create-token')
   async createToken(@Req() req: Request, @Res() res: Response) {
     const { email } = req.body;
     const token = await this.emailService.generatePasswordResetToken();
