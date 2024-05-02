@@ -1,10 +1,11 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { BadRequestException, Inject, Injectable } from '@nestjs/common';
 import * as nodemailer from 'nodemailer';
 import { SendEmailDto } from './email.interface';
 import Mail from 'nodemailer/lib/mailer';
 import { USER_REPOSITORY } from 'src/core/constants';
 import { User } from '../user/user.entity';
 import * as crypto from 'crypto';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class EmailSenderService {
@@ -43,12 +44,31 @@ export class EmailSenderService {
     return result;
   }
 
-  async findUserByEmail(email:any) {
+  async findUserByEmail(email: any) {
     const user = await this.userRepository.findOne({ where: { email: email } });
     return user;
   }
-  async generatePasswordResetToken():Promise<string>  {
-    const token = crypto.randomBytes(20).toString('hex'); 
+
+  async resPasswd(
+    newPassword: string,
+    confirmNewPasswd: string,
+    email: string,
+  ) {
+    if (newPassword !== confirmNewPasswd) {
+      throw new BadRequestException('Passwords are not match !');
+    }
+    const hashedPassword = await bcrypt.hash(newPassword, 12);
+
+    const password = await this.userRepository.update(
+      { password: hashedPassword },
+      { where: { email: email } },
+    );
+
+    return password;
+  }
+
+  async generatePasswordResetToken(): Promise<string> {
+    const token = crypto.randomBytes(20).toString('hex');
     return token;
   }
 }
