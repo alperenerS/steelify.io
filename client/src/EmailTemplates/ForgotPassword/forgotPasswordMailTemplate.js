@@ -1,11 +1,11 @@
-const getEmailHtml = (userFirstname, token) => `
+const getEmailHtml = (username, token) => `
 <html>
   <body style="background-color: #f6f9fc; padding: 10px 0;">
     <div style="background-color: #ffffff; border: 1px solid #f0f0f0; padding: 45px;">
       <img src="https://yenastorage.blob.core.windows.net/steelify/steelifyLogo.png" width="180" height="60" alt="Steelify Logo" style="display: block; margin: 0 auto;" />
       <div>
         <p style="font-size: 16px; font-family: 'Open Sans', 'HelveticaNeue-Light', 'Helvetica Neue Light', 'Helvetica Neue', Helvetica, Arial, 'Lucida Grande', sans-serif; font-weight: 300; color: #404040; line-height: 26px;">
-          Hi ${userFirstname},
+          Hi ${username},
         </p>
         <p style="font-size: 16px; font-family: 'Open Sans', 'HelveticaNeue-Light', 'Helvetica Neue Light', 'Helvetica Neue', Helvetica, Arial, 'Lucida Grande', sans-serif; font-weight: 300; color: #404040; line-height: 26px;">
           We received a request to reset the password for your Steelify.io account. If you made this request, please click the button below to set a new password.
