@@ -1,15 +1,9 @@
-import {
-  BadRequestException,
-  Inject,
-  Injectable,
-  UnauthorizedException,
-} from '@nestjs/common';
+import { BadRequestException, Inject, Injectable } from '@nestjs/common';
 import * as nodemailer from 'nodemailer';
 import { SendEmailDto } from './email.interface';
 import Mail from 'nodemailer/lib/mailer';
 import { USER_REPOSITORY } from 'src/core/constants';
 import { User } from '../user/user.entity';
-import * as crypto from 'crypto';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 import * as dotenv from 'dotenv';
@@ -69,21 +63,6 @@ export class EmailSenderService {
     );
 
     return password;
-  }
-
-  async generatePasswordResetToken(
-    userId: number,
-    expirationDate: Date,
-  ): Promise<string> {
-    // const token = crypto.randomBytes(20).toString('hex');
-    // const updatedToken = userId + '?' + token + expirationDate.getTime();
-
-    // return updatedToken;
-
-    const token = `${userId.toString()}|${expirationDate.getTime()}`;
-
-    const hashedToken = crypto.createHash('sha256').digest('hex');
-    return hashedToken;
   }
 
   async generateToken(id: number, email: string) {
