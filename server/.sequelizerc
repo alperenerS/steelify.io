@@ -1,7 +1,8 @@
-// // const path = require('path');
-// import path from 'path'
-// module.exports = {
-//   'seeders-path': path.resolve('src/core/database', 'seeders'),
-//   'migrations-path': path.resolve('src/core/database', 'migrations'),
-//   'config': path.resolve('src/core/database', 'database.config.ts'),
-// };
+const path = require('path');
+module.exports = {
+  env: process.env.NODE_ENV || 'development',
+  'seeders-path': path.resolve('dist/core/database', 'seeders'),
+  'models-path': path.resolve('src/core/database', 'models'),
+  'migrations-path': path.resolve('src/core/database', 'migrations'),
+  'config': path.resolve('dist/core/database', 'database.config.js'),
+};

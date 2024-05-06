@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  ForbiddenException,
   Get,
   HttpStatus,
   NotFoundException,
@@ -20,12 +21,13 @@ export class EmailSenderController {
   @Post('create-token')
   async createToken(@Req() req: Request, @Res() res: Response) {
     const { email } = req.body;
-    const token = await this.emailService.generatePasswordResetToken();
     const userName = await this.emailService.findUserByEmail(email);
+    const userId = userName.id;
 
+    const mail_token = await this.emailService.generateToken(userId, email);
     return res.status(HttpStatus.OK).json({
       message: 'Token Successfully Created !',
-      token: token,
+      token: mail_token,
       username: userName.name,
     });
   }
@@ -56,12 +58,20 @@ export class EmailSenderController {
 
   @Put('newPasswd')
   async resPasswd(@Req() req: Request, @Res() res: Response) {
-    const { email, newPassword, confirmNewPassword } = req.body;
+    const { token, newPassword, confirmNewPassword } = req.body;
+
+    const decodedToken = await this.emailService.verifyToken(token);
+
+    const userId = decodedToken.id;
+
+    if (!decodedToken) {
+      throw new ForbiddenException('Invalid Token !');
+    }
 
     const newPasswd = await this.emailService.resPasswd(
       newPassword,
       confirmNewPassword,
-      email,
+      userId,
     );
 
     return res
