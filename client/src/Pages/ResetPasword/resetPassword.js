@@ -1,23 +1,57 @@
 import React, { useState } from 'react';
-import { Form, Input, Button, Typography, Card } from 'antd';
+import { useParams } from 'react-router-dom'; // Import useParams
+import { Form, Input, Button, Typography, Card, message } from 'antd';
 import { LockOutlined } from '@ant-design/icons';
-import './resetPassword.css'; // Ensure you have the CSS file in the same folder
+import axios from 'axios';
+import './resetPassword.css';
 
 const { Title } = Typography;
 
 const ResetPassword = () => {
+    const { token } = useParams(); // Retrieve the token from the URL
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
 
-    const handleSubmit = () => {
-        if (password !== confirmPassword) {
-            console.error('Passwords do not match!');
-            // Uygulamada hata mesajı gösterme
-            return;
-        }
-        console.log('Password reset successful:', password);
-        // Burada back-end'e bir istek gönderilir
+   const handleSubmit = async () => {
+    if (password !== confirmPassword) {
+        message.error('Passwords do not match!');
+        return;
+    }
+
+    // Preparing the data for the request
+    const requestData = {
+        token, // Assuming 'token' is still retrieved from useParams and used here.
+        newPassword: password,
+        confirmNewPasswd: confirmPassword
     };
+
+    // Logging the request details for debugging
+    console.log("Sending PUT request to URL:", 'http://localhost:3005/api/email-sender/newPasswd');
+    console.log("Request Data:", requestData);
+
+    try {
+        const response = await axios.put('http://localhost:3005/api/email-sender/newPasswd', requestData);
+
+        // Check the success flag more defensively
+        if (response && response.data && response.data.success) {
+            message.success('Password reset successful');
+            // Additional actions such as redirecting the user can be placed here
+        } else {
+            // Ensure there's a default error message in case the data structure isn't as expected
+            message.error('Password reset failed: ' + (response.data.message || 'Unknown error'));
+        }
+    } catch (error) {
+        console.error('Password reset request failed:', error);
+        // Check if error response exists and has a data message
+        if (error.response && error.response.data) {
+            message.error('Password reset failed: ' + error.response.data.message);
+        } else {
+            message.error('Password reset failed');
+        }
+    }
+};
+
+    
 
     return (
         <div className="reset-password-container">

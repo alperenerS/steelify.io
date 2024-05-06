@@ -35,7 +35,7 @@ function App() {
             <Route path="/about-us" element={<AboutUs />} />
             <Route path="/my-requests" element={<PrivateRoute><MyRequests /></PrivateRoute>} />
             <Route path="/profile" element={<PrivateRoute><Profile /></PrivateRoute>} />
-            <Route path="/reset-password" element={<PrivateRoute><ResetPassword /></PrivateRoute>} />
+            <Route path="/reset-password/:token" element={<ResetPassword />} />
             <Route path="/forgot-password" element={<ForgotPassword />} />
             {/* <Route path="/activation-notification" element={<ActivationNotification />} /> */}
             <Route path="/*" element={<PageNotFound />} />

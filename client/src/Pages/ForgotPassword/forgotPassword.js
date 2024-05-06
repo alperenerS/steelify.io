@@ -12,31 +12,33 @@ const ForgotPassword = () => {
   const navigate = useNavigate();
 
   const handleSubmit = async () => {
-    const userFirstname = email.substring(0, email.indexOf("@")); // "@" işaretine kadar olan kısmı alın
-
     try {
-      // E-posta içeriği için token olmadan önce hazırlanır
-      const placeholderToken = "placeholder-token"; // API'den gerçek token alınana kadar geçici bir token
-      const initialHtml = getEmailHtml(userFirstname, placeholderToken);
+      const tokenResponse = await axios.post(`${API_BASE_URL}/email-sender/create-token`, { email });
+      const { token, username } = tokenResponse.data;
 
-      // Token almak ve e-posta göndermek için API çağrısı yapılıyor
-      const response = await axios.post(`${API_BASE_URL}/email-sender/reset-password`, {
-        to: email,
-        subject: 'Password Reset Request',
-        html: initialHtml.replace(placeholderToken, "${token}")  // Gerçek token ile placeholder token değiştiriliyor
-      });
+      if (token && username) {
+        const emailHtml = getEmailHtml(username, token);
 
-      if (response.data && response.data.message.includes("Successfully")) {
-        setResult({
-          status: 'success',
-          title: 'Password Reset Link Sent',
-          subTitle: 'A link to reset your password has been sent to your email.'
+        const emailResponse = await axios.post(`${API_BASE_URL}/email-sender/reset-password`, {
+          to: email,
+          subject: 'Password Reset Request',
+          html: emailHtml
         });
+
+        if (emailResponse.data && emailResponse.data.message.includes("Successfully")) {
+          setResult({
+            status: 'success',
+            title: 'Password Reset Link Sent',
+            subTitle: 'A link to reset your password has been sent to your email.'
+          });
+        } else {
+          throw new Error('Failed to send email');
+        }
       } else {
-        throw new Error('Failed to send email');
+        throw new Error('Token or username not received');
       }
     } catch (error) {
-      console.error('Error during the email sending process:', error);
+      console.error('Error during the reset password process:', error);
       setResult({
         status: 'error',
         title: 'Failed to Send Reset Email',
