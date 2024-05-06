@@ -1,57 +1,56 @@
 import React, { useState } from 'react';
-import { useParams } from 'react-router-dom'; // Import useParams
-import { Form, Input, Button, Typography, Card, message } from 'antd';
-import { LockOutlined } from '@ant-design/icons';
+import { useParams, useNavigate } from 'react-router-dom';
+import { Form, Input, Button, Result, Card, message } from 'antd';
 import axios from 'axios';
+import { API_BASE_URL } from "../../config";
 import './resetPassword.css';
 
-const { Title } = Typography;
-
 const ResetPassword = () => {
-    const { token } = useParams(); // Retrieve the token from the URL
+    const { token } = useParams();
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
+    const [isSuccess, setIsSuccess] = useState(false); // State to track success
+    const navigate = useNavigate();
 
-   const handleSubmit = async () => {
-    if (password !== confirmPassword) {
-        message.error('Passwords do not match!');
-        return;
-    }
+    const handleSubmit = async () => {
+        if (password !== confirmPassword) {
+            message.error('Passwords do not match!');
+            return;
+        }
 
-    // Preparing the data for the request
-    const requestData = {
-        token, // Assuming 'token' is still retrieved from useParams and used here.
-        newPassword: password,
-        confirmNewPasswd: confirmPassword
+        const requestData = {
+            token,
+            newPassword: password,
+            confirmNewPassword: confirmPassword
+        };
+
+        try {
+            const response = await axios.put(`${API_BASE_URL}/email-sender/newPasswd`, requestData);
+            if (response.status === 201) {
+                setIsSuccess(true);  // Set success state to true
+            } else {
+                message.error('Password reset failed: ' + (response.data.message || 'Unknown error'));
+            }
+        } catch (error) {
+            console.error('Password reset request failed:', error);
+            message.error('Password reset failed: ' + (error.response?.data?.message || 'Unknown error'));
+        }
     };
 
-    // Logging the request details for debugging
-    console.log("Sending PUT request to URL:", 'http://localhost:3005/api/email-sender/newPasswd');
-    console.log("Request Data:", requestData);
-
-    try {
-        const response = await axios.put('http://localhost:3005/api/email-sender/newPasswd', requestData);
-
-        // Check the success flag more defensively
-        if (response && response.data && response.data.success) {
-            message.success('Password reset successful');
-            // Additional actions such as redirecting the user can be placed here
-        } else {
-            // Ensure there's a default error message in case the data structure isn't as expected
-            message.error('Password reset failed: ' + (response.data.message || 'Unknown error'));
-        }
-    } catch (error) {
-        console.error('Password reset request failed:', error);
-        // Check if error response exists and has a data message
-        if (error.response && error.response.data) {
-            message.error('Password reset failed: ' + error.response.data.message);
-        } else {
-            message.error('Password reset failed');
-        }
+    if (isSuccess) {
+        return (
+            <Result
+                status="success"
+                title="Your password has been reset successfully!"
+                subTitle="Your password has been updated. You can now log in with your new password."
+                extra={[
+                    <Button type="primary" key="login" onClick={() => navigate('/login')}>
+                        Return to Login
+                    </Button>
+                ]}
+            />
+        );
     }
-};
-
-    
 
     return (
         <div className="reset-password-container">
@@ -63,37 +62,21 @@ const ResetPassword = () => {
                     layout="vertical"
                 >
                     <Form.Item
-                        label="Password"
+                        label="New Password"
                         name="password"
                         rules={[{ required: true, message: "Please enter your new password." }]}
                     >
-                        <Input.Password
-                            placeholder="New Password"
-                            onChange={e => setPassword(e.target.value)}
-                        />
+                        <Input.Password onChange={e => setPassword(e.target.value)} />
                     </Form.Item>
                     <Form.Item
-                        label="Confirm Password"
+                        label="Confirm New Password"
                         name="confirmPassword"
-                        rules={[
-                            { required: true, message: "Please confirm your new password." },
-                            ({ getFieldValue }) => ({
-                                validator(_, value) {
-                                    if (!value || getFieldValue('password') === value) {
-                                        return Promise.resolve();
-                                    }
-                                    return Promise.reject(new Error('The two passwords that you entered do not match!'));
-                                },
-                            }),
-                        ]}
+                        rules={[{ required: true, message: "Please confirm your new password." }]}
                     >
-                        <Input.Password
-                            placeholder="Confirm New Password"
-                            onChange={e => setConfirmPassword(e.target.value)}
-                        />
+                        <Input.Password onChange={e => setConfirmPassword(e.target.value)} />
                     </Form.Item>
                     <Form.Item>
-                        <Button type="primary" htmlType="submit" className="reset-password-button">
+                        <Button type="primary" htmlType="submit">
                             Set New Password
                         </Button>
                     </Form.Item>
