@@ -34,7 +34,7 @@ const AppFooter = () => {
             <Text className="footer-link" style={{ cursor: 'pointer' }} onClick={() => navigate("/get-quote")}>
               Get Quote
             </Text>
-            <Text className="footer-link" style={{ cursor: 'pointer' }} onClick={() => navigate("")}>
+            <Text className="footer-link" style={{ cursor: 'pointer' }} onClick={() => navigate("register")}>
               Become a supplier
             </Text>
             <Text className="footer-link" style={{ cursor: 'pointer' }} onClick={() => navigate("/about-us")}>
