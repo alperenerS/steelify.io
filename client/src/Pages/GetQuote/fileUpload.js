@@ -6,6 +6,7 @@ const { Dragger } = Upload;
 
 const FileUpload = ({ onFileListChange }) => {
   const [fileList, setFileList] = useState([]);
+  const maxTotalSize = 100 * 1024 * 1024; // 100 MB maximum total size
 
   const allowedExtensions = [
     ".xlsx",
@@ -26,6 +27,13 @@ const FileUpload = ({ onFileListChange }) => {
     if (!isAllowed) {
       message.error(`${file.name} is not a supported file type.`);
       return Upload.LIST_IGNORE; // This will prevent the file from being added to the list
+    }
+
+    const currentTotalSize = fileList.reduce((total, item) => total + item.size, 0);
+    const newTotalSize = currentTotalSize + file.size;
+    if (newTotalSize > maxTotalSize) {
+      message.error("Cannot upload this file: total size would exceed 100 MB.");
+      return Upload.LIST_IGNORE;
     }
     return false;
   };
@@ -57,7 +65,7 @@ const FileUpload = ({ onFileListChange }) => {
       <p className="ant-upload-text">UPLOAD LISTS & DRAWINGS</p>
       <p className="ant-upload-hint">
         Supported file types: {allowedExtensions.join(", ")} <br />
-        Supports single or bulk upload. You can upload up to 10 files. Strictly prohibit from uploading company data or other banned files.
+        Supports single or bulk upload. You can upload up to 10 files. Strictly prohibit from uploading company data or other banned files. Maximum total file size is 100 MB.
       </p>
     </Dragger>
   );
