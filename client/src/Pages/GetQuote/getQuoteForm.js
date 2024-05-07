@@ -19,8 +19,8 @@ const GetQuoteForm = ({ onSubmit, order_id, isPreFilled = false }) => {
       });
     }
 
-    const fetchQuoteDetails = async () => {
-      if (isPreFilled && order_id) {
+    if (isPreFilled && order_id) {
+      const fetchQuoteDetails = async () => {
         try {
           const response = await axios.get(`${API_BASE_URL}/order/${order_id}`);
           if (response.data && response.data.data) {
@@ -49,10 +49,10 @@ const GetQuoteForm = ({ onSubmit, order_id, isPreFilled = false }) => {
           console.error("Failed to fetch quote details:", error);
           message.error("Failed to load quote details.");
         }
-      }
-    };
+      };
 
-    fetchQuoteDetails();
+      fetchQuoteDetails();
+    }
   }, [form, order_id, isPreFilled]);
 
   const handleFileChange = (newFileList) => {
@@ -60,10 +60,21 @@ const GetQuoteForm = ({ onSubmit, order_id, isPreFilled = false }) => {
   };
 
   const handlePhotoChange = ({ fileList: newPhotoList }) => {
-    const newPhotos = newPhotoList.map((file) =>
-      file.originFileObj ? file.originFileObj : file
-    );
-    setPhotoList(newPhotos);
+    const filteredList = newPhotoList.filter(file => {
+      if (file.type.startsWith('image/')) {
+        return true;
+      } else {
+        message.error(`${file.name} is not an image file.`, 10);
+        return false;
+      }
+    });
+  
+    if (filteredList.length > 10) {
+      message.error("You can only upload up to 10 photos.", 10);
+      filteredList.length = 10;
+    }
+  
+    setPhotoList(filteredList.map(file => file.originFileObj ? file.originFileObj : file));
   };
 
   const onFinish = (values) => {
@@ -79,7 +90,7 @@ const GetQuoteForm = ({ onSubmit, order_id, isPreFilled = false }) => {
       delivery_date: "2024-02-25",
       status: "Pending Review",
       reference: "-",
-      filename: "-",
+      filename: "-"
     };
     onSubmit(extendedValues, fileList, photoList);
   };
@@ -116,6 +127,7 @@ const GetQuoteForm = ({ onSubmit, order_id, isPreFilled = false }) => {
           name="samplePhotos"
           listType="picture"
           multiple={true}
+          accept=".jpg,.jpeg,.png"
           beforeUpload={() => false}
           onChange={handlePhotoChange}
         >
