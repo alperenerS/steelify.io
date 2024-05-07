@@ -17,17 +17,23 @@ const MyRequests = () => {
         console.error("User information or access token is missing.");
         return;
       }
-
+  
+      const requestUrl = `${API_BASE_URL}/order`;
+      const params = {
+        customer: userInfo.name,
+      };
+      const headers = {
+        Authorization: `Bearer ${accessToken}`,
+      };
+  
+      console.log("Sending request to URL:", requestUrl, "with params:", params, "and headers:", headers);
+  
       try {
-        const response = await axios.get(`${API_BASE_URL}/order/customerName`, {
-          params: {
-            customer: userInfo.name,
-          },
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
+        const response = await axios.get(requestUrl, {
+          params: params,
+          headers: headers,
         });
-
+  
         if (response.data && response.data.data) {
           const sortedOrders = response.data.data
             .map(order => ({
@@ -42,9 +48,10 @@ const MyRequests = () => {
         console.error("Failed to fetch orders:", error);
       }
     };
-
+  
     fetchOrders();
   }, []);
+  
 
   const getStatusColor = status => {
     switch (status) {
