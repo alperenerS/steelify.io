@@ -1,0 +1,20 @@
+.capabilities-container {
+    padding: 20px;
+  }
+  
+  .capabilities-container h1 {
+    padding-bottom: 20px;
+    border-bottom: 1px solid #ccc;
+  }
+  
+  .capabilities-card-style {
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  .capabilities-card-style img {
+    width: 50%;
+    display: block;
+    margin: auto;
+  }
+  
