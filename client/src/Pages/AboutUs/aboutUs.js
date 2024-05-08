@@ -1,13 +1,13 @@
 import React from "react";
 import { Typography, Row, Col, Card, Divider } from "antd";
-
+import "./aboutUs.css";
 const { Title, Paragraph } = Typography;
 
 const AboutUs = () => {
   return (
-    <div style={{ padding: "50px" }}>
+    <div className="about-us-main-content">
       <Row justify="center">
-        <Col span={8}>
+        <Col xs={24} md={8}>
           <Typography>
             <Title>About Steelify</Title>
             <Paragraph>
@@ -26,7 +26,7 @@ const AboutUs = () => {
 
       <Row justify="center">
         <Col span={8}></Col>
-        <Col span={8}>
+        <Col xs={24} md={8}>
           <Typography>
             <Title level={2}>For Industrial Buyers</Title>
             <Paragraph>
@@ -42,7 +42,7 @@ const AboutUs = () => {
       <Divider />
 
       <Row justify="center">
-        <Col span={8}>
+        <Col xs={24} md={8}>
           <Typography>
             <Title level={2}>For Small Workshops</Title>
             <Paragraph>
@@ -59,7 +59,7 @@ const AboutUs = () => {
 
       <Row justify="center">
         <Col span={8}></Col>
-        <Col span={8}>
+        <Col xs={24} md={8}>
           <Typography>
             <Title level={2}>Innovation and Technology</Title>
             <Paragraph>
@@ -73,15 +73,14 @@ const AboutUs = () => {
         </Col>
       </Row>
       <Divider />
-
-      <div style={{ padding: "50px" }}>
-        <div style={{ textAlign: "center", marginBottom: "20px" }}>
+      <div className="about-us-main-title">
+        <div className="about-us-title">
           <Typography>
             <Title level={2}>Meet Our Team</Title>
           </Typography>
         </div>
-        <Row gutter={[10, 10]} justify="center">
-          <Col span={4}>
+        <Row gutter={[16, 16]} justify="center">
+          <Col xs={24} sm={12} md={8} lg={6} xl={4}>
             <a
               href="https://www.linkedin.com/in/yetkinsag"
               target="_blank"
@@ -89,6 +88,7 @@ const AboutUs = () => {
             >
               <Card
                 hoverable
+                className="about-us-card-responsive"
                 cover={
                   <img
                     alt="Yetkin Sağ"
@@ -100,7 +100,7 @@ const AboutUs = () => {
               </Card>
             </a>
           </Col>
-          <Col span={4}>
+          <Col xs={24} sm={12} md={8} lg={6} xl={4}>
             <a
               href="https://www.linkedin.com/in/enverbodur"
               target="_blank"
@@ -122,7 +122,7 @@ const AboutUs = () => {
               </Card>
             </a>
           </Col>
-          <Col span={4}>
+          <Col xs={24} sm={12} md={8} lg={6} xl={4}>
             <a
               href="https://www.linkedin.com/in/alperen-alihan-er-910050151"
               target="_blank"
@@ -144,7 +144,7 @@ const AboutUs = () => {
               </Card>
             </a>
           </Col>
-          <Col span={4}>
+          <Col xs={24} sm={12} md={8} lg={6} xl={4}>
             <a
               href="https://www.linkedin.com/in/emremataraci"
               target="_blank"
