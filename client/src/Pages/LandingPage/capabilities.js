@@ -24,11 +24,28 @@ function Capabilities() {
           <Col key={index} xs={24} sm={12} md={8} lg={6} xl={4}>
             <Card
               hoverable
-              cover={<img alt={card.title} src={card.image} />}
-              style={{ width: 240 }}
+              cover={
+                <img
+                  alt={card.title}
+                  src={card.image}
+                  style={{
+                    width: "100px",
+                    height: "auto",
+                    display: "block",
+                    marginLeft: "auto",
+                    marginRight: "auto",
+                    marginTop: "2rem",
+                    marginBottom: "2rem",
+                  }}
+                />
+              }
+              style={{ width: "240px" }}
               className="capabilities-card-style"
             >
-              <Card.Meta title={card.title} />
+              <Card.Meta
+                title={card.title}
+                style={{ textAlign: "center" }} // Inline stilleri kaldırıldı, CSS dosyasında ayarlandı
+              />
             </Card>
           </Col>
         ))}
