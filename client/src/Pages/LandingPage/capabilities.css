@@ -1,20 +1,35 @@
-.capabilities-container {
-    padding: 20px;
-  }
-  
-  .capabilities-container h1 {
-    padding-bottom: 20px;
-    border-bottom: 1px solid #ccc;
-  }
-  
-  .capabilities-card-style {
-    margin-bottom: 20px;
-    text-align: center;
-  }
-  
-  .capabilities-card-style img {
-    width: 50%;
-    display: block;
-    margin: auto;
-  }
-  
+/* capabilities.css */
+.capabilities-wrapper {
+  margin-top: 2rem;
+}
+
+.custom-card {
+  padding: 20px;
+  height: 250px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.custom-card-image {
+  width: 150px;
+  height: auto;
+  display: block;
+  margin: auto;
+  padding-top: 20px;
+}
+
+.ant-card-body {
+  padding: 8px;
+}
+
+.ant-card {
+  margin: 5px;
+  border-radius: 8px;
+}
+
+.custom-card-title {
+  padding: 0; /* Adjust title padding if necessary */
+}

@@ -1,11 +1,12 @@
 import React from "react";
-import { Card, Row, Col } from "antd";
+import { Card, Col, Row } from 'antd';
+import './capabilities.css';
+
 import steelifyLaserCutting from "./assets/steelifyLaserCutting.png";
 import steelifyBending from "./assets/steelifyBending.png";
 import steelifyCNCMachining from "./assets/steelifyCNCMachining.png";
 import steelifyWelding from "./assets/steelifyWelding.png";
 import steelifyCoating from "./assets/steelifyCoating.png";
-import "./capabilities.css";
 
 const cardData = [
   { title: "Laser cutting", image: steelifyLaserCutting },
@@ -15,43 +16,24 @@ const cardData = [
   { title: "Tube laser cutting", image: steelifyCoating },
 ];
 
-function Capabilities() {
+const CapabilitiesSection = () => {
   return (
-    <div className="capabilities-container">
-      <h1 style={{ textAlign: "center" }}>Capabilities</h1>
-      <Row gutter={[16, 16]} justify="space-around">
+    <div className="capabilities-wrapper">
+      <Row gutter={[16, 16]} justify="center">
         {cardData.map((card, index) => (
-          <Col key={index} xs={24} sm={12} md={8} lg={6} xl={4}>
+          <Col key={index} xs={24} sm={12} md={8} lg={6} xl={4} style={{ maxWidth: '300px' }}>
             <Card
               hoverable
-              cover={
-                <img
-                  alt={card.title}
-                  src={card.image}
-                  style={{
-                    width: "100px",
-                    height: "auto",
-                    display: "block",
-                    marginLeft: "auto",
-                    marginRight: "auto",
-                    marginTop: "2rem",
-                    marginBottom: "2rem",
-                  }}
-                />
-              }
-              style={{ width: "240px" }}
-              className="capabilities-card-style"
+              className="custom-card"
+              cover={<img alt={card.title} src={card.image} className="custom-card-image" />}
             >
-              <Card.Meta
-                title={card.title}
-                style={{ textAlign: "center" }} // Inline stilleri kaldırıldı, CSS dosyasında ayarlandı
-              />
+              <Card.Meta title={<div style={{ whiteSpace: 'normal' }}>{card.title}</div>} className="custom-card-title" />
             </Card>
           </Col>
         ))}
       </Row>
     </div>
   );
-}
+};
 
-export default Capabilities;
+export default CapabilitiesSection;
