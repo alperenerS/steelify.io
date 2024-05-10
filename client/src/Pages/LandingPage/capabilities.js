@@ -2,18 +2,21 @@ import React from "react";
 import { Card, Col, Row } from "antd";
 import "./capabilities.css";
 
-import steelifyLaserCutting from "./assets/steelifyLaserCutting.png";
-import steelifyBending from "./assets/steelifyBending.png";
-import steelifyCNCMachining from "./assets/steelifyCNCMachining.png";
 import steelifyWelding from "./assets/steelifyWelding.png";
-import steelifyCoating from "./assets/steelifyCoating.png";
+import steelifyCNCMachining from "./assets/steelifyCNCMachining.png";
+import steelifyBending from "./assets/steelifyBending.png";
+import steelifyLaserCutting from "./assets/steelifyLaserCutting.png";
+// import steelifyCoating from "./assets/steelifyCoating.png";
 
 const cardData = [
-  { title: "Laser cutting", image: steelifyLaserCutting },
-  { title: "Bending & folding", image: steelifyBending },
-  { title: "CNC turning & milling", image: steelifyCNCMachining },
-  { title: "CNC milling", image: steelifyWelding },
-  { title: "Tube laser cutting", image: steelifyCoating },
+  { title: "Laser Cutting", image: steelifyWelding },
+  { title: "Bending", image: steelifyCNCMachining },
+  { title: "CNC Machining", image: steelifyBending },
+  { title: "Welding", image: steelifyLaserCutting },
+
+
+
+  // { title: "Tube laser cutting", image: steelifyCoating },
 ];
 
 const CapabilitiesSection = () => {
