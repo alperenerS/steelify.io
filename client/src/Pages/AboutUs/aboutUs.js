@@ -15,8 +15,8 @@ const AboutUs = () => {
               manufacturing as a service in steel & aluminium fabrication and
               reliable services at competitive prices with flexible and scalable
               solutions. We tackle the challenge of connecting high-quality
-              product seekers with workshops that often struggle to find high
-              tier customers and deal with unpredictable orders.
+              product seekers with metal workshops that often struggle to
+              sustainable customers and orders.
             </Paragraph>
           </Typography>
         </Col>
@@ -31,7 +31,7 @@ const AboutUs = () => {
             <Title level={2}>For Industrial Buyers</Title>
             <Paragraph>
               Experience streamlined procurement with Steelify, ensuring on-time
-              delivery, premium quality, diverse supply options, and enhanced
+              delivery, desired quality, diverse supply options, and enhanced
               trust and traceability. Our platform is designed to simplify the
               procurement process, making it easier for you to access the best
               products and services in the market.
@@ -44,12 +44,12 @@ const AboutUs = () => {
       <Row justify="center">
         <Col xs={24} md={8}>
           <Typography>
-            <Title level={2}>For Small Workshops</Title>
+            <Title level={2}>For Metal Workshops</Title>
             <Paragraph>
               Gain access to a world without borders with Steelify. We offer
-              increased demand, robust support ensuring financial trust, and
-              enhanced quality management for small workshops, empowering them
-              to expand their reach and scale their operations effectively.
+              increased demand, technical support, ensuring financial trust, and
+              enhanced quality management for metal workshops, empowering them
+              to scale their operations effectively.
             </Paragraph>
           </Typography>
         </Col>
