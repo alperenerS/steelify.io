@@ -1,23 +1,24 @@
 import React, { useEffect, useState } from "react";
+import { useSelector } from 'react-redux'; // Redux state'ini okumak için
 import { Table, Row, Col, Tag } from "antd";
 import axios from "axios";
-import { getUserInfo } from "../../Utils/Auth/authService";
 import { API_BASE_URL } from "../../config";
 import "./myRequests.css";
 
 const MyRequests = () => {
   const [orders, setOrders] = useState([]);
 
+  // Redux state'inden kullanıcı bilgilerini ve token'ı çek
+  const userInfo = useSelector(state => state.user.user);
+  const accessToken = useSelector(state => state.user.token);
+
   useEffect(() => {
     const fetchOrders = async () => {
-      const accessToken = localStorage.getItem('accessToken');
-      const userInfo = getUserInfo();
-      
       if (!accessToken || !userInfo) {
         console.error("User information or access token is missing.");
         return;
       }
-  
+
       const requestUrl = `${API_BASE_URL}/order`;
       const params = {
         customer: userInfo.name,
@@ -25,94 +26,57 @@ const MyRequests = () => {
       const headers = {
         Authorization: `Bearer ${accessToken}`,
       };
-  
+
       console.log("Sending request to URL:", requestUrl, "with params:", params, "and headers:", headers);
-  
+
       try {
-        const response = await axios.get(requestUrl, {
-          params: params,
-          headers: headers,
-        });
-  
+        const response = await axios.get(requestUrl, { params, headers });
         if (response.data && response.data.data) {
           const sortedOrders = response.data.data
             .map(order => ({
               ...order,
               key: order.id,
-              id: parseInt(order.id), // Ensure the id is an integer
+              id: parseInt(order.id),
             }))
-            .sort((a, b) => a.id - b.id); // Sort by id in ascending order
+            .sort((a, b) => a.id - b.id);
           setOrders(sortedOrders);
         }
       } catch (error) {
         console.error("Failed to fetch orders:", error);
       }
     };
-  
+
     fetchOrders();
-  }, []);
-  
+  }, [accessToken, userInfo]); // accessToken ve userInfo değişikliklerinde etkinleştir
 
   const getStatusColor = status => {
     switch (status) {
-      case 'Pending Review':
-        return 'volcano';
-      case 'Reviewing':
-        return 'geekblue';
-      case 'Awaiting Approval':
-        return 'orange';
-      case 'Approved':
-        return 'green';
-      case 'Rejected':
-        return 'red';
-      case 'In Production':
-        return 'cyan';
-      case 'Quality Check':
-        return 'blue';
-      case 'Ready for Shipment':
-        return 'purple';
-      case 'In Transit':
-        return 'lime';
-      case 'Delivered':
-        return 'gold';
-      case 'Completed':
-        return 'green';
-      case 'Cancelled':
-        return 'red';
-      default:
-        return 'default';
+      case 'Pending Review': return 'volcano';
+      case 'Reviewing': return 'geekblue';
+      case 'Awaiting Approval': return 'orange';
+      case 'Approved': return 'green';
+      case 'Rejected': return 'red';
+      case 'In Production': return 'cyan';
+      case 'Quality Check': return 'blue';
+      case 'Ready for Shipment': return 'purple';
+      case 'In Transit': return 'lime';
+      case 'Delivered': return 'gold';
+      case 'Completed': return 'green';
+      case 'Cancelled': return 'red';
+      default: return 'default';
     }
   };
 
   const columns = [
+    { title: "Reference No", dataIndex: "reference", key: "reference" },
+    { title: "Request No", dataIndex: "name", key: "name" },
     {
-      title: "Reference No",
-      dataIndex: "reference",
-      key: "reference",
+      title: "Request Date", dataIndex: "createdAt", key: "createDate",
+      render: createdAt => new Date(createdAt).toLocaleDateString('en-GB')
     },
     {
-      title: "Request No",
-      dataIndex: "name",
-      key: "name",
-    },
-    {
-      title: "Request Date",
-      dataIndex: "createdAt",
-      key: "createDate",
-      render: createdAt => {
-        const date = new Date(createdAt);
-        const formattedDate = date.toLocaleDateString('en-GB');
-        return formattedDate;
-      }
-    },
-    {
-      title: "Status",
-      dataIndex: "status",
-      key: "status",
-      render: status => {
-        const color = getStatusColor(status);
-        return <Tag color={color}>{status}</Tag>;
-      }
+      title: "Status", dataIndex: "status", key: "status",
+      render: status => <Tag color={getStatusColor(status)}>{status}</Tag>
     },
   ];
 

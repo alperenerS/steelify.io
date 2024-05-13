@@ -1,41 +1,40 @@
+import { store } from '../../Redux/Store/store';
+import { setUser, logout } from '../../Redux/Slices/userSlice';
+
 export const saveUserInfo = ({ data }) => {
   const { access_token, data: userData } = data;
-  localStorage.setItem("accessToken", access_token);
-  localStorage.setItem("userInfo", JSON.stringify(userData));
+  // Redux store'unda kullanıcı bilgilerini ve token'ı güncelle
+  store.dispatch(setUser({ user: userData, token: access_token }));
 };
 
 export const getUserInfo = () => {
-  const userInfoStr = localStorage.getItem("userInfo");
-  try {
-    return userInfoStr ? JSON.parse(userInfoStr) : null;
-  } catch (error) {
-    console.error("getUserInfo parsing error:", error);
-    clearUserInfo();
-    return null;
-  }
+  // Redux store'undan kullanıcı bilgilerini al
+  const state = store.getState();
+  return state.user.user; // userSlice'taki initialState'e bağlı olarak bu yol değişebilir
 };
 
 export const clearUserInfo = () => {
-  localStorage.removeItem("accessToken");
-  localStorage.removeItem("userInfo");
+  // Redux store'dan kullanıcı bilgilerini ve token'ı temizle
+  store.dispatch(logout());
 };
 
 export const checkTokenExpiry = () => {
-  const accessToken = localStorage.getItem("accessToken");
+  // Redux store'dan token'ı kontrol et
+  const state = store.getState();
+  const { token } = state.user;
 
-  if (!accessToken) {
+  if (!token) {
     clearUserInfo();
     return false;
   }
 
   try {
-    const splitToken = accessToken.split(".");
+    const splitToken = token.split(".");
     if (splitToken.length !== 3) {
       throw new Error("Token format invalid");
     }
 
     const { exp } = JSON.parse(atob(splitToken[1]));
-
     const now = Date.now() / 1000;
 
     if (exp < now) {

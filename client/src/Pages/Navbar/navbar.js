@@ -1,21 +1,21 @@
 import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Menu, Dropdown, Button } from 'antd';
 import { DownOutlined } from '@ant-design/icons';
 import "./navbar.css";
 import { getUserInfo, clearUserInfo } from "../../Utils/Auth/authService";
+import { logout } from '../../Redux/Slices/userSlice';
 
 const Navbar = () => {
   const navigate = useNavigate();
-  const [userName, setUserName] = useState("Guest");
+  const dispatch = useDispatch(); // Dispatch fonksiyonunu kullanmak için
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+  // Redux state'inden kullanıcı bilgilerini çek
+  const userName = useSelector(state => state.user.user ? state.user.user.name : "Guest");
+  const isAuthenticated = useSelector(state => state.user.token != null);
 
   useEffect(() => {
-    const userInfo = getUserInfo();
-    if (userInfo && userInfo.name) {
-      setUserName(userInfo.name);
-    }
-
     const handleResize = () => {
       setIsMobile(window.innerWidth < 768);
     };
@@ -24,10 +24,7 @@ const Navbar = () => {
     return () => {
       window.removeEventListener('resize', handleResize);
     };
-
   }, []);
-
-  const isAuthenticated = !!localStorage.getItem("accessToken");
 
   const items = isAuthenticated
     ? [
@@ -45,7 +42,7 @@ const Navbar = () => {
 
   const onClick = (e) => {
     if (e.key === "logout") {
-      clearUserInfo();
+      dispatch(logout());
       navigate("/login");
       return;
     }
@@ -64,18 +61,13 @@ const Navbar = () => {
         item.children ? (
           <Menu.SubMenu key={item.key} title={item.label}>
             {item.children.map(subItem => (
-              <Menu.Item key={subItem.key} onClick={() => {
-                if (subItem.key === "logout") {
-                  clearUserInfo();
-                  navigate("/login");
-                }
-              }}>
+              <Menu.Item key={subItem.key}>
                 {subItem.label}
               </Menu.Item>
             ))}
           </Menu.SubMenu>
         ) : (
-          <Menu.Item key={item.key} onClick={() => item.path && navigate(item.path)}>
+          <Menu.Item key={item.key}>
             {item.label}
           </Menu.Item>
         )

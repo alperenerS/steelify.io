@@ -1,5 +1,16 @@
 import React, { useState } from "react";
-import { Layout, Typography, Card, Row, Col, message, Modal, Spin, Button } from "antd";
+import { useSelector } from "react-redux";
+import {
+  Layout,
+  Typography,
+  Card,
+  Row,
+  Col,
+  message,
+  Modal,
+  Spin,
+  Button,
+} from "antd";
 import { CheckCircleOutlined } from "@ant-design/icons";
 import GetQuoteForm from "./getQuoteForm";
 import axios from "axios";
@@ -15,20 +26,21 @@ const GetQuotePage = () => {
   const [successModalVisible, setSuccessModalVisible] = useState(false);
   const [orderData, setOrderData] = useState(null);
 
+  const token = useSelector((state) => state.user.token);
+
   const handleSubmit = async (values, fileList, photoList) => {
     setIsSubmitting(true);
-    const token = localStorage.getItem("accessToken");
     const formData = new FormData();
 
-    fileList.forEach(file => {
+    fileList.forEach((file) => {
       formData.append("orderDocs", file);
     });
 
-    photoList.forEach(photo => {
+    photoList.forEach((photo) => {
       formData.append("samplePhotos", photo);
     });
 
-    Object.keys(values).forEach(key => {
+    Object.keys(values).forEach((key) => {
       formData.append(key, values[key]);
     });
 
@@ -61,9 +73,8 @@ const GetQuotePage = () => {
     }
   };
 
-
   const goToRequestDetails = () => {
-    navigate(`/request-details/${orderData ? orderData.id : ''}`);
+    navigate(`/request-details/${orderData ? orderData.id : ""}`);
   };
 
   return (
@@ -83,17 +94,24 @@ const GetQuotePage = () => {
         </Row>
       </Content>
       <Modal
-        // title={`Order #${orderData ? orderData.id : ''} Created`}
         open={successModalVisible}
         footer={[
-          <Button key="submit" type="primary" onClick={goToRequestDetails}>Go to Request Details</Button>,
+          <Button key="submit" type="primary" onClick={goToRequestDetails}>
+            Go to Request Details
+          </Button>,
         ]}
         centered
       >
-        <div style={{ textAlign: 'center' }}>
+        <div style={{ textAlign: "center" }}>
           <CheckCircleOutlined style={{ fontSize: 48, color: "#52c41a" }} />
-          <p style={{ marginTop: "16px", fontSize: "16px", fontWeight: "bold" }}>Your quote request has been received!</p>
-          <p>We will review it and get back to you via email as soon as possible.</p>
+          <p
+            style={{ marginTop: "16px", fontSize: "16px", fontWeight: "bold" }}
+          >
+            Your quote request has been received!
+          </p>
+          <p>
+            We will review it and get back to you via email as soon as possible.
+          </p>
         </div>
       </Modal>
     </Layout>
