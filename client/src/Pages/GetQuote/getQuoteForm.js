@@ -101,7 +101,7 @@ const GetQuoteForm = ({ onSubmit, order_id, isPreFilled = false }) => {
         quotation_note: values.quotation_note,
         delivery_date: "2024-02-25",
         status: "Pending Review",
-        reference: "-",
+        reference: values.requestNo,
         filename: "-",
       },
       fileList,
