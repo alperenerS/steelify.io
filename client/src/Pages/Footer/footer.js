@@ -51,7 +51,7 @@ const AppFooter = () => {
         <div className="footer-lower-content">
           <Text className="footer-text">&copy; COPYRIGHT 2024 STEELIFY</Text>
           <Space size="middle">
-            <Text className="footer-icon" style={{ cursor: 'pointer' }} onClick={() => window.open("https://www.youtube.com", "_blank")}>
+            <Text className="footer-icon" style={{ cursor: 'pointer' }} onClick={() => window.open("https://www.youtube.com/@Steelify-BV", "_blank")}>
               <YoutubeOutlined />
             </Text>
             <Text className="footer-icon" style={{ cursor: 'pointer' }} onClick={() => window.open("https://www.linkedin.com/company/steelify/", "_blank")}>
