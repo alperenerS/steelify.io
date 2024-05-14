@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from 'react-redux'; // Redux state'ini okumak için
-import { Table, Row, Col, Tag } from "antd";
+import { useSelector } from 'react-redux';
+import { Table, Row, Col, Tag, Button } from "antd";
 import axios from "axios";
 import { API_BASE_URL } from "../../config";
 import "./myRequests.css";
@@ -8,7 +8,6 @@ import "./myRequests.css";
 const MyRequests = () => {
   const [orders, setOrders] = useState([]);
 
-  // Redux state'inden kullanıcı bilgilerini ve token'ı çek
   const userInfo = useSelector(state => state.user.user);
   const accessToken = useSelector(state => state.user.token);
 
@@ -47,7 +46,7 @@ const MyRequests = () => {
     };
 
     fetchOrders();
-  }, [accessToken, userInfo]); // accessToken ve userInfo değişikliklerinde etkinleştir
+  }, [accessToken, userInfo]);
 
   const getStatusColor = status => {
     switch (status) {
@@ -78,7 +77,14 @@ const MyRequests = () => {
       title: "Status", dataIndex: "status", key: "status",
       render: status => <Tag color={getStatusColor(status)}>{status}</Tag>
     },
-  ];
+    {
+      title: "Details",
+      dataIndex: "incoterm_description",
+      key: "incoterm_description",
+      render: (text) => text.startsWith("https") ? <a href={text} target="_blank" rel="noopener noreferrer">View Details</a> : text
+    }
+    
+      ];
 
   return (
     <Row justify="center" className="myRequestsContainer">
