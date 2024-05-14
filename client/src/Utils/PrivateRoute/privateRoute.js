@@ -1,11 +1,16 @@
 import React from 'react';
-import { Navigate } from 'react-router-dom';
+import { Navigate, useLocation } from 'react-router-dom';
 import { checkTokenExpiry } from '../Auth/authService';
 
 const PrivateRoute = ({ children }) => {
+  const location = useLocation();
   const isTokenValid = checkTokenExpiry();
 
-  return isTokenValid ? children : <Navigate to="/login" replace />;
+  if (isTokenValid) {
+    return children;
+  } else {
+    return <Navigate to="/login" state={{ from: location }} replace />;
+  }
 };
 
 export default PrivateRoute;

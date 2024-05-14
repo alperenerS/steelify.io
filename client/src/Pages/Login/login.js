@@ -1,33 +1,33 @@
 import React from "react";
-import axios from "axios";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, useLocation, Link } from "react-router-dom";
 import { Form, Input, Button, Checkbox, Card, notification } from "antd";
-import { useDispatch } from 'react-redux';
-import { setUser } from '../../Redux/Slices/userSlice'; // Dosya yolu projenize göre değişebilir
+import axios from "axios";
+import { useDispatch } from "react-redux";
+import { setUser } from "../../Redux/Slices/userSlice"; // Dosya yolu projenize göre değişebilir
 import { API_BASE_URL } from "../../config";
 
 const Login = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch(); // Redux store'a erişim için useDispatch hook'unu kullan
+  const location = useLocation();
+  const dispatch = useDispatch();
+
+  // Retrieve the state passed from the redirect or default to root
+  const { from } = location.state || { from: { pathname: "/" } };
 
   const onFinish = async (values) => {
     try {
-      const response = await axios.post(
-        `${API_BASE_URL}/auth/login`,
-        values
-      );
-
+      const response = await axios.post(`${API_BASE_URL}/auth/login`, values);
       if (response.data && response.data.data) {
         const { data, access_token } = response.data.data;
-        // Redux store'unda kullanıcı bilgilerini güncelle
         dispatch(setUser({ user: data, token: access_token }));
 
         notification.success({
           message: "Login Successful",
-          description: response.data.message || "You have successfully logged in!",
+          description:
+            response.data.message || "You have successfully logged in!",
         });
 
-        navigate("/");
+        navigate(from.pathname); // Redirect to the intended page or default
       } else {
         notification.error({
           message: "Login Failed",
@@ -45,7 +45,7 @@ const Login = () => {
   };
 
   const onFinishFailed = (errorInfo) => {
-    console.error('Failed:', errorInfo);
+    console.error("Failed:", errorInfo);
   };
 
   return (
