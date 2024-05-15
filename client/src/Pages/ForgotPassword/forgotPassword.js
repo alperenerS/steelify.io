@@ -3,7 +3,7 @@ import { Form, Input, Button, Card, Result } from 'antd';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import './forgotPassword.css';
-import { API_BASE_URL } from '../../config';
+import { API_BASE_URL , CLIENT_BASE_URL } from '../../config';
 import getEmailHtml from '../../EmailTemplates/ForgotPassword/forgotPasswordMailTemplate';
 
 const ForgotPassword = () => {
@@ -17,7 +17,7 @@ const ForgotPassword = () => {
       const { token, username } = tokenResponse.data;
 
       if (token && username) {
-        const emailHtml = getEmailHtml(username, token);
+        const emailHtml = getEmailHtml(username, token, CLIENT_BASE_URL);
 
         const emailResponse = await axios.post(`${API_BASE_URL}/email-sender/reset-password`, {
           to: email,
