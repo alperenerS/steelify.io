@@ -22,7 +22,7 @@ const FeaturesSection = () => {
       <Row gutter={[16, 16]} justify="center" className="features-row">
         {featureCardsData.map((feature, index) => (
           <Col xs={24} sm={12} md={8} key={index} style={{ display: 'flex', justifyContent: 'center' }}>
-            <Card className="feature-card" hoverable>
+            <Card className="feature-card">
               <Title level={4}>{feature.title}</Title>
               <div className="feature-icon">{feature.icon}</div>
               <Paragraph>{feature.description}</Paragraph>

@@ -9,10 +9,10 @@ import steelifyLaserCutting from "./assets/steelifyLaserCutting.png";
 // import steelifyCoating from "./assets/steelifyCoating.png";
 
 const cardData = [
-  { title: "Laser Cutting", image: steelifyWelding },
-  { title: "Bending", image: steelifyCNCMachining },
-  { title: "CNC Machining", image: steelifyBending },
-  { title: "Welding", image: steelifyLaserCutting },
+  { title: "Welding", image: steelifyWelding },
+  { title: "CNC Machining", image: steelifyCNCMachining },
+  { title: "Bending", image: steelifyBending },
+  { title: "Laser Cutting", image: steelifyLaserCutting },
 
 
 
@@ -35,7 +35,6 @@ const CapabilitiesSection = () => {
             style={{ maxWidth: "300px" }}
           >
             <Card
-              hoverable
               className="custom-card"
               cover={
                 <img
