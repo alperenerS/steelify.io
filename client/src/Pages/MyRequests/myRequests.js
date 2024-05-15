@@ -17,19 +17,18 @@ const MyRequests = () => {
         console.error("User information or access token is missing.");
         return;
       }
-
-      const requestUrl = `${API_BASE_URL}/order`;
-      const params = {
-        customer: userInfo.name,
-      };
+  
+      // Updated API request URL to include the customer name query directly in the URL.
+      const requestUrl = `${API_BASE_URL}/order/customerName?customer=${encodeURIComponent(userInfo.name)}`;
+  
       const headers = {
         Authorization: `Bearer ${accessToken}`,
       };
-
-      console.log("Sending request to URL:", requestUrl, "with params:", params, "and headers:", headers);
-
+  
+      console.log("Sending request to URL:", requestUrl, "with headers:", headers);
+  
       try {
-        const response = await axios.get(requestUrl, { params, headers });
+        const response = await axios.get(requestUrl, { headers });
         if (response.data && response.data.data) {
           const sortedOrders = response.data.data
             .map(order => ({
@@ -44,9 +43,10 @@ const MyRequests = () => {
         console.error("Failed to fetch orders:", error);
       }
     };
-
+  
     fetchOrders();
   }, [accessToken, userInfo]);
+  
 
   const getStatusColor = status => {
     switch (status) {
