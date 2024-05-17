@@ -18,7 +18,8 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
-    "sequelize": "npx sequelize-cli"
+    "sequelize": "npx sequelize-cli",
+    "migrate-and-start": "npx sequelize-cli db:migrate && npm run start:dev"
   },
   "dependencies": {
     "@azure/storage-blob": "^12.17.0",
