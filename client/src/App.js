@@ -12,7 +12,7 @@ import AboutUs from './Pages/AboutUs/aboutUs';
 import MyRequests from './Pages/MyRequests/myRequests';
 import Profile from './Pages/Profile/profile';
 import PrivateRoute from './Utils/PrivateRoute/privateRoute';
-import AppFooter from './Pages/Footer/footer';
+import Footer from './Shared/Footer/appFooter';
 import ResetPassword from './Pages/ResetPasword/resetPassword';
 import ForgotPassword from './Pages/ForgotPassword/forgotPassword';
 import './App.css';
@@ -39,7 +39,7 @@ function App() {
             <Route path="/*" element={<PageNotFound />} />
           </Routes>
         </Layout.Content>
-        <AppFooter />
+        <Footer />
       </Layout>
     </Router>
   );
