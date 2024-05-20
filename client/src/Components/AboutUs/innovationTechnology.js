@@ -9,7 +9,7 @@ const InnovationTechnology = () => (
     <Row justify="center" align="middle" className="about-steelify-row">
       <Col xs={24} md={8}>
         <img
-          src="https://yenastorage.blob.core.windows.net/steelify/Steelify Streamlined Fabrication.png"
+          src="https://yenastorage.blob.core.windows.net/steelify/Steelify Innovation.png"
           alt="Steelify Multisided Business"
           className="about-steelify-image"
         />
