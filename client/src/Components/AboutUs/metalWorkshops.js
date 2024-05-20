@@ -1,12 +1,13 @@
 import React from "react";
 import { Typography, Row, Col, Divider } from "antd";
+import './metalWorkshops.css';
 
 const { Title, Paragraph } = Typography;
 
 const MetalWorkshops = () => (
-  <div>
-    <Row justify="center">
-      <Col xs={24} md={8}>
+  <>
+    <Row justify="center" align="middle" className="about-steelify-row">
+      <Col xs={24} md={8} className="about-steelify-text">
         <Typography>
           <Title level={2}>For Metal Workshops</Title>
           <Paragraph>
@@ -17,16 +18,17 @@ const MetalWorkshops = () => (
           </Paragraph>
         </Typography>
       </Col>
-      <Col span={8}>
+      <Col xs={24} md={8}>
         <img
           src="https://yenastorage.blob.core.windows.net/steelify/Steelify Streamlined Fabrication.png"
-          alt="Steelify Multisided Business"
+          alt="Steelify Streamlined Fabrication"
           className="about-steelify-image"
         />
       </Col>
     </Row>
     <Divider />
-  </div>
+  </>
 );
 
 export default MetalWorkshops;
+
