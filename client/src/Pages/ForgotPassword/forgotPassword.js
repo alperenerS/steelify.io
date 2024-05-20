@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
-import { Form, Input, Button, Card, Result } from 'antd';
+import { Card } from 'antd';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import './forgotPassword.css';
-import { API_BASE_URL , CLIENT_BASE_URL } from '../../config';
+import { API_BASE_URL, CLIENT_BASE_URL } from '../../config';
 import getEmailHtml from '../../EmailTemplates/ForgotPassword/forgotPasswordMailTemplate';
+import ForgotPasswordForm from '../../Components/ForgotPassword/forgotPasswordForm';
+import ForgotPasswordResult from '../../Components/ForgotPassword/forgotPasswordResult';
+import './forgotPassword.css';
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState('');
@@ -55,42 +57,14 @@ const ForgotPassword = () => {
     <div className="forgot-password-container">
       {!result ? (
         <Card title="Reset Your Password" className="forgot-password-card">
-          <Form
-            name="forgot_password"
-            onFinish={handleSubmit}
-            className="forgot-password-form"
-            layout="vertical"
-          >
-            <Form.Item
-              label="Email"
-              name="email"
-              rules={[
-                { required: true, message: 'Please enter your email address.' },
-                { type: 'email', message: 'Please enter a valid email address!' }
-              ]}
-            >
-              <Input
-                placeholder="Enter your email"
-                onChange={e => setEmail(e.target.value)}
-              />
-            </Form.Item>
-            <Form.Item>
-              <Button type="primary" htmlType="submit" className="forgot-password-button">
-                Send Reset Link
-              </Button>
-            </Form.Item>
-          </Form>
+          <ForgotPasswordForm onFinish={handleSubmit} onChange={setEmail} />
         </Card>
       ) : (
-        <Result
-          status={result.status}
-          title={result.title}
-          subTitle={result.subTitle}
-          extra={[
-            <Button type="primary" key="console" onClick={handleBackHome}>
-              Return to Homepage
-            </Button>
-          ]}
+        <ForgotPasswordResult 
+          status={result.status} 
+          title={result.title} 
+          subTitle={result.subTitle} 
+          onBackHome={handleBackHome} 
         />
       )}
     </div>
