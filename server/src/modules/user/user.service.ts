@@ -60,18 +60,18 @@ export class UserService {
     }
 
     const newUserDto: UserDto = {
-        email: user.email,
-        password: hashedPassword,
-        userType: user.userType,
-        website: user.website,
-        name: user.name,
-        surname: user.surname,
-      };
+      email: user.email,
+      password: hashedPassword,
+      userType: user.userType,
+      website: user.website,
+      name: user.name,
+      surname: user.surname,
+    };
 
     return await this.userRepository.update(
       {
         email: newUserDto.email,
-        password:newUserDto.password,
+        password: newUserDto.password,
         userType: newUserDto.userType,
         website: newUserDto.website,
         name: newUserDto.name,
@@ -79,5 +79,11 @@ export class UserService {
       },
       { where: { id: userId } },
     );
+  }
+
+  async getUserProfile(user_id: number): Promise<User> {
+    return await this.userRepository.findByPk(user_id, {
+      attributes: { exclude: ['password', 'createdAt', 'updatedAt', 'id'] },
+    });
   }
 }

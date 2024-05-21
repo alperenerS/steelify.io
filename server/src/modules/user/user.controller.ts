@@ -1,7 +1,10 @@
 import {
   Body,
   Controller,
+  Get,
   HttpStatus,
+  NotFoundException,
+  Param,
   Put,
   Req,
   Res,
@@ -29,5 +32,22 @@ export class UserController {
     return res
       .status(HttpStatus.OK)
       .json({ message: 'Successfully created !', data: response });
+  }
+
+  @Get('profile/:id')
+  async getUserProfile(
+    @Param('id') id: number,
+    @Req() req: Request,
+    @Res() res: Response,
+  ) {
+    const user = await this.userService.getUserProfile(id);
+
+    if (!user) {
+      throw new NotFoundException('User can not be found !');
+    }
+
+    return res
+      .status(HttpStatus.OK)
+      .json({ message: 'User Successfully Fetched !', data: user });
   }
 }
