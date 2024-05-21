@@ -7,15 +7,13 @@ import {
   Row,
   Col,
   message,
-  Modal,
   Spin,
-  Button,
 } from "antd";
-import { CheckCircleOutlined } from "@ant-design/icons";
-import GetQuoteForm from "./getQuoteForm";
-import axios from "axios";
-import { API_BASE_URL } from "../../config";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import GetQuoteForm from "../../Components/GetQuote/getQuoteForm";
+import SuccessModal from "../../Components/GetQuote/succesModal";
+import { API_BASE_URL } from "../../config";
 
 const { Header, Content } = Layout;
 const { Title } = Typography;
@@ -88,32 +86,17 @@ const GetQuotePage = () => {
         <Row justify="center">
           <Col xs={24} sm={20} md={16} lg={12} xl={10}>
             <Card bordered={false} style={{ padding: "20px" }}>
-              <GetQuoteForm onSubmit={handleSubmit} />
+              <Spin spinning={isSubmitting}>
+                <GetQuoteForm onSubmit={handleSubmit} />
+              </Spin>
             </Card>
           </Col>
         </Row>
       </Content>
-      <Modal
-        open={successModalVisible}
-        footer={[
-          <Button key="submit" type="primary" onClick={goToRequestDetails}>
-            Go to Request Details
-          </Button>,
-        ]}
-        centered
-      >
-        <div style={{ textAlign: "center" }}>
-          <CheckCircleOutlined style={{ fontSize: 48, color: "#52c41a" }} />
-          <p
-            style={{ marginTop: "16px", fontSize: "16px", fontWeight: "bold" }}
-          >
-            Your quote request has been received!
-          </p>
-          <p>
-            We will review it and get back to you via email as soon as possible.
-          </p>
-        </div>
-      </Modal>
+      <SuccessModal
+        visible={successModalVisible}
+        onOk={goToRequestDetails}
+      />
     </Layout>
   );
 };
