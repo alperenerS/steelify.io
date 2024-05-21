@@ -86,4 +86,8 @@ export class UserService {
       attributes: { exclude: ['password', 'createdAt', 'updatedAt', 'id'] },
     });
   }
+
+  async findUserByEmail(email: string): Promise<User> {
+    return await this.userRepository.findOne({ where: { email: email } });
+  }
 }

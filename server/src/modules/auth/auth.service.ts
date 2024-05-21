@@ -9,6 +9,7 @@ import { JwtService } from '@nestjs/jwt';
 import { UserDto } from '../user/dto/user.dto';
 import { AuthDto } from './dto/auth.dto';
 import * as bcrypt from 'bcrypt';
+import { User } from '../user/user.entity';
 
 @Injectable()
 export class AuthService {
@@ -66,5 +67,9 @@ export class AuthService {
     const payload = { id, email, name, surname, userType, website };
 
     return this.jwtService.signAsync(payload);
+  }
+
+  async findUserExist(email: string): Promise<User> {
+    return await this.userService.findUserByEmail(email);
   }
 }

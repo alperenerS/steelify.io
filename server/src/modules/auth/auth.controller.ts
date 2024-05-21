@@ -1,4 +1,5 @@
 import {
+  BadRequestException,
   Body,
   Controller,
   Get,
@@ -18,6 +19,11 @@ export class AuthController {
 
   @Post('register')
   async register(@Body() user: UserDto, @Res() res: Response) {
+    const userExist = await this.authService.findUserExist(user.email);
+    if (userExist) {
+      throw new BadRequestException('User Already Exist !');
+    }
+
     const newUser = await this.authService.register(user);
 
     return res
