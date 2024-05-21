@@ -1,9 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import axios from "axios";
-import { Form, Input, Button, Card, notification } from "antd";
+import { Form } from "antd";
+import ProfileCard from "../../Components/Profile/profileCard";
+import {
+  showProfileLoadError,
+  showProfileUpdateSuccess,
+  showProfileUpdateError,
+} from "../../Components/Profile/profileNotification";
 import { API_BASE_URL } from "../../config";
 
-const Profile = () => {
+const ProfilePage = () => {
   const [form] = Form.useForm();
 
   useEffect(() => {
@@ -17,10 +23,7 @@ const Profile = () => {
         });
         form.setFieldsValue(response.data);
       } catch (error) {
-        notification.error({
-          message: "Failed to load profile data",
-          description: error.response?.data?.message || "An error occurred while fetching profile data.",
-        });
+        showProfileLoadError(error.response?.data?.message);
       }
     };
 
@@ -36,43 +39,17 @@ const Profile = () => {
         },
       });
 
-      notification.success({
-        message: "Profile Updated",
-        description: "Your profile has been updated successfully.",
-      });
+      showProfileUpdateSuccess();
     } catch (error) {
-      notification.error({
-        message: "Profile Update Failed",
-        description: error.response?.data?.message || "An error occurred while updating your profile.",
-      });
+      showProfileUpdateError(error.response?.data?.message);
     }
   };
 
   return (
     <div style={{ display: "flex", justifyContent: "center", alignItems: "center", minHeight: "80vh" }}>
-      <Card title="My Profile" style={{ maxWidth: 600, width: "100%" }}>
-        <Form form={form} layout="vertical" onFinish={handleSubmit}>
-          <Form.Item label="Email" name="email">
-            <Input />
-          </Form.Item>
-          <Form.Item label="Name" name="name">
-            <Input />
-          </Form.Item>
-          <Form.Item label="Surname" name="surname">
-            <Input />
-          </Form.Item>
-          <Form.Item label="Company Website" name="website">
-            <Input />
-          </Form.Item>
-          <Form.Item>
-            <Button type="primary" htmlType="submit">
-              Update Profile
-            </Button>
-          </Form.Item>
-        </Form>
-      </Card>
+      <ProfileCard form={form} onFinish={handleSubmit} />
     </div>
   );
 };
 
-export default Profile;
+export default ProfilePage;
