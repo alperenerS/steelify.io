@@ -91,6 +91,7 @@ export class OrderController {
       quotation_note,
       status,
       reference,
+      user_id,
     } = req.body;
 
     try {
@@ -126,6 +127,7 @@ export class OrderController {
         quotation_note: quotation_note,
         status: status,
         reference: reference,
+        user_id: user_id,
       };
 
       const newOrder = await this.orderService.createOrder(orderDto);

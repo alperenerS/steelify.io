@@ -3,11 +3,11 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    return queryInterface.addColumn('Users', {/*eklenecek sutun adi */}, {
-      type: Sequelize.STRING,
+    return queryInterface.addColumn('Orders', 'user_id', {
+      type: Sequelize.INTEGER,
       allowNull: true,
       references: {
-        model: 'Orders', // Bağlanacak tablo adı
+        model: 'Users', // Bağlanacak tablo adı
         key: 'id',
       }, //Foreign Key
       onUpdate: 'CASCADE',
@@ -16,6 +16,6 @@ module.exports = {
   },
 
   down: async (queryInterface, Sequelize) => {
-    return queryInterface.removeColumn('Users', {/*eklenecek sutun adi */});
+    return queryInterface.removeColumn('Orders', 'user_id');
   },
 };
