@@ -1,9 +1,9 @@
 import React from 'react';
 import { Row, Col } from 'antd';
-import LandingPageHeader from './landingPageHeader';
-import FeaturesSection from './featuresSection';
-import InfoSection from './infoSection';
-import Capabilities from './capabilities';
+import LandingPageHeader from '../../Components/LandingPage/landingPageHeader';
+import FeaturesSection from '../../Components/LandingPage/featuresSection';
+import InfoSection from '../../Components/LandingPage/infoSection';
+import Capabilities from '../../Components/LandingPage/capabilities'
 
 function LandingPage() {
   return (
