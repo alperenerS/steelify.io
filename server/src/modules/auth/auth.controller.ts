@@ -1,8 +1,16 @@
-import { Body, Controller, HttpStatus, Post, Req, Res } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  HttpStatus,
+  Post,
+  Req,
+  Res,
+} from '@nestjs/common';
 import { AuthDto } from './dto/auth.dto';
 import { AuthService } from './auth.service';
 import { UserDto } from '../user/dto/user.dto';
-import { Response } from 'express';
+import { Request, Response } from 'express';
 
 @Controller('api/auth')
 export class AuthController {
@@ -24,5 +32,25 @@ export class AuthController {
     return res
       .status(200)
       .json({ message: 'User Successfully Logged In !', data: response });
+  }
+
+  @Get('set-cookie')
+  getUserInfo(@Req() req: Request, @Res() res: Response) {
+    // Kullanıcının IP adresini alma
+    const ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
+    res.cookie('ipAddress', `${ip}`, { httpOnly: true });
+
+    // Kullanıcının tarayıcı bilgisini alma
+    const userAgent = req.headers['user-agent'];
+    res.cookie('browser', `${userAgent}`, {
+      httpOnly: true,
+    });
+
+    const cookies = req.cookies;
+
+    return res.status(HttpStatus.OK).json({
+      message: 'Cookies Successfully Signed',
+      cookies: cookies,
+    });
   }
 }
