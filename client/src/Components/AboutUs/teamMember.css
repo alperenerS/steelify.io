@@ -1,0 +1,8 @@
+.about-us-card-responsive {
+  }
+  
+  @media only screen and (max-width: 768px) {
+    .about-us-card-responsive {
+      max-width: 100%; /* Mobil cihazlarda tam genişlik kullanın */
+    }
+  }

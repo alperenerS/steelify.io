@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Form, Input, Button, Upload, message } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
-import FileUpload from "./fileUpload";
 import axios from "axios";
+import FileUpload from "./fileUpload";
 import { API_BASE_URL } from "../../config";
 
 const GetQuoteForm = ({ onSubmit, order_id, isPreFilled = false }) => {
@@ -11,7 +11,6 @@ const GetQuoteForm = ({ onSubmit, order_id, isPreFilled = false }) => {
   const [fileList, setFileList] = useState([]);
   const [photoList, setPhotoList] = useState([]);
 
-  // Redux state'inden kullanıcı bilgilerini ve token'ı çek
   const userInfo = useSelector((state) => state.user.user);
   const accessToken = useSelector((state) => state.user.token);
 

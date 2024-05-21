@@ -44,7 +44,6 @@ const FileUpload = ({ onFileListChange }) => {
       info.fileList = info.fileList.slice(0, 10);
     }
 
-    // Map through fileList to ensure we're working with the originFileObjs
     const newFiles = info.fileList.map(file => file.originFileObj ? file.originFileObj : file);
     setFileList(newFiles);
     onFileListChange(newFiles);
@@ -57,7 +56,7 @@ const FileUpload = ({ onFileListChange }) => {
       beforeUpload={beforeUpload}
       onChange={onChange}
       fileList={fileList}
-      accept={fileExtensionsString} // Specify accepted file types
+      accept={fileExtensionsString}
     >
       <p className="ant-upload-drag-icon">
         <InboxOutlined />
