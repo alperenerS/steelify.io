@@ -92,6 +92,7 @@ const GetQuoteForm = ({ onSubmit, order_id, isPreFilled = false }) => {
     onSubmit(
       {
         ...values,
+        user_id: userInfo ? userInfo.id : 0,
         name: userInfo ? userInfo.name : "Guest",
         customer: userInfo ? userInfo.name : "Customer",
         incoterm: "-",
