@@ -2,8 +2,8 @@ import React from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { Button, notification } from "antd";
 import axios from "axios";
-import { getUserInfo } from "../../../Utils/Auth/authService";
-import { API_BASE_URL } from "../../../config";
+import { getUserInfo } from "../../Utils/Auth/authService";
+import { API_BASE_URL } from "../../config";
 import "./saveButton.css";
 
 const SaveButton = ({ shippingFormData }) => {
