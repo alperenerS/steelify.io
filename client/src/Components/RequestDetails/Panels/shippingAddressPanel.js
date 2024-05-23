@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Form, Input } from "antd";
-import { getUserInfo } from "../../../../Utils/Auth/authService";
+import { getUserInfo } from "../../../Utils/Auth/authService";
 
 const ShippingAddressPanel = ({ form }) => {
   const [initialValues, setInitialValues] = useState({
