@@ -65,6 +65,23 @@ export class OrderController {
       .json({ message: 'Order Successfully fetched !', data: selectedOrder });
   }
 
+  @Get('userId/:id')
+  async getOrderByUserId(
+    @Param('id') id: number,
+    @Req() req: Request,
+    @Res() res: Response,
+  ) {
+    const order = await this.orderService.getOrderByUserId(id);
+
+    if (!order) {
+      throw new NotFoundException('User can not be found !');
+    }
+
+    return res
+      .status(HttpStatus.OK)
+      .json({ message: 'Order Successfully Fetched !', data: order });
+  }
+
   @Post('createOrder')
   @UseInterceptors(
     FileFieldsInterceptor([

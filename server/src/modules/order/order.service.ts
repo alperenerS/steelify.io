@@ -125,6 +125,10 @@ export class OrderService {
     });
   }
 
+  async getOrderByUserId(id: number): Promise<Order[]> {
+    return await this.orderRepository.findAll({ where: { user_id: id } });
+  }
+
   async getOrderById(id: number): Promise<Order> {
     return await this.orderRepository.findByPk(id);
   }
