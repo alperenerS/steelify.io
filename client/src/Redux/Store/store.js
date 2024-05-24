@@ -1,13 +1,11 @@
-// src/redux/Store/store.js
 import { configureStore } from '@reduxjs/toolkit';
 import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import rootReducer from '../Reducers';
-
 const persistConfig = {
   key: 'root',
   storage,
-  whitelist: ['user'], // only user slice will be persisted
+  whitelist: ['user'],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

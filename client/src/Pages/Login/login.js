@@ -23,7 +23,8 @@ const Login = () => {
       const response = await axios.post(`${API_BASE_URL}/auth/login`, values);
       if (response.data && response.data.data) {
         const { data, access_token } = response.data.data;
-        dispatch(setUser({ user: data, token: access_token }));
+        const userId = data.id;
+        dispatch(setUser({ user: data, token: access_token, id: userId }));
 
         showLoginSuccess(response.data.message);
         navigate(from.pathname);
