@@ -15,6 +15,7 @@ import PrivateRoute from './Utils/PrivateRoute/privateRoute';
 import Footer from './Shared/Footer/appFooter';
 import ResetPassword from './Pages/ResetPasword/resetPassword';
 import ForgotPassword from './Pages/ForgotPassword/forgotPassword';
+import Chat from './Shared/Chat/chat';
 import './App.css';
 
 function App() {
@@ -39,6 +40,7 @@ function App() {
             <Route path="/*" element={<PageNotFound />} />
           </Routes>
         </Layout.Content>
+        {/* <Chat /> */}
         <Footer />
       </Layout>
     </Router>
