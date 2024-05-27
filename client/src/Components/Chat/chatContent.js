@@ -2,19 +2,16 @@ import React from 'react';
 import { List } from 'antd';
 import './chatContent.css';
 
-const data = [
-  'Message 1',
-  'Message 2',
-  'Message 3',
-  'Message 4',
-];
-
-const ChatContent = () => {
+const ChatContent = ({ messages }) => {
   return (
     <List
       className="chat-content"
-      dataSource={data}
-      renderItem={item => <List.Item>{item}</List.Item>}
+      dataSource={messages}
+      renderItem={item => (
+        <List.Item className={item.sender === 'user1' ? 'chat-message user1' : 'chat-message user2'}>
+          <div>{item.message}</div>
+        </List.Item>
+      )}
     />
   );
 };

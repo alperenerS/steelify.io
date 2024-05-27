@@ -1,5 +1,22 @@
 .chat-content {
-    height: 200px;
-    overflow-y: auto;
-  }
-  
+  height: 500px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.chat-message {
+  border-radius: 8px;
+  margin-bottom: 10px;
+  max-width: 80%;
+}
+
+.user1 {
+  background-color: #e6f7ff;
+  align-self: flex-start;
+}
+
+.user2 {
+  background-color: #f6ffed;
+  align-self: flex-end;
+}

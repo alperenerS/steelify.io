@@ -1,6 +1,10 @@
 .chat-input {
-    display: flex;
-    gap: 10px;
-    margin-top: 10px;
-  }
-  
+  display: flex;
+  padding: 10px;
+  border-top: 1px solid #f0f0f0;
+}
+
+.chat-input .ant-input {
+  flex: 5;
+  margin-right: 10px;
+}
