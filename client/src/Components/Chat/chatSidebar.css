@@ -1,9 +1,9 @@
 .chat-sidebar {
     width: 200px;
-    background-color: #fff5e6; /* Light orange background color */
     border-right: 3px solid #d9d9d9; /* Thicker border */
     overflow-y: auto;
     margin-top: 15px;
+    padding-right: 10px;
   }
   
   .chat-sidebar-content {
@@ -25,7 +25,7 @@
   }
   
   .chat-sidebar-item.active {
-    background-color: #ffc069; /* Highlight color for active chat */
+    background-color: #ff9500; /* Brighter orange for active chat */
   }
   
   .ant-list-item {

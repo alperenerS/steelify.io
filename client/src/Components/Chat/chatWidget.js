@@ -26,7 +26,7 @@ const ChatWidget = () => {
           <ChatHeader toggleDrawer={toggleDrawer} />
           <div className="chat-main">
             <div className="chat-body">
-              <ChatSidebar handleOrderClick={handleOrderClick} />
+              <ChatSidebar handleOrderClick={handleOrderClick} activeOrderId={activeOrder.orderId} />
               <div className="chat-content-container">
                 <ChatContent messages={activeOrder.messages} />
               </div>

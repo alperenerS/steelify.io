@@ -12,6 +12,7 @@ const ChatSidebar = ({ handleOrderClick, activeOrderId }) => {
         renderItem={item => (
           <List.Item
             className={`chat-sidebar-item ${item.orderId === activeOrderId ? 'active' : ''}`}
+            onClick={() => handleOrderClick(item)}
             style={{
               width: '100%',
               boxSizing: 'border-box',
@@ -19,7 +20,6 @@ const ChatSidebar = ({ handleOrderClick, activeOrderId }) => {
               transition: 'background-color 0.3s ease',
               borderBottom: '1px solid #d9d9d9',
             }}
-            onClick={() => handleOrderClick(item)}
           >
             <div style={{ width: '100%' }}>{item.orderName}</div>
           </List.Item>
