@@ -40,7 +40,7 @@ function App() {
             <Route path="/*" element={<PageNotFound />} />
           </Routes>
         </Layout.Content>
-        {/* <Chat /> */}
+        <Chat />
         <Footer />
       </Layout>
     </Router>

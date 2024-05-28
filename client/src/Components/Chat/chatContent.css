@@ -20,12 +20,12 @@
   word-wrap: break-word;
 }
 
-.chat-message.user1 {
+.chat-message.user2 {
   background-color: #e6f7ff;
   justify-content: flex-start;
 }
 
-.chat-message.user2 {
+.chat-message.user1 {
   background-color: #f6ffed;
   justify-content: flex-end;
   margin-left: auto;
