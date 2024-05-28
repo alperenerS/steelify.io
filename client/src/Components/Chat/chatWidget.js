@@ -19,6 +19,12 @@ const ChatWidget = () => {
     setActiveOrder(order);
   };
 
+  const sendMessage = (message) => {
+    const updatedMessages = [...activeOrder.messages, { sender: 'user1', message }];
+    const updatedOrder = { ...activeOrder, messages: updatedMessages };
+    setActiveOrder(updatedOrder);
+  };
+
   return (
     <div className="chat-widget-container">
       {visible ? (
@@ -31,7 +37,7 @@ const ChatWidget = () => {
                 <ChatContent messages={activeOrder.messages} />
               </div>
             </div>
-            <ChatInput />
+            <ChatInput onSendMessage={sendMessage} />
           </div>
         </Card>
       ) : (

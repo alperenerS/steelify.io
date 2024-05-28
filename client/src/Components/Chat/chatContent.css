@@ -5,18 +5,33 @@
   flex-direction: column;
 }
 
+.chat-message-wrapper {
+  display: flex;
+  justify-content: flex-start;
+  padding: 5px;
+}
+
 .chat-message {
   border-radius: 8px;
   margin-bottom: 10px;
-  max-width: 80%;
+  padding: 10px;
+  display: inline-block;
+  max-width: 60%;
+  word-wrap: break-word;
 }
 
-.user1 {
+.chat-message.user1 {
   background-color: #e6f7ff;
-  align-self: flex-start;
+  justify-content: flex-start;
 }
 
-.user2 {
+.chat-message.user2 {
   background-color: #f6ffed;
-  align-self: flex-end;
+  justify-content: flex-end;
+  margin-left: auto;
+}
+
+.message-bubble {
+  border-radius: 5px;
+  word-break: break-word;
 }

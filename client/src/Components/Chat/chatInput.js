@@ -1,22 +1,24 @@
 import React, { useState } from "react";
-import { Input, Button, Upload, message } from "antd";
+import { Input, Button, Upload, message as antdMessage } from "antd";
 import { PaperClipOutlined } from "@ant-design/icons";
 import "./chatInput.css";
 
-const ChatInput = () => {
+const ChatInput = ({ onSendMessage }) => {
   const [messageText, setMessageText] = useState("");
   const [fileList, setFileList] = useState([]);
 
   const sendMessage = () => {
-    console.log("Send message:", messageText);
-    setMessageText("");
-    setFileList([]);
+    if (messageText.trim()) {
+      onSendMessage(messageText);
+      setMessageText("");
+      setFileList([]);
+    }
   };
 
   const beforeUpload = (file) => {
     const isLt10M = file.size / 1024 / 1024 < 10;
     if (!isLt10M) {
-      message.error("File must be smaller than 10MB!");
+      antdMessage.error("File must be smaller than 10MB!");
     }
     return isLt10M;
   };
