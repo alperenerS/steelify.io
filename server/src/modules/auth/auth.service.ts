@@ -10,6 +10,7 @@ import { UserDto } from '../user/dto/user.dto';
 import { AuthDto } from './dto/auth.dto';
 import * as bcrypt from 'bcrypt';
 import { User } from '../user/user.entity';
+import axios from 'axios';
 
 @Injectable()
 export class AuthService {
@@ -19,13 +20,29 @@ export class AuthService {
   ) {}
 
   async register(user: UserDto) {
-    const newUser = await this.userService.createUser({
-      ...user,
-    });
+    // Create the user in Odoo
+    try {
+      const response = await axios.post(
+        'https://portal-steelify-steelify-api-13372588.dev.odoo.com/api/create_portal_user',
+        {
+          name: `${user.name} ${user.surname}`,
+          login: user.email,
+          password: user.password,
+        }
+      );
+      const odooUserId = response.data.result.user_id;
 
-    const { ...result } = newUser['dataValues'];
+      const newUser = await this.userService.createUser({
+        ...user,
+        odoo_id: odooUserId,
+      });
 
-    return { data: result };
+      const { ...result } = newUser['dataValues'];
+
+      return { data: result };
+    } catch (error) {
+      throw new BadRequestException('Failed to create user in Odoo');
+    }
   }
 
   async login(authDto: AuthDto) {

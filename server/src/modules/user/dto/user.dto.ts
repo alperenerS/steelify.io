@@ -69,4 +69,5 @@ export class UserDto {
   @IsString()
   @IsNotEmpty()
   readonly surname: string;
+  readonly odoo_id?: number;
 }

@@ -40,4 +40,9 @@ export class User extends Model<User> {
 
   @HasMany(() => Address)
   address:Address[]
+
+  @Column({ 
+    type: DataType.INTEGER,
+    allowNull: true, })
+  odoo_id: number;
 }
