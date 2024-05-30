@@ -16,7 +16,9 @@ import Footer from './Shared/Footer/appFooter';
 import ResetPassword from './Pages/ResetPasword/resetPassword';
 import ForgotPassword from './Pages/ForgotPassword/forgotPassword';
 import Chat from './Shared/Chat/chat';
+import { Cookies } from 'react-cookie';
 import './App.css';
+import { CookieConsent } from './Shared/Cookie/cookie';
 
 function App() {
   return (
@@ -41,6 +43,7 @@ function App() {
           </Routes>
         </Layout.Content>
         {/* <Chat /> */}
+        {/* <CookieConsent /> */}
         <Footer />
       </Layout>
     </Router>
