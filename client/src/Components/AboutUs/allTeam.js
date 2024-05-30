@@ -9,25 +9,25 @@ const teamMembers = [
   {
     name: "Yetkin Sağ",
     title: "CEO / Founder",
-    imgSrc: "https://yenastorage.blob.core.windows.net/steelify/steelify_yetkin.png",
+    imgSrc: "https://yenastorage.blob.core.windows.net/steelify/Yetkin Sağ Steelify-2.jpg",
     linkedin: "https://www.linkedin.com/in/yetkinsag",
   },
   {
     name: "Enver Bodur",
     title: "Operation Manager",
-    imgSrc: "https://yenastorage.blob.core.windows.net/steelify/steelify_enver.png",
+    imgSrc: "https://yenastorage.blob.core.windows.net/steelify/Enver Bodur Steelify-2.jpg",
     linkedin: "https://www.linkedin.com/in/enverbodur"
   },
   {
     name: "Alperen Alihan Er",
     title: "Product Manager",
-    imgSrc: "https://yenastorage.blob.core.windows.net/steelify/steelify_alperen.png",
+    imgSrc: "https://yenastorage.blob.core.windows.net/steelify/Alperen Alihan Er Steelify-2.jpg",
     linkedin: "https://www.linkedin.com/in/alperen-alihan-er-910050151"
   },
   {
     name: "Emre Mataracı",
     title: "Software Engineer",
-    imgSrc: "https://yenastorage.blob.core.windows.net/steelify/steelify_emre.png",
+    imgSrc: "https://yenastorage.blob.core.windows.net/steelify/Emre Mataracı Steelify-2 (1).jpg",
     linkedin: "https://www.linkedin.com/in/emremataraci"
   }
 ];
