@@ -1,0 +1,21 @@
+/* src/components/sidebar/sidebarRequestDetails.css */
+.order-details {
+    margin-bottom: 20px;
+  }
+  
+  .order-title {
+    font-size: 16px;
+    color: #ff4d4f;
+  }
+  
+  .order-subtitle {
+    margin-top: 10px;
+    font-size: 14px;
+    color: #888;
+  }
+  
+  .order-contact {
+    margin-top: 20px;
+    font-size: 14px;
+  }
+  

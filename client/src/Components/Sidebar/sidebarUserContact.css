@@ -1,0 +1,41 @@
+/* src/components/sidebar/sidebarUserContact.css */
+.user-contact {
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+  }
+  
+  .user-avatar {
+    width: 40px;
+    height: 40px;
+    background-color: #888;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 10px;
+  }
+  
+  .avatar-initial {
+    color: #fff;
+    font-size: 18px;
+    font-weight: bold;
+  }
+  
+  .user-info {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .user-name {
+    font-size: 14px;
+    font-weight: bold;
+  }
+  
+  .user-action {
+    color: #1890ff;
+    cursor: pointer;
+    font-size: 14px;
+    margin-top: 5px;
+  }
+  
