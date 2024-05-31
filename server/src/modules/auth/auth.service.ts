@@ -31,10 +31,11 @@ export class AuthService {
         }
       );
       const odooUserId = response.data.result.user_id;
-
+      const odooPartnerId = response.data.result.partner_id;
       const newUser = await this.userService.createUser({
         ...user,
         odoo_id: odooUserId,
+        odoo_partner_id: odooPartnerId
       });
 
       const { ...result } = newUser['dataValues'];
