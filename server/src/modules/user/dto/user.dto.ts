@@ -70,4 +70,5 @@ export class UserDto {
   @IsNotEmpty()
   readonly surname: string;
   readonly odoo_id?: number;
+  readonly odoo_partner_id?: number;
 }

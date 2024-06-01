@@ -27,7 +27,8 @@ export class UserService {
       website: user.website,
       name: user.name,
       surname: user.surname,
-      odoo_id: user.odoo_id
+      odoo_id: user.odoo_id,
+      odoo_partner_id: user.odoo_partner_id,
     };
 
     return await this.userRepository.create(hashedUserDto);

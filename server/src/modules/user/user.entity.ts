@@ -45,4 +45,9 @@ export class User extends Model<User> {
     type: DataType.INTEGER,
     allowNull: true, })
   odoo_id: number;
+
+  @Column({ 
+    type: DataType.INTEGER,
+    allowNull: true, })
+  odoo_partner_id: number;
 }
