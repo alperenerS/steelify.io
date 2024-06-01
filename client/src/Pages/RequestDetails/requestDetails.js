@@ -24,7 +24,7 @@ const RequestDetails = () => {
     <div className="request-details-container">
       <Row gutter={16}>
         <Col span={6} className="sidebar-container">
-          {/* <Sidebar /> */}
+          <Sidebar />
         </Col>
         <Col span={16} className="form-container">
           <Col span={24} style={{ marginBottom: "20px" }}>
