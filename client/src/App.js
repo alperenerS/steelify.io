@@ -4,7 +4,7 @@ import { Layout } from 'antd';
 import Login from './Pages/Login/login';
 import Register from './Pages/Register/register';
 import LandingPage from './Pages/LandingPage/landingPage';
-import RequestDetails from './Pages/RequestDetails/requestDetails';
+import RequestDetailsPage from './Pages/RequestDetails/requestDetailsPage';
 import Navbar from './Pages/Navbar/navbar';
 import GetQuotePage from './Pages/GetQuote/getQuotePage';
 import PageNotFound from './Pages/PageNotFound/pageNotFound';
@@ -16,7 +16,6 @@ import Footer from './Shared/Footer/appFooter';
 import ResetPassword from './Pages/ResetPasword/resetPassword';
 import ForgotPassword from './Pages/ForgotPassword/forgotPassword';
 import Chat from './Shared/Chat/chat';
-import { Cookies } from 'react-cookie';
 import './App.css';
 import { CookieConsent } from './Shared/Cookie/cookie';
 
@@ -31,7 +30,7 @@ function App() {
             <Route path="/landing-page" element={<LandingPage />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
-            <Route path="/request-details/:order_id" element={<PrivateRoute><RequestDetails /></PrivateRoute>} />
+            <Route path="/request-details/:order_id" element={<PrivateRoute><RequestDetailsPage /></PrivateRoute>} />
             <Route path="/get-quote" element={<PrivateRoute><GetQuotePage /></PrivateRoute>} />
             <Route path="/get-quote/:order_id" element={<PrivateRoute><GetQuotePage /></PrivateRoute>} />
             <Route path="/about-us" element={<AboutUs />} />
