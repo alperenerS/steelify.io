@@ -21,3 +21,16 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# Cypress
+cypress/screenshots/
+cypress/videos/
+cypress/fixtures/example.json
+
+# Ignore all Cypress tests
+cypress/integration/
+cypress/component/
+cypress/e2e/
+cypress/fixtures/
+cypress/support/
+*.cy.js
