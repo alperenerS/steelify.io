@@ -32,7 +32,6 @@ function App() {
             <Route path="/register" element={<Register />} />
             <Route path="/request-details/:order_id" element={<PrivateRoute><RequestDetailsPage /></PrivateRoute>} />
             <Route path="/get-quote" element={<PrivateRoute><GetQuotePage /></PrivateRoute>} />
-            <Route path="/get-quote/:order_id" element={<PrivateRoute><GetQuotePage /></PrivateRoute>} />
             <Route path="/about-us" element={<AboutUs />} />
             <Route path="/my-requests" element={<PrivateRoute><MyRequests /></PrivateRoute>} />
             <Route path="/my-profile" element={<PrivateRoute><Profile /></PrivateRoute>} />
