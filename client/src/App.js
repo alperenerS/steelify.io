@@ -16,6 +16,7 @@ import Footer from './Shared/Footer/appFooter';
 import ResetPassword from './Pages/ResetPasword/resetPassword';
 import ForgotPassword from './Pages/ForgotPassword/forgotPassword';
 import Chat from './Shared/Chat/chat';
+import AdminLogin from './Pages/AdminPanel/adminLogin';
 import './App.css';
 import { CookieConsent } from './Shared/Cookie/cookie';
 
@@ -37,6 +38,7 @@ function App() {
             <Route path="/my-profile" element={<PrivateRoute><Profile /></PrivateRoute>} />
             <Route path="/reset-password/:token" element={<ResetPassword />} />
             <Route path="/forgot-password" element={<ForgotPassword />} />
+            <Route path="/admin-portal/login" element={<AdminLogin />} />
             <Route path="/*" element={<PageNotFound />} />
           </Routes>
         </Layout.Content>
