@@ -24,7 +24,7 @@ const Login = () => {
       if (response.data && response.data.data) {
         const { data, access_token } = response.data.data;
         const userId = data.id;
-        dispatch(setUser({ user: data, token: access_token, id: userId }));
+        dispatch(setUser({ user: data, email: data.email, token: access_token, id: userId }));
 
         showLoginSuccess(response.data.message);
         navigate(from.pathname);

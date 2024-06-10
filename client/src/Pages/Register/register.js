@@ -7,7 +7,8 @@ import {
   showRegistrationError,
   showAgreementError,
 } from "../../Components/Register/registerNotification";
-import { API_BASE_URL } from "../../config";
+import { API_BASE_URL, CLIENT_BASE_URL } from "../../config";
+import getWelcomeEmailHtml from '../../EmailTemplates/Welcome/welcomeMailTemplate'; 
 
 const Register = () => {
   const navigate = useNavigate();
@@ -29,6 +30,13 @@ const Register = () => {
       });
 
       if (response.data) {
+        const emailHtml = getWelcomeEmailHtml(values.name, CLIENT_BASE_URL);
+        await axios.post(`${API_BASE_URL}/email-sender/welcome`, {
+          to: values.email,
+          subject: 'Welcome to Steelify',
+          html: emailHtml
+        });
+
         showRegistrationSuccess(response.data.message);
         navigate("/login");
       } else {

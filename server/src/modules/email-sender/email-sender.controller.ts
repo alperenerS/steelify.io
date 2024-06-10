@@ -56,6 +56,54 @@ export class EmailSenderController {
     });
   }
 
+  @Post('welcome')
+  async sendWelcomeEmail(@Body() emailDto: SendEmailDto, @Res() res: Response) {
+    const userExist = await this.emailService.findUserByEmail(emailDto.to);
+
+    if (!userExist) {
+      throw new NotFoundException('Wrong Email !');
+    }
+
+    const dto: SendEmailDto = {
+      from: { name: 'Steelify', address: 'info@steelify.io' },
+      to: emailDto.to,
+      subject: emailDto.subject,
+      html: emailDto.html,
+      text: emailDto.text,
+    };
+
+    const result = await this.emailService.sendEmail(dto);
+
+    return res.status(HttpStatus.CREATED).json({
+      message: 'Welcome Mail Successfully Sent!',
+      data: result,
+    });
+  }
+
+  @Post('order-confirmation')
+  async sendOrderConfirmationEmail(@Body() emailDto: SendEmailDto, @Res() res: Response) {
+    const userExist = await this.emailService.findUserByEmail(emailDto.to);
+
+    if (!userExist) {
+      throw new NotFoundException('Wrong Email !');
+    }
+
+    const dto: SendEmailDto = {
+      from: { name: 'Steelify', address: 'info@steelify.io' },
+      to: emailDto.to,
+      subject: emailDto.subject,
+      html: emailDto.html,
+      text: emailDto.text,
+    };
+
+    const result = await this.emailService.sendEmail(dto);
+
+    return res.status(HttpStatus.CREATED).json({
+      message: 'Order Confirmation Mail Successfully Sent!',
+      data: result,
+    });
+  }
+
   @Put('newPasswd')
   async resPasswd(@Req() req: Request, @Res() res: Response) {
     const { token, newPassword, confirmNewPassword } = req.body;

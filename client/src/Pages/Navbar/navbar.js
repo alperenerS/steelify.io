@@ -4,15 +4,13 @@ import { useNavigate } from "react-router-dom";
 import { Menu, Dropdown, Button } from 'antd';
 import { DownOutlined } from '@ant-design/icons';
 import "./navbar.css";
-import { getUserInfo, clearUserInfo } from "../../Utils/Auth/authService";
 import { logout } from '../../Redux/Slices/userSlice';
 
 const Navbar = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch(); // Dispatch fonksiyonunu kullanmak için
+  const dispatch = useDispatch();
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
-  // Redux state'inden kullanıcı bilgilerini çek
-  const userName = useSelector(state => state.user.user ? state.user.user.name : "Guest");
+  const userName = useSelector(state => state.user.user?.name);
   const isAuthenticated = useSelector(state => state.user.token != null);
 
   useEffect(() => {

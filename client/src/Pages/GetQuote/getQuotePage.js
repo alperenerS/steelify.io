@@ -1,19 +1,12 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
-import {
-  Layout,
-  Typography,
-  Card,
-  Row,
-  Col,
-  message,
-  Spin,
-} from "antd";
+import { Layout, Typography, Card, Row, Col, message, Spin } from "antd";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import GetQuoteForm from "../../Components/GetQuote/getQuoteForm";
-import SuccessModal from "../../Components/GetQuote/succesModal";
-import { API_BASE_URL } from "../../config";
+import SuccessModal from "../../Components/GetQuote/successModal";
+import { API_BASE_URL, CLIENT_BASE_URL } from "../../config";
+import getOrderConfirmationEmailHtml from "../../EmailTemplates/OrderConfirmation/orderConfirmationMailTemplate";
 
 const { Header, Content } = Layout;
 const { Title } = Typography;
@@ -25,6 +18,8 @@ const GetQuotePage = () => {
   const [orderData, setOrderData] = useState(null);
 
   const token = useSelector((state) => state.user.token);
+  const email = useSelector((state) => state.user.email);
+  const username = useSelector((state) => state.user.user ? state.user.user.name : "Guest");
 
   const handleSubmit = async (values, fileList, photoList) => {
     setIsSubmitting(true);
@@ -56,6 +51,19 @@ const GetQuotePage = () => {
       setIsSubmitting(false);
       if (response.data && response.data.message === "Successfully Created !") {
         setOrderData(response.data.data);
+
+        const emailHtml = getOrderConfirmationEmailHtml(
+          username,
+          response.data.data.id,
+          CLIENT_BASE_URL
+        );
+
+        await axios.post(`${API_BASE_URL}/email-sender/order-confirmation`, {
+          to: email,
+          subject: 'Order Confirmation',
+          html: emailHtml
+        });
+
         setSuccessModalVisible(true);
         message.success(response.data.message);
       } else {
