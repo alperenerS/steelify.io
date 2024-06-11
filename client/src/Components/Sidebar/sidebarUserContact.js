@@ -23,7 +23,7 @@ const SidebarUserContact = () => {
       </div>
       <div className="user-info">
         <div className="user-name">{user ? user.name : 'Guest'}</div>
-        <div className="user-action">Send message</div>
+        {/* <div className="user-action">Send message</div> */}
       </div>
     </div>
   );

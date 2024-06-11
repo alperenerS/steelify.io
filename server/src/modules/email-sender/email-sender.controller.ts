@@ -51,7 +51,7 @@ export class EmailSenderController {
     const result = await this.emailService.sendEmail(dto);
 
     return res.status(HttpStatus.CREATED).json({
-      message: 'Mail Successfully Send !',
+      message: 'Mail Successfully Sent!',
       data: result,
     });
   }
@@ -104,6 +104,54 @@ export class EmailSenderController {
     });
   }
 
+  @Post('new-user-registration')
+  async sendNewUserRegistrationEmail(@Body() emailDto: SendEmailDto, @Res() res: Response) {
+    const adminEmails = [
+      // 'alperen@yenaengineering.nl',
+      'emre@yenaengineering.nl',
+      // 'enver@yenaengineering.nl'
+    ];
+    
+    const dto: SendEmailDto = {
+      from: { name: 'Steelify', address: 'info@steelify.io' },
+      to: adminEmails.join(','),
+      subject: emailDto.subject,
+      html: emailDto.html,
+      text: emailDto.text,
+    };
+
+    const result = await this.emailService.sendEmail(dto);
+
+    return res.status(HttpStatus.CREATED).json({
+      message: 'New User Registration Mail Successfully Sent!',
+      data: result,
+    });
+  }
+
+  @Post('order-notification-admin')
+  async sendOrderNotificationToAdminEmail(@Body() emailDto: SendEmailDto, @Res() res: Response) {
+    const adminEmails = [
+      // 'alperen@yenaengineering.nl',
+      'emre@yenaengineering.nl',
+      // 'enver@yenaengineering.nl'
+    ];
+
+    const dto: SendEmailDto = {
+      from: { name: 'Steelify', address: 'info@steelify.io' },
+      to: adminEmails.join(','),
+      subject: emailDto.subject,
+      html: emailDto.html,
+      text: emailDto.text,
+    };
+
+    const result = await this.emailService.sendEmail(dto);
+
+    return res.status(HttpStatus.CREATED).json({
+      message: 'Order Notification Mail Successfully Sent!',
+      data: result,
+    });
+  }
+
   @Put('newPasswd')
   async resPasswd(@Req() req: Request, @Res() res: Response) {
     const { token, newPassword, confirmNewPassword } = req.body;
@@ -124,6 +172,6 @@ export class EmailSenderController {
 
     return res
       .status(HttpStatus.CREATED)
-      .json({ message: 'Password Successfully Updated !', data: newPasswd });
+      .json({ message: 'Password Successfully Updated!', data: newPasswd });
   }
 }

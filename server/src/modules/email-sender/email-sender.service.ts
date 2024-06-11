@@ -8,20 +8,22 @@ import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 import * as dotenv from 'dotenv';
 dotenv.config();
+
 @Injectable()
 export class EmailSenderService {
   constructor(
     @Inject(USER_REPOSITORY) private readonly userRepository: typeof User,
     private readonly jwtService: JwtService,
   ) {}
+
   async mailTransport() {
     const transporter = nodemailer.createTransport({
       host: 'live.smtp.mailtrap.io',
       port: 587,
-      secure: false, // true for 465, false for other ports
+      secure: false, // true for port, false for other ports
       auth: {
-        user: 'api', // your email
-        pass: '43fabf176bd9a8a062c75c567698281a', // your email password
+        user: 'api',
+        pass: '43fabf176bd9a8a062c75c567698281a',
       },
     });
     return transporter;
@@ -37,7 +39,7 @@ export class EmailSenderService {
         name: 'Steelify',
         address: 'info@steelify.io',
       },
-      to: to,
+      to: Array.isArray(to) ? to.map(addr => typeof addr === 'string' ? addr : addr.address).join(', ') : to,
       subject: subject,
       html: html,
     };
@@ -53,7 +55,7 @@ export class EmailSenderService {
 
   async resPasswd(newPassword: string, confirmNewPasswd: string, id: number) {
     if (newPassword !== confirmNewPasswd) {
-      throw new BadRequestException('Passwords are not match !');
+      throw new BadRequestException('Passwords do not match!');
     }
     const hashedPassword = await bcrypt.hash(newPassword, 12);
 
@@ -67,7 +69,7 @@ export class EmailSenderService {
 
   async generateToken(id: number, email: string) {
     const payload = { id, email };
-    const mail_token = this.jwtService.signAsync(payload);
+    const mail_token = await this.jwtService.signAsync(payload);
 
     return mail_token;
   }
