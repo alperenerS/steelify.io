@@ -28,6 +28,7 @@ export class AuthService {
           name: `${user.name} ${user.surname}`,
           login: user.email,
           password: user.password,
+          userType: user.userType,
         }
       );
       const odooUserId = response.data.result.user_id;
