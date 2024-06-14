@@ -1,20 +1,7 @@
 import React from "react";
 import { List, Card } from "antd";
 
-const QualityDocumentsPanel = () => {
-  const photos = [
-    {
-      name: 'Quality Document 1',
-      url: 'https://yenastorage.blob.core.windows.net/steelify/Steelify - QualityDocuments - 001.png',
-      date: '2024-04-01'
-    },
-    {
-      name: 'Quality Document 2',
-      url: 'https://yenastorage.blob.core.windows.net/steelify/Steelify - QualityDocuments - 002.jpeg',
-      date: '2024-04-13'
-    }
-  ];
-
+const QualityDocumentsPanel = ({ qualityDocuments }) => {
   return (
     <>
       <p>Please review the quality documents below.</p>
@@ -28,15 +15,15 @@ const QualityDocumentsPanel = () => {
           xl: 4,
           xxl: 4,
         }}
-        dataSource={photos}
-        renderItem={(photo) => (
+        dataSource={qualityDocuments}
+        renderItem={(document) => (
           <List.Item>
             <Card
               hoverable
               style={{ width: 240 }}
-              cover={<img alt={photo.name} src={photo.url} style={{ height: 'auto', maxWidth: '100%', display: 'block' }} />}
+              cover={<img alt={document.name} src={document.url} style={{ height: 'auto', maxWidth: '100%', display: 'block' }} />}
             >
-              <Card.Meta title={photo.name} description={`Uploaded on: ${photo.date}`} />
+              <Card.Meta title={document.name} description={`Uploaded on: ${document.date}`} />
             </Card>
           </List.Item>
         )}

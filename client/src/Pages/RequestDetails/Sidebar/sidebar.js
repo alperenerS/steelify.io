@@ -1,13 +1,12 @@
-// src/shared/sidebar/sidebar.js
 import React from 'react';
 import './sidebar.css';
 import SidebarRequestDetails from '../../../Components/Sidebar/sidebarRequestDetails';
 import SidebarUserContact from '../../../Components/Sidebar/sidebarUserContact';
 
-const Sidebar = () => {
+const Sidebar = ({ order_id, projectEngineer }) => {
   return (
     <div className="sidebar">
-      <SidebarRequestDetails />
+      <SidebarRequestDetails orderId={order_id} projectEngineer={projectEngineer} />
       <SidebarUserContact />
     </div>
   );

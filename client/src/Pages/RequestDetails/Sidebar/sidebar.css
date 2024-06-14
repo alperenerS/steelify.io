@@ -1,4 +1,3 @@
-/* src/pages/requestDetails/requestDetails.css */
 .custom-input:focus {
   border-color: #d9d9d9;
   box-shadow: none;
@@ -8,16 +7,13 @@
   border: 1px solid #b7eb8f;
 }
 
-/* Add additional styles for the sidebar and layout */
-.app {
-  display: flex;
-}
 
 .sidebar {
-  width: 250px;
+  width: 300px;
   background-color: #fff;
   padding: 20px;
   border-right: 1px solid #d9d9d9;
+  margin-top: 135px;
 }
 
 .order-details {
@@ -38,6 +34,7 @@
 .order-contact {
   margin-top: 20px;
   font-size: 14px;
+  word-wrap: break-word;
 }
 
 .user-contact {

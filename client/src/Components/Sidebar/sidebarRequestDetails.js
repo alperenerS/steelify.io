@@ -1,18 +1,14 @@
-// src/components/sidebar/sidebarRequestDetails.js
 import React from 'react';
-import { useParams } from 'react-router-dom';
 import './sidebarRequestDetails.css';
 
-const SidebarRequestDetails = () => {
-  const { order_id } = useParams();
-
+const SidebarRequestDetails = ({ orderId, projectEngineer }) => {
   return (
     <div className="order-details">
       <div className="order-title">
-        Sales Order - {order_id}
+        Sales Order - {orderId}
       </div>
       <div className="order-contact">
-        Your Project Engineer
+        Project Engineer: <span className="project-engineer-name">{projectEngineer || 'Not assigned'}</span>
       </div>
     </div>
   );

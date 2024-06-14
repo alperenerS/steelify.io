@@ -1,7 +1,7 @@
 import React from "react";
 import { Form, DatePicker, Input } from "antd";
 
-const ShippingNoteAndDeliveryDatePanel = () => {
+const ShippingNoteAndDeliveryDatePanel = ({ initialValues }) => {
   return (
     <>
       <p>
@@ -24,6 +24,7 @@ const ShippingNoteAndDeliveryDatePanel = () => {
         <Input.TextArea
           rows={4}
           placeholder="Enter any special shipping instructions here such as maximum forklift capacity, shelf dimensions, any required packaging style etc."
+          defaultValue={initialValues.incoterm}
         />
       </Form.Item>
     </>
