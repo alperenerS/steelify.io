@@ -16,7 +16,7 @@ import Footer from './Shared/Footer/appFooter';
 import ResetPassword from './Pages/ResetPasword/resetPassword';
 import ForgotPassword from './Pages/ForgotPassword/forgotPassword';
 import Chat from './Shared/Chat/chat';
-import AdminLogin from './Pages/AdminPanel/adminLogin';
+import AdminLogin from './Pages/AdminPanel/AdminLogin/adminLogin';
 import './App.css';
 import { CookieConsent } from './Shared/Cookie/cookie';
 

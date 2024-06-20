@@ -1,7 +1,8 @@
 import axios from "axios";
+import { ODOO_API_BASE_URL } from "../../config";
 
 export const getOrderDetails = async (order_id) => {
-  const url = `https://portal-steelify-steelify-api-13611692.dev.odoo.com/api/sale_order?order_id=${order_id}`;
+  const url = `${ODOO_API_BASE_URL}/sale_order?order_id=${order_id}`;
   try {
     const response = await axios.get(url);
     return response.data;

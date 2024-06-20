@@ -10,13 +10,13 @@ const AdminLoginCard = ({ onFinish, onFinishFailed }) => (
       width: "100%",
       boxShadow: "0 4px 8px 0 rgba(0,0,0,0.2)",
       margin: "auto",
-      borderRadius: 10, // Daha yuvarlak köşeler
-      backgroundColor: "#f7f9fc", // Arka plan rengini değiştirdik
+      borderRadius: 10,
+      backgroundColor: "#f7f9fc",
     }}
     headStyle={{
-      textAlign: "center", // Başlığı ortaladık
-      fontSize: 20, // Başlık boyutunu artırdık
-      fontWeight: "bold", // Başlığı kalınlaştırdık
+      textAlign: "center",
+      fontSize: 20,
+      fontWeight: "bold",
     }}
   >
     <AdminLoginForm onFinish={onFinish} onFinishFailed={onFinishFailed} />

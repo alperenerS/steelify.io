@@ -1,10 +1,10 @@
 import React from "react";
-import AdminLoginCard from "../../Components/AdminPanel/adminLoginCard";
+import AdminLoginCard from "../../../Components/AdminPanel/AdminLogin/adminLoginCard";
 import {
   showAdminLoginSuccess,
   showAdminLoginError,
   showAdminLoginFailed,
-} from "../../Components/AdminPanel/adminLoginNotification";
+} from "../../../Components/AdminPanel/AdminLogin/adminLoginNotification";
 
 const AdminLogin = () => {
   const handleFinish = (values) => {

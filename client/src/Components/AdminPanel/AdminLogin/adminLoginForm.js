@@ -40,7 +40,7 @@ const AdminLoginForm = ({ onFinish, onFinishFailed }) => (
       <Button
         type="primary"
         htmlType="submit"
-        style={{ display: "block", margin: "0 auto", maxWidth: "200px", backgroundColor: "#001529", borderColor: "#001529" }} // Renk değişiklikleri
+        style={{ display: "block", margin: "0 auto", maxWidth: "200px", backgroundColor: "#001529", borderColor: "#001529" }}
       >
         Login
       </Button>
