@@ -8,7 +8,6 @@ const useRequestDetails = (order_id) => {
     try {
       const data = await getOrderDetails(order_id);
       setOrderDetails(data);
-      console.log("data burda babba", data);
     } catch (error) {
       console.error("Failed to fetch order details:", error);
     }
