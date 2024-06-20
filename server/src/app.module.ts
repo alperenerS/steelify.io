@@ -12,6 +12,7 @@ import { OrderProductDocsModule } from './modules/order_product_docs/order_produ
 import { OrderSamplePhotosModule } from './modules/order_sample_photos/order_sample_photos.module';
 import { EmailSenderModule } from './modules/email-sender/email-sender.module';
 import { MailerModule } from '@nestjs-modules/mailer';
+import { ChatModule } from './modules/chat/chat.module';
 
 
 @Module({
@@ -27,7 +28,8 @@ import { MailerModule } from '@nestjs-modules/mailer';
     OrderProductModule,
     OrderProductDocsModule,
     OrderSamplePhotosModule,
-    EmailSenderModule
+    EmailSenderModule,
+    ChatModule
   ],
   controllers: [],
   providers: [],
