@@ -23,7 +23,7 @@ export class AuthService {
     // Create the user in Odoo
     try {
       const response = await axios.post(
-        'https://portal-steelify-steelify-api-13611692.dev.odoo.com/api/create_portal_user',
+        'https://portal-steelify-steelify-api-13680549.dev.odoo.com//api/create_portal_user',
         {
           name: `${user.name} ${user.surname}`,
           login: user.email,
