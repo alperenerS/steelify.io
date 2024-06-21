@@ -7,17 +7,12 @@
   border: 1px solid #b7eb8f;
 }
 
-
 .sidebar {
   width: 300px;
   background-color: #fff;
   padding: 20px;
   border-right: 1px solid #d9d9d9;
   margin-top: 135px;
-}
-
-.order-details {
-  margin-bottom: 20px;
 }
 
 .order-title {

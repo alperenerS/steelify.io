@@ -1,76 +1,71 @@
 .custom-input:focus {
-    border-color: #d9d9d9;
-    box-shadow: none;
-  }  
-  .panel-completed .ant-collapse-header {
-    background-color: #f6ffed;
-    border: 1px solid #b7eb8f;
-  }
-  
-  .request-details-container {
-    padding: 20px 40px;
-    display: flex;
-    justify-content: center;
-    margin-left: -50px;
-  }
-  
-  .order-details {
-    margin-bottom: 20px;
-  }
-  
-  .order-title {
-    font-size: 16px;
-    color: #ff4d4f;
-  }
-  
-  .order-subtitle {
-    margin-top: 10px;
-    font-size: 14px;
-    color: #888;
-  }
-  
-  .order-contact {
-    margin-top: 20px;
-    font-size: 14px;
-  }
-  
-  .user-contact {
-    display: flex;
-    align-items: center;
-    margin-top: 20px;
-  }
-  
-  .user-avatar {
-    width: 40px;
-    height: 40px;
-    background-color: #888;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-right: 10px;
-  }
-  
-  .avatar-initial {
-    color: #fff;
-    font-size: 18px;
-    font-weight: bold;
-  }
-  
-  .user-info {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .user-name {
-    font-size: 14px;
-    font-weight: bold;
-  }
-  
-  .user-action {
-    color: #1890ff;
-    cursor: pointer;
-    font-size: 14px;
-    margin-top: 5px;
-  }
-  
+  border-color: #d9d9d9;
+  box-shadow: none;
+}
+.panel-completed .ant-collapse-header {
+  background-color: #f6ffed;
+  border: 1px solid #b7eb8f;
+}
+
+.request-details-container {
+  padding: 20px 40px;
+  display: flex;
+  justify-content: center;
+  margin-left: -50px;
+}
+
+.order-title {
+  font-size: 16px;
+  color: #ff4d4f;
+}
+
+.order-subtitle {
+  margin-top: 10px;
+  font-size: 14px;
+  color: #888;
+}
+
+.order-contact {
+  margin-top: 20px;
+  font-size: 14px;
+}
+
+.user-contact {
+  display: flex;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.user-avatar {
+  width: 40px;
+  height: 40px;
+  background-color: #888;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 10px;
+}
+
+.avatar-initial {
+  color: #fff;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.user-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.user-name {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.user-action {
+  color: #1890ff;
+  cursor: pointer;
+  font-size: 14px;
+  margin-top: 5px;
+}

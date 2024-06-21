@@ -1,7 +1,7 @@
 import React from 'react';
 import './sidebar.css';
-import SidebarRequestDetails from '../../../Components/Sidebar/sidebarRequestDetails';
-import SidebarUserContact from '../../../Components/Sidebar/sidebarUserContact';
+import SidebarRequestDetails from '../../../Components/RequestDetails/Sidebar/sidebarRequestDetails';
+import SidebarUserContact from '../../../Components/RequestDetails/Sidebar/sidebarUserContact';
 
 const Sidebar = ({ order_id, projectEngineer }) => {
   return (

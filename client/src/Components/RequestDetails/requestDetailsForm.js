@@ -7,7 +7,7 @@ import ShippingAddressPanel from "./Panels/shippingAddressPanel";
 import ShippingNoteAndDeliveryDatePanel from "./Panels/shippingNoteAndDeliveryDatePanel";
 import CustomsInformationPanel from "./Panels/customsInformationPanel";
 import SaveButton from "./saveButton";
-import Sidebar from "../../Pages/RequestDetails/Sidebar/sidebar";
+import SidebarRequestDetails from "./Sidebar/sidebarRequestDetails";
 import useRequestDetails from "../../Hooks/useRequestDetails";
 import "./requestDetails.css";
 
@@ -65,11 +65,39 @@ const RequestDetailsForm = () => {
     navigate(`/get-quote/${order_id}`);
   };
 
+  const handleSave = () => {
+    // Save işlemi
+  };
+
+  const handleDiscard = () => {
+    // Discard işlemi
+  };
+
+  const handlePrintQuotation = () => {
+    // Print Quotation işlemi
+  };
+
+  const handleUploadPO = () => {
+    // Upload P.O. işlemi
+  };
+
+  const handlePrintQuality = () => {
+    // Print Quality işlemi
+  };
+
   return (
     <div className="request-details-container">
       <Row gutter={24}>
         <Col span={6}>
-          <Sidebar order_id={order_id} projectEngineer={orderDetails?.project_engineer} />
+          <SidebarRequestDetails
+            orderId={order_id}
+            projectEngineer={orderDetails?.project_engineer}
+            onSave={handleSave}
+            onDiscard={handleDiscard}
+            onPrintQuotation={handlePrintQuotation}
+            onUploadPO={handleUploadPO}
+            onPrintQuality={handlePrintQuality}
+          />
         </Col>
         <Col span={16}>
           <Col span={24} style={{ marginBottom: "20px" }}>

@@ -1,0 +1,31 @@
+.request-actions {
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+  
+  .button-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px; /* Butonlar arasında boşluk bırakır */
+  }
+  
+  .single-button-row {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px; /* Üstteki butonlarla arasındaki boşluk */
+  }
+  
+  .action-button {
+    flex: 1;
+    height: 40px;
+    background-color: #ff6600;
+    border-color: #ff6600;
+    color: #fff;
+    font-size: 14px;
+  }
+  
+  .action-button:hover {
+    background-color: #e65c00;
+    border-color: #e65c00;
+  }
+  
