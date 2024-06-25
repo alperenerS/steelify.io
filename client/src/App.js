@@ -19,6 +19,7 @@ import Chat from './Shared/Chat/chat';
 import AdminLogin from './Pages/AdminPanel/AdminLogin/adminLogin';
 import './App.css';
 import { CookieConsent } from './Shared/Cookie/cookie';
+import PDFViewer from './Components/RequestDetails/PDFViewer/PDFViewer';
 
 function App() {
   return (
@@ -39,6 +40,7 @@ function App() {
             <Route path="/reset-password/:token" element={<ResetPassword />} />
             <Route path="/forgot-password" element={<ForgotPassword />} />
             <Route path="/admin-portal/login" element={<AdminLogin />} />
+            <Route path="/pdfviewer" element={<PDFViewer />} />
             <Route path="/*" element={<PageNotFound />} />
           </Routes>
         </Layout.Content>

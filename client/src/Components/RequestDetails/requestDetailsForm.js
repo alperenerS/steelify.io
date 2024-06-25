@@ -9,6 +9,7 @@ import CustomsInformationPanel from "./Panels/customsInformationPanel";
 import SaveButton from "./saveButton";
 import SidebarRequestDetails from "./Sidebar/sidebarRequestDetails";
 import useRequestDetails from "../../Hooks/useRequestDetails";
+import PDFViewer from "./PDFViewer/PDFViewer";
 import "./requestDetails.css";
 
 const { Panel } = Collapse;
@@ -88,8 +89,8 @@ const RequestDetailsForm = () => {
   return (
     <div className="request-details-container">
       <Row gutter={24}>
-        <Col span={6}>
-          <SidebarRequestDetails
+      <Col span={6}>
+      <SidebarRequestDetails
             orderId={order_id}
             projectEngineer={orderDetails?.project_engineer}
             onSave={handleSave}
@@ -99,7 +100,7 @@ const RequestDetailsForm = () => {
             onPrintQuality={handlePrintQuality}
           />
         </Col>
-        <Col span={16}>
+        <Col span={12}>
           <Col span={24} style={{ marginBottom: "20px" }}>
             <div style={{ textAlign: "center" }}>
               <Title level={4}>Sales Order - {order_id}</Title>
@@ -133,6 +134,9 @@ const RequestDetailsForm = () => {
               </Col>
             </Form>
           )}
+        </Col>
+        <Col span={6}>
+          <PDFViewer />
         </Col>
       </Row>
     </div>
