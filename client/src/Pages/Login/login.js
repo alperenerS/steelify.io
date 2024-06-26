@@ -24,7 +24,8 @@ const Login = () => {
       if (response.data && response.data.data) {
         const { data, access_token } = response.data.data;
         const userId = data.id;
-        dispatch(setUser({ user: data, email: data.email, token: access_token, id: userId }));
+        const odooId = data.odoo_id;
+        dispatch(setUser({ user: data, email: data.email, token: access_token, id: userId, odooId }));
 
         showLoginSuccess(response.data.message);
         navigate(from.pathname);

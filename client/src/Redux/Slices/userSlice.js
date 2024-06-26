@@ -7,6 +7,7 @@ export const userSlice = createSlice({
     email: null,
     token: null,
     id: null,
+    odooId: null,
   },
   reducers: {
     setUser: (state, action) => {
@@ -14,12 +15,14 @@ export const userSlice = createSlice({
       state.email = action.payload.email;
       state.token = action.payload.token;
       state.id = action.payload.id;
+      state.odooId = action.payload.odooId;
     },
     logout: (state) => {
       state.user = null;
       state.email = null;
       state.token = null;
       state.id = null;
+      state.odooId = null;
     },
   },
 });
