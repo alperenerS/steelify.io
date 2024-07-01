@@ -1,18 +1,17 @@
 .request-actions {
-    margin-top: 20px;
     margin-bottom: 20px;
   }
   
   .button-row {
     display: flex;
     justify-content: space-between;
-    gap: 10px; /* Butonlar arasında boşluk bırakır */
+    gap: 10px;
   }
   
   .single-button-row {
     display: flex;
     justify-content: center;
-    margin-top: 10px; /* Üstteki butonlarla arasındaki boşluk */
+    margin-top: 10px;
   }
   
   .action-button {

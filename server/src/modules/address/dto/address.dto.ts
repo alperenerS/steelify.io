@@ -1,4 +1,4 @@
-import {IsEmail, IsNotEmpty, IsNumber, IsString } from "class-validator";
+import { IsNotEmpty, IsNumber, IsString } from "class-validator";
 
 export class AddressDto {
     @IsNumber()
@@ -14,7 +14,6 @@ export class AddressDto {
     @IsNotEmpty()   
     readonly first_row: string;
     @IsString()
-    @IsNotEmpty()
     readonly second_row: string;
     @IsString()
     @IsNotEmpty()
@@ -25,10 +24,4 @@ export class AddressDto {
     @IsNotEmpty()
     @IsString()
     readonly zip: string;
-    @IsString()
-    @IsNotEmpty()
-    readonly phone: string;
-    @IsEmail()
-    @IsNotEmpty()
-    readonly email: string;
   }

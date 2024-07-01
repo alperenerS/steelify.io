@@ -1,3 +1,7 @@
+.container {
+  padding-top: 270px;
+}
+
 .order-details {
   padding: 16px;
   background-color: #fff;
@@ -5,10 +9,10 @@
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   position: fixed;
-  top: 250px;
-  left: 150px;
-  width: 20%; 
+  left: 240px; 
+  width: 300px;
   z-index: 1000;
+  transition: top 0.3s ease;
 }
 
 .order-title {
@@ -24,4 +28,69 @@
 
 .project-engineer-name {
   font-weight: bold;
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding-top: 0;
+  }
+
+  .order-details {
+    position: static;
+    left: 0;
+    width: 100%;
+    padding: 8px;
+    box-shadow: none;
+    border: none;
+    border-radius: 0;
+    margin-bottom: 16px;
+  }
+
+  .order-title, .order-contact {
+    display: none;
+  }
+
+  .sidebar-request-actions-top,
+  .sidebar-request-actions-bottom {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .sidebar-request-actions-top .action-button,
+  .sidebar-request-actions-bottom .action-button {
+    width: 90%;
+    padding: 8px;
+    font-size: 14px;
+  }
+
+  .order-details-wrapper {
+    order: -1;
+    margin-bottom: 16px;
+  }
+
+  .action-button {
+    padding: 8px;
+    font-size: 14px;
+    width: 90%;
+  }
+}
+
+@media (min-width: 769px) {
+  .sidebar-request-actions-top {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .sidebar-request-actions-bottom {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .sidebar-request-actions-bottom .action-button {
+    width: 100%;
+    margin-bottom: 8px;
+  }
 }

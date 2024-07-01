@@ -27,6 +27,7 @@ const Login = () => {
         const odooId = data.odoo_id;
         dispatch(setUser({ user: data, email: data.email, token: access_token, id: userId, odooId }));
 
+        localStorage.setItem('accessToken', access_token);
         showLoginSuccess(response.data.message);
         navigate(from.pathname);
       } else {

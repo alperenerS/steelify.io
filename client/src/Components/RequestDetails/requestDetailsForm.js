@@ -6,7 +6,6 @@ import dayjs from "dayjs";
 import ShippingAddressPanel from "./Panels/shippingAddressPanel";
 import ShippingNoteAndDeliveryDatePanel from "./Panels/shippingNoteAndDeliveryDatePanel";
 import CustomsInformationPanel from "./Panels/customsInformationPanel";
-import SaveButton from "./saveButton";
 import SidebarRequestDetails from "./Sidebar/sidebarRequestDetails";
 import useRequestDetails from "../../Hooks/useRequestDetails";
 import PDFViewer from "./PDFViewer/PDFViewer";
@@ -29,7 +28,6 @@ const RequestDetailsForm = () => {
 
   useEffect(() => {
     if (orderDetails && orderDetails.order_lines) {
-      console.log("orderDetails:", orderDetails);
       const productNames = orderDetails.order_lines
         .map((line) => line.product_name)
         .filter(Boolean)
@@ -66,41 +64,13 @@ const RequestDetailsForm = () => {
     navigate(`/get-quote/${order_id}`);
   };
 
-  const handleSave = () => {
-    // Save işlemi
-  };
-
-  const handleDiscard = () => {
-    // Discard işlemi
-  };
-
-  const handlePrintQuotation = () => {
-    // Print Quotation işlemi
-  };
-
-  const handleUploadPO = () => {
-    // Upload P.O. işlemi
-  };
-
-  const handlePrintQuality = () => {
-    // Print Quality işlemi
-  };
-
   return (
     <div className="request-details-container">
       <Row gutter={24}>
-      <Col span={6}>
-      <SidebarRequestDetails
-            orderId={order_id}
-            projectEngineer={orderDetails?.project_engineer}
-            onSave={handleSave}
-            onDiscard={handleDiscard}
-            onPrintQuotation={handlePrintQuotation}
-            onUploadPO={handleUploadPO}
-            onPrintQuality={handlePrintQuality}
-          />
+        <Col xs={3} sm={3} md={6}>
+          {/* Boş bırakıldı çünkü küçük ekranlarda zaten yukarıda olacak */}
         </Col>
-        <Col span={12}>
+        <Col xs={18} sm={18} md={12}>
           <Col span={24} style={{ marginBottom: "20px" }}>
             <div style={{ textAlign: "center" }}>
               <Title level={4}>Sales Order - {order_id}</Title>
@@ -111,6 +81,15 @@ const RequestDetailsForm = () => {
               quotation for only manufacturing with estimated production time.
             </Paragraph>
           </Col>
+          <SidebarRequestDetails
+            orderId={order_id}
+            projectEngineer={orderDetails?.project_engineer}
+            onSave={() => {}}
+            onDiscard={() => {}}
+            onPrintQuotation={() => {}}
+            onPrintQuality={() => {}}
+            shippingFormData={formValues} // Form verilerini burada aktarıyoruz
+          />
           <Button onClick={goBack} type="link" style={{ padding: 0, margin: 0 }}>
             Back to Get Quote
           </Button>
@@ -129,13 +108,10 @@ const RequestDetailsForm = () => {
                   <CustomsInformationPanel form={form} initialValues={orderDetails} />
                 </Panel>
               </Collapse>
-              <Col span={24} style={{ marginTop: "20px" }}>
-                <SaveButton shippingFormData={formValues} />
-              </Col>
             </Form>
           )}
         </Col>
-        <Col span={6}>
+        <Col xs={3} sm={3} md={6}>
           <PDFViewer />
         </Col>
       </Row>

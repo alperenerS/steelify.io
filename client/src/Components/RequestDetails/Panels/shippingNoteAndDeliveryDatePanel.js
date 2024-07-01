@@ -18,7 +18,7 @@ const ShippingNoteAndDeliveryDatePanel = ({ initialValues }) => {
         <Input.TextArea
           rows={4}
           placeholder="Enter any special shipping instructions here such as maximum forklift capacity, shelf dimensions, any required packaging style etc."
-          defaultValue={initialValues.incoterm}
+          initialValues={initialValues.incoterm}
         />
       </Form.Item>
     </>
